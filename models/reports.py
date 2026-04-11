@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -14,6 +14,9 @@ class BackendExecution(BaseModel):
     stderr: str
     exit_code: int
     duration_seconds: float
+    model: Optional[str] = None
+    model_tags: List[str] = Field(default_factory=list)
+    task_type: Optional[str] = None
 
 
 class ReviewFinding(BaseModel):
@@ -46,7 +49,13 @@ class OrchestrationReport(BaseModel):
     """Aggregate output saved under reports/."""
 
     plan_summary: str
-    backend_execution: BackendExecution
+    backend_executions: List[BackendExecution]
     review: ReviewReport
     verification: VerificationReport
     metadata: dict = Field(default_factory=dict)
+
+    @property
+    def backend_execution(self) -> BackendExecution:
+        """Backwards-compatible accessor for the first backend execution."""
+
+        return self.backend_executions[0]

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import json
 import time
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import List
 
@@ -19,6 +19,9 @@ class BackendResult:
     exit_code: int
     duration_seconds: float
     prompt_used: str
+    model: str | None = None
+    model_tags: List[str] = field(default_factory=list)
+    task_type: str | None = None
 
 
 class CodingBackend:
@@ -32,7 +35,7 @@ class CodingBackend:
         self.prompt = Path(prompt_path).read_text(encoding="utf-8")
         self.timeout = timeout
 
-    def build_command(self, task: TaskDocument, context: ContextPackage) -> List[str]:
+    def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
         """Construct the CLI command for the backend."""
 
         return [self.executable, "--task", task.title, "--phase", task.phase]
@@ -42,8 +45,11 @@ class CodingBackend:
         task: TaskDocument,
         context: ContextPackage,
         dry_run: bool = True,
+        model: str | None = None,
+        model_tags: List[str] | None = None,
+        task_type: str | None = None,
     ) -> BackendResult:
-        command = self.build_command(task, context)
+        command = self.build_command(task, context, model=model)
         start = time.time()
         if dry_run or not self.executable:
             stdout = json.dumps(
@@ -73,4 +79,7 @@ class CodingBackend:
             exit_code=exit_code,
             duration_seconds=duration,
             prompt_used=self.prompt,
+            model=model,
+            model_tags=model_tags or [],
+            task_type=task_type,
         )

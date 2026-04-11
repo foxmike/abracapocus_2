@@ -15,7 +15,7 @@ class ClaudeCodeCliBackend(CodingBackend):
     def __init__(self, prompt_path: Path | None = None, timeout: int = 120):
         super().__init__(prompt_path or Path("prompts/claude_code_cli.md"), timeout)
 
-    def build_command(self, task: TaskDocument, context: ContextPackage) -> List[str]:
+    def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
         return [
             self.executable,
             "run",

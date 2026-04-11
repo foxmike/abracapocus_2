@@ -42,31 +42,49 @@ class SupervisorOrchestrator:
         context = self.research_agent.gather(request)
         decision = self.router.select(task)
         backend = decision.backend()
-        backend_result = backend.execute(task, context, dry_run=True)
-        execution = self._to_backend_execution(backend_result)
-        review = self.reviewer_agent.review(task, execution)
-        verification = self.verifier_agent.verify(task, execution)
+        results: list[BackendResult] = []
+        models_to_run = decision.models or [None]
+        for model_name in models_to_run:
+            tags = decision.model_tags.get(model_name or "", []) if model_name else []
+            result = backend.execute(
+                task,
+                context,
+                dry_run=True,
+                model=model_name,
+                model_tags=tags,
+                task_type=decision.task_type,
+            )
+            results.append(result)
+        executions = [self._to_backend_execution(item) for item in results]
+        review = self.reviewer_agent.review(task, executions)
+        verification = self.verifier_agent.verify(task, executions)
         run_id = str(uuid.uuid4())
+        any_success = any(execution.exit_code == 0 for execution in executions)
         self.management_agent.record_execution(
             run_id=run_id,
             task=task,
-            backend=execution.backend,
+            backend=executions[0].backend,
             reviewer_status=review.status,
             verifier_status=verification.status,
-            status="ok" if execution.exit_code == 0 else "failed",
+            status="ok" if any_success else "failed",
         )
         report = OrchestrationReport(
             plan_summary=plan.summary,
-            backend_execution=execution,
+            backend_executions=executions,
             review=review,
             verification=verification,
-            metadata={"run_id": run_id, "backend_reason": decision.reason},
+            metadata={
+                "run_id": run_id,
+                "backend_reason": decision.reason,
+                "models": decision.models,
+                "task_type": decision.task_type,
+            } | decision.metadata,
         )
         self._persist_report(report)
         self.logger.info(
             "run=%s backend=%s review=%s verification=%s",
             run_id,
-            execution.backend,
+            executions[0].backend,
             review.status,
             verification.status,
         )
@@ -86,6 +104,9 @@ class SupervisorOrchestrator:
             stderr=result.stderr,
             exit_code=result.exit_code,
             duration_seconds=result.duration_seconds,
+            model=result.model,
+            model_tags=result.model_tags,
+            task_type=result.task_type,
         )
 
     def _persist_report(self, report: OrchestrationReport) -> None:
