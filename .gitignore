@@ -28,9 +28,12 @@ logs/
 *.log
 
 # Generated reports
+reports/
+!reports/README.md
 reports/run-*.json
 
 # Runtime state snapshots
+runtime_state.json
 state/runtime_state.json
 
 # Env files
