@@ -41,6 +41,13 @@ state/runtime_state.json
 # PyCharm / IDE
 .idea/
 *.iml
+.vscode/
+
+# Editor backups
+*.swp
+*.swo
+*~
+*.tmp
 
 # OS
 .DS_Store
