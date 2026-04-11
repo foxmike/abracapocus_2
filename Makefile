@@ -8,10 +8,14 @@ TASK ?=
 PROMPT ?= supervisor
 NAME ?= codex_cli
 SKILL ?=
+PROFILE ?=
+AGENT ?=
+ENABLED ?=true
 
 .PHONY: help install setup run demo test lint format clean tree docs state-show state-reset \
 	plan-init plan-show phase-init phase-show task-init task-list task-show task-run task-verify \
-	report-show backend-list backend-set agent-list config-show prompt-show skill-list plan-init
+	report-show backend-list backend-set agent-list agent-set config-show prompt-show skill-list \
+	plan-init verification-set
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?##' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS=":.*?##"} {printf "%-20s %s\n", $$1, $$2}'
@@ -40,10 +44,10 @@ clean: ## Remove caches and temporary files
 	find . -name '__pycache__' -prune -exec rm -rf {} +
 	rm -rf .pytest_cache reports/run-*.json
 
- tree: ## Print repo tree
+tree: ## Print repo tree
 	$(PYTHON) -m scripts.ops tree
 
- docs: ## List docs directory contents
+docs: ## List docs directory contents
 	@ls docs
 
 state-show: ## Show runtime state
@@ -75,25 +79,12 @@ task-show: ## Show a task document
 	@if [ -z "$(TASK)" ]; then echo "Set TASK=<id>"; exit 1; fi
 	$(PYTHON) -m scripts.ops task-show --task-id $(TASK)
 
-task-run: ## Run supervisor using TASK json file
-	@if [ -z "$(TASK)" ]; then echo "Set TASK=tasks/<file>.json"; exit 1; fi
-	@$(PYTHON) - <<'PY'
-import json
-from pathlib import Path
-from config import load_config
-from models.project import ProjectRequest, TaskDocument
-from orchestrator.supervisor import SupervisorOrchestrator
-path = Path("$(TASK)")
-if not path.exists():
-    raise SystemExit(f"Task file {path} missing")
-task = TaskDocument(**json.loads(path.read_text()))
-config = load_config()
-request = ProjectRequest(project_name=config.project_name, goal=task.description or task.title, context=f"phase:{task.phase}")
-SupervisorOrchestrator(config).run(request)
-PY
+task-run: ## Run supervisor using TASK document (id or path)
+	@if [ -z "$(TASK)" ]; then echo "Set TASK=<task_id or path>"; exit 1; fi
+	$(PYTHON) -m scripts.ops task-run --task-id $(TASK) --context "$(CONTEXT)"
 
-task-verify: ## Run deterministic verification only
-	$(PYTHON) -m pytest tests/test_verifier_contracts.py
+task-verify: ## Run verification profile commands
+	$(PYTHON) -m scripts.ops task-verify $(if $(PROFILE),--profile $(PROFILE),)
 
 report-show: ## Show latest or specific report
 	$(PYTHON) -m scripts.ops report-show
@@ -104,8 +95,16 @@ backend-list: ## List registered backends
 backend-set: ## Set default backend in state store
 	$(PYTHON) -m scripts.ops backend-set --name $(NAME)
 
+verification-set: ## Override verification profile
+	@if [ -z "$(PROFILE)" ]; then echo "Set PROFILE=<name>"; exit 1; fi
+	$(PYTHON) -m scripts.ops verification-set --profile $(PROFILE)
+
 agent-list: ## List configured agents
 	@printf "%s\n" supervisor planning_agent research_agent management_agent reviewer_agent verifier_agent
+
+agent-set: ## Enable or disable reviewer/verifier agents (AGENT=reviewer|verifier)
+	@if [ -z "$(AGENT)" ]; then echo "Set AGENT=reviewer|verifier"; exit 1; fi
+	$(PYTHON) -m scripts.ops agent-set --name $(AGENT) $(if $(filter $(ENABLED),false 0 no off),--disable,--enable)
 
 config-show: ## Display runtime config
 	$(PYTHON) -m scripts.ops config-show

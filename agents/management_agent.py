@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from pathlib import Path
 
 from agents.base import BaseAgent
 from models.plan import Plan
@@ -28,7 +29,7 @@ class ManagementAgent(BaseAgent):
                     task_id=phase_task.task.task_id,
                     title=phase_task.task.title,
                     phase=phase.name,
-                    backend=state.default_backend,
+                    backend=phase_task.task.selected_backend or state.default_backend,
                 )
                 for phase in plan.phases
                 for phase_task in phase.tasks
@@ -36,10 +37,14 @@ class ManagementAgent(BaseAgent):
             state.plan_version = plan.version
             state.tasks = records
             state.active_phase = plan.phases[0].name
+            state.completed_phases = [phase.name for phase in plan.phases if phase.completed]
+            state.remaining_phases = [phase.name for phase in plan.phases if not phase.completed]
             return state
 
         self.invoke({"plan_version": plan.version, "phase_count": len(plan.phases)})
-        return self.state_store.update(_update)
+        updated = self.state_store.update(_update)
+        self._persist_plan(plan)
+        return updated
 
     def record_execution(
         self,
@@ -73,3 +78,9 @@ class ManagementAgent(BaseAgent):
 
         self.invoke({"task_id": task.task_id, "status": status})
         return self.state_store.update(_update)
+
+    def _persist_plan(self, plan: Plan) -> None:
+        plans_dir = Path("plans")
+        plans_dir.mkdir(parents=True, exist_ok=True)
+        path = plans_dir / f"{plan.version}.json"
+        path.write_text(plan.model_dump_json(indent=2), encoding="utf-8")

@@ -44,6 +44,8 @@ class RuntimeState(BaseModel):
     tasks: List[TaskRecord] = Field(default_factory=list)
     history: List[ExecutionHistory] = Field(default_factory=list)
     operator_overrides: dict = Field(default_factory=dict)
+    completed_phases: List[str] = Field(default_factory=list)
+    remaining_phases: List[str] = Field(default_factory=list)
 
 
 def bootstrap_state(project_name: str, backend: str, routing_mode: str) -> RuntimeState:

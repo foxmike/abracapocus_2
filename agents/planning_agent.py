@@ -19,7 +19,7 @@ class PlanningAgent(BaseAgent):
             factory=factory,
         )
 
-    def create_plan(self, request: ProjectRequest) -> Plan:
+    def create_plan(self, request: ProjectRequest, previous_plan: Plan | None = None) -> Plan:
         _ = self.invoke({"goal": request.goal, "constraints": request.constraints})
         base_tasks = self._seed_tasks(request)
         phases: List[PlanPhase] = [
@@ -39,12 +39,17 @@ class PlanningAgent(BaseAgent):
                 tasks=[PlanTask(task=base_tasks[2])],
             ),
         ]
-        return Plan(
+        plan = Plan(
             project_name=request.project_name,
             summary=f"Plan for {request.goal}",
             phases=phases,
             version=f"v{datetime.utcnow().strftime('%Y%m%d')}",
         )
+        if previous_plan:
+            for old_phase in previous_plan.phases:
+                if old_phase.completed:
+                    plan.phases.insert(0, old_phase)
+        return plan
 
     def _seed_tasks(self, request: ProjectRequest) -> List[TaskDocument]:
         goal_slug = request.goal.lower().replace(" ", "-")[:20]

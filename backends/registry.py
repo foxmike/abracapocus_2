@@ -8,6 +8,7 @@ from backends.aider_cli import AiderCliBackend
 from backends.base import CodingBackend
 from backends.claude_code_cli import ClaudeCodeCliBackend
 from backends.codex_cli import CodexCliBackend
+from backends.demo_cli import DemoCliBackend
 from backends.gemini_cli import GeminiCliBackend
 
 
@@ -42,6 +43,11 @@ class BackendRegistry:
                 name="aider_cli",
                 description="Aider CLI agent",
                 factory=lambda: AiderCliBackend(),
+            ),
+            "demo_cli": BackendDescriptor(
+                name="demo_cli",
+                description="Demo improvement backend",
+                factory=lambda: DemoCliBackend(),
             ),
         }
 

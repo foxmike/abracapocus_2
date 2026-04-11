@@ -26,6 +26,8 @@ class TaskDocument(BaseModel):
     status: str = "pending"
     acceptance_criteria: List[str] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    selected_backend: Optional[str] = None
+    verification_profile: Optional[str] = None
 
 
 class ContextPackage(BaseModel):

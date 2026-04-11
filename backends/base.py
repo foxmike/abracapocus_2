@@ -2,12 +2,24 @@
 from __future__ import annotations
 
 import json
+import shutil
+import subprocess
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List
+from typing import Dict, List, Optional, Tuple
 
 from models.project import ContextPackage, TaskDocument
+
+STATUS_LABELS = {
+    "??": "untracked",
+    "M": "modified",
+    "A": "added",
+    "D": "deleted",
+    "R": "renamed",
+    "C": "copied",
+    "U": "updated_unmerged",
+}
 
 
 @dataclass(slots=True)
@@ -22,6 +34,9 @@ class BackendResult:
     model: str | None = None
     model_tags: List[str] = field(default_factory=list)
     task_type: str | None = None
+    working_directory: str | None = None
+    changed_files: List[Dict[str, str]] = field(default_factory=list)
+    diff_summary: str = ""
 
 
 class CodingBackend:
@@ -30,10 +45,13 @@ class CodingBackend:
     name: str = "generic"
     executable: str = ""
 
-    def __init__(self, prompt_path: Path, timeout: int = 60):
+    def __init__(self, prompt_path: Path, timeout: int = 60, workdir: Path | None = None):
         self.prompt_path = prompt_path
         self.prompt = Path(prompt_path).read_text(encoding="utf-8")
         self.timeout = timeout
+        self.workdir = Path(workdir) if workdir else Path.cwd()
+        # Backends can opt-in to real CLI effects (writes, edits, etc.).
+        self.supports_direct_execution = False
 
     def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
         """Construct the CLI command for the backend."""
@@ -51,7 +69,10 @@ class CodingBackend:
     ) -> BackendResult:
         command = self.build_command(task, context, model=model)
         start = time.time()
-        if dry_run or not self.executable:
+        workdir = str(self.workdir)
+        before_snapshot, before_error = self._git_status_snapshot(workdir)
+        real_execution = not dry_run and self._can_run_cli()
+        if not real_execution:
             stdout = json.dumps(
                 {"task": task.model_dump(mode="json"), "context_notes": context.notes}, indent=2
             )
@@ -66,11 +87,13 @@ class CodingBackend:
                 text=True,
                 timeout=self.timeout,
                 check=False,
+                cwd=workdir,
             )
             stdout = proc.stdout
             stderr = proc.stderr
             exit_code = proc.returncode
         duration = time.time() - start
+        changed_files, diff_summary = self._collect_repo_deltas(workdir, before_snapshot, before_error)
         return BackendResult(
             backend=self.name,
             command=command,
@@ -82,4 +105,86 @@ class CodingBackend:
             model=model,
             model_tags=model_tags or [],
             task_type=task_type,
+            working_directory=workdir,
+            changed_files=changed_files,
+            diff_summary=diff_summary,
         )
+
+    def _can_run_cli(self) -> bool:
+        """Check whether the backing CLI executable is available."""
+
+        return bool(self.executable and shutil.which(self.executable))
+
+    def _git_status_snapshot(self, workdir: str) -> Tuple[Optional[Dict[str, str]], Optional[str]]:
+        command = ["git", "status", "--porcelain"]
+        try:
+            proc = subprocess.run(
+                command,
+                capture_output=True,
+                text=True,
+                check=False,
+                cwd=workdir,
+            )
+        except FileNotFoundError as exc:
+            return None, str(exc)
+        if proc.returncode != 0:
+            detail = proc.stderr.strip() or proc.stdout.strip() or f"git status failed ({proc.returncode})"
+            return None, detail
+        snapshot: Dict[str, str] = {}
+        for line in proc.stdout.splitlines():
+            if not line.strip():
+                continue
+            code = line[:2]
+            path = line[3:]
+            snapshot[path] = code
+        return snapshot, None
+
+    def _collect_repo_deltas(
+        self,
+        workdir: str,
+        before_snapshot: Optional[Dict[str, str]],
+        before_error: Optional[str],
+    ) -> Tuple[List[Dict[str, str]], str]:
+        after_snapshot, after_error = self._git_status_snapshot(workdir)
+        if before_snapshot is None or after_snapshot is None:
+            reason = after_error or before_error or "git metadata unavailable"
+            return [], f"git metadata unavailable: {reason}"
+        changed: List[Dict[str, str]] = []
+        for path, status_code in after_snapshot.items():
+            previous = before_snapshot.get(path)
+            if previous != status_code:
+                changed.append(
+                    {
+                        "path": path,
+                        "status": self._describe_status(status_code),
+                        "code": status_code.strip() or status_code,
+                    }
+                )
+        diff_summary = self._git_diff_summary(workdir, [item["path"] for item in changed])
+        if not changed and not diff_summary:
+            diff_summary = "No file changes detected"
+        return changed, diff_summary
+
+    def _describe_status(self, code: str) -> str:
+        normalized = code.strip()
+        return STATUS_LABELS.get(normalized, normalized)
+
+    def _git_diff_summary(self, workdir: str, paths: List[str]) -> str:
+        if not paths:
+            return ""
+        command = ["git", "diff", "--stat"] + paths
+        try:
+            proc = subprocess.run(
+                command,
+                capture_output=True,
+                text=True,
+                check=False,
+                cwd=workdir,
+            )
+        except FileNotFoundError as exc:
+            return f"git diff unavailable: {exc}"
+        if proc.returncode != 0:
+            detail = proc.stderr.strip() or proc.stdout.strip() or f"git diff failed ({proc.returncode})"
+            return f"git diff unavailable: {detail}"
+        summary = proc.stdout.strip()
+        return summary or "git diff reported no changes"

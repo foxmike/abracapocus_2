@@ -8,7 +8,13 @@ Stored under `plans/` as JSON. Each plan uses the `models.plan.Plan` schema and 
 - `version`
 - `phases` (array of `PlanPhase` objects)
 
-Plans can be initialized via `make plan-init` or programmatically via the planning agent when the supervisor runs. The management agent writes plan metadata into `state/runtime_state.json` for quick lookup.
+Plans can be initialized via `make plan-init` or programmatically via the planning agent when the supervisor runs. Each saved plan captures:
+
+- `version` (used as filename `plans/<version>.json`)
+- `phases` array; completed phases have `completed: true` and `completed_at` timestamps
+- `tasks` (each recorded as immutable `PlanTask` entries with dependencies)
+
+The management agent persists the generated plan to `plans/<version>.json` and records version metadata inside `state/runtime_state.json` so the next run can preserve completed phases while allowing remaining phases to be revised.
 
 ## Phases
 

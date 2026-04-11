@@ -78,7 +78,10 @@ class BackendRouter:
         reason = "default backend"
         model_records: List[dict] = []
 
-        if routing_mode == "manual" and self.config.routing.manual_backend:
+        if task.selected_backend:
+            backend_name = task.selected_backend
+            reason = "task override"
+        elif routing_mode == "manual" and self.config.routing.manual_backend:
             backend_name = self.config.routing.manual_backend
             reason = "manual override"
         elif routing_mode == "rules":

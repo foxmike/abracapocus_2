@@ -5,8 +5,8 @@ from models.project import TaskDocument
 from runtime.router import BackendRouter
 
 
-def _task(title: str = "Build", phase: str = "impl"):
-    return TaskDocument(task_id="task", title=title, description="x", phase=phase)
+def _task(title: str = "Build", phase: str = "impl", selected_backend: str | None = None):
+    return TaskDocument(task_id="task", title=title, description="x", phase=phase, selected_backend=selected_backend)
 
 
 def test_manual_routing_override(monkeypatch):
@@ -24,3 +24,13 @@ def test_rules_based(monkeypatch):
     router = BackendRouter(config)
     decision = router.select(_task(title="Refactor module"))
     assert decision.backend_name == "aider_cli"
+
+
+def test_task_backend_override(monkeypatch):
+    monkeypatch.delenv("BACKEND_OVERRIDE", raising=False)
+    monkeypatch.setenv("ROUTING_MODE", "manual")
+    config = load_config()
+    router = BackendRouter(config)
+    decision = router.select(_task(selected_backend="gemini_cli"))
+    assert decision.backend_name == "gemini_cli"
+    assert decision.reason == "task override"

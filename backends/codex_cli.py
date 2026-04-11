@@ -14,6 +14,9 @@ class CodexCliBackend(CodingBackend):
 
     def __init__(self, prompt_path: Path | None = None, timeout: int = 90):
         super().__init__(prompt_path or Path("prompts/codex_cli.md"), timeout)
+        # Codex is the first backend allowed to perform real repository edits,
+        # so we opt into direct execution (orchestrator will disable dry runs).
+        self.supports_direct_execution = True
 
     def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
         command = [

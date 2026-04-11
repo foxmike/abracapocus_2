@@ -17,6 +17,9 @@ class BackendExecution(BaseModel):
     model: Optional[str] = None
     model_tags: List[str] = Field(default_factory=list)
     task_type: Optional[str] = None
+    working_directory: Optional[str] = None
+    changed_files: List[dict] = Field(default_factory=list)
+    diff_summary: str = ""
 
 
 class ReviewFinding(BaseModel):
@@ -36,12 +39,23 @@ class VerificationCheck(BaseModel):
     name: str
     status: str
     detail: str
+    command: List[str] = Field(default_factory=list)
+    exit_code: Optional[int] = None
 
 
 class VerificationReport(BaseModel):
     status: str
     checks: List[VerificationCheck] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    notes: str = ""
+    profile: str = "default"
+
+
+class ChangeAssessment(BaseModel):
+    task_intent: str
+    changed_files_summary: str
+    verification_summary: str
+    assessment_status: str
     notes: str = ""
 
 
@@ -52,6 +66,7 @@ class OrchestrationReport(BaseModel):
     backend_executions: List[BackendExecution]
     review: ReviewReport
     verification: VerificationReport
+    change_assessment: ChangeAssessment
     metadata: dict = Field(default_factory=dict)
 
     @property

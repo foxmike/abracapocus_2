@@ -67,7 +67,44 @@ Each agent loads instructions from `prompts/<role>.md` and a relevant set of ski
 
 ## Operational commands
 
-The Makefile exposes a complete operator surface: install/setup, project tree, running orchestration, initializing/showing plans/phases/tasks, backend/agent introspection, state management, and deterministic verification hooks. These commands all delegate to Python scripts for composability and future automation.
+The Makefile exposes a complete operator surface backed by `python -m scripts.ops`, so every target performs the documented action:
+
+| Target | Description |
+| --- | --- |
+| `make run GOAL="..." CONTEXT="..."` | Run orchestration for an arbitrary goal. |
+| `make demo` | Execute the demo orchestration. |
+| `make test` | Run the pytest suite. |
+| `make state-show` / `make state-reset` | Inspect or reset the JSON runtime state. |
+| `make backend-list` / `make backend-set NAME=codex_cli` | List or override the active backend (stored in runtime state). |
+| `make verification-set PROFILE=strict` | Override the verification profile used for all runs. |
+| `make plan-show PLAN_NAME=master` / `make phase-show PHASE=phase-1` | Print stored plan/phase JSON. |
+| `make task-list` / `make task-show TASK=build-widget` | List or inspect task documents. |
+| `make task-run TASK=build-widget CONTEXT="bugfix"` | Run a specific task document through the supervisor. |
+| `make task-verify PROFILE=strict` | Execute the configured verification profile (defaults to the active profile). |
+| `make agent-set AGENT=reviewer ENABLED=false` | Enable/disable reviewer or verifier agents at runtime. |
+| `make report-show` | Print the latest orchestration report. |
+| `make config-show` | Display the effective runtime configuration. |
+
+Additional helpers (`install`, `setup`, `docs`, `tree`, `prompt-show`, `skill-list`, etc.) remain available for day-to-day development.
+
+### Verification profiles
+
+Verification commands are grouped into named profiles:
+
+- **minimal** – `python -m py_compile main.py`
+- **default** – py_compile + `python scripts/selfcheck.py`
+- **strict** – py_compile + `pytest -q` + `pytest -q --maxfail=1`
+
+Set the default profile at runtime with `make verification-set PROFILE=strict` (stored in `state/runtime_state.json`). Tasks can override the default by setting `verification_profile` in their `TaskDocument`; the verifier resolves the task’s profile first, then falls back to the runtime default. Reports include `verification.profile`, so each run records the profile that was executed.
+
+### Demo self-improvement
+
+Running `python main.py demo` now performs a real, deterministic self-improvement task:
+
+1. Planning agent seeds a plan that includes the demo task.
+2. The `demo_cli` backend runs `scripts/demo_improvement.py`, which refreshes `docs/demo_status.md` with an entry for the current run.
+3. Reviewer/verifier agents evaluate the run; verification executes `python -m py_compile main.py` and `python scripts/selfcheck.py` to ensure the log exists.
+4. The resulting report captures changed files, the diff summary, and the change assessment block so operators can audit what happened.
 
 ## Extending the system
 

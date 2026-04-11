@@ -8,7 +8,7 @@ import typer
 from rich import print as rich_print
 
 from config import load_config
-from models.project import ProjectRequest
+from models.project import ProjectRequest, TaskDocument
 from orchestrator.supervisor import SupervisorOrchestrator, run_demo
 from runtime.state_store import StateStore
 
@@ -35,6 +35,22 @@ def run(goal: str = typer.Option(..., help="Goal to execute"), context: str = ty
 
 
 @app.command()
+def _demo_task() -> TaskDocument:
+    return TaskDocument(
+        task_id="demo-self-improve",
+        title="Refresh demo status log",
+        description="Update docs/demo_status.md with the latest demo guidance",
+        phase="implementation",
+        acceptance_criteria=[
+            "docs/demo_status.md exists",
+            "Log includes latest task details",
+        ],
+        selected_backend="demo_cli",
+        verification_profile="default",
+    )
+
+
+@app.command()
 def demo() -> None:
     """Run the built-in demo scenario."""
     report = run_demo()
@@ -52,6 +68,11 @@ def state_show() -> None:
 if __name__ == "__main__":
     if len(sys.argv) == 1:
         typer.echo("No arguments provided; running default demo goal")
-        _execute_run("Demonstrate Deep Agents orchestration", "auto-demo")
+        config = load_config()
+        orchestrator = SupervisorOrchestrator(config)
+        demo_task = _demo_task()
+        request = ProjectRequest(project_name=config.project_name, goal=demo_task.description, context="auto-demo")
+        report = orchestrator.run(request, task=demo_task)
+        typer.echo(report.model_dump_json(indent=2))
     else:
         app()
