@@ -67,3 +67,15 @@ env/
 .env
 .idea/
 *.iml
+runtime_state.json
+reports/
+logs/
+*.log
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+.env
+.idea/
+*.iml
