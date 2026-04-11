@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "abracapocus_2"
+version = "0.1.0"
+description = "LangChain Deep Agents based autonomous software-development orchestrator"
+authors = [{name = "abracapocus maintainers"}]
+requires-python = ">=3.11"
+dependencies = []
+readme = "README.md"
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+branch = true
+source = ["agents", "backends", "models", "orchestrator", "runtime"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
