@@ -1,0 +1,13 @@
+{
+  "task_id": "5.5",
+  "title": "Blocked task resume",
+  "description": "Add scripts/ops.py command: task-resume --task-id <id>\nReads blocked report from reports/blocked-{task_id}-*.json\nRe-queues task with full prior context as a new run\nAdd make target: make task-resume TASK=<id>\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_5",
+  "acceptance_criteria": [
+    "task-resume loads blocked report and creates new TaskDocument",
+    "New task description includes all prior attempt summaries",
+    "make task-resume TASK=<id> runs without error"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

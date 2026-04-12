@@ -1,0 +1,13 @@
+{
+  "task_id": "0.3",
+  "title": "Wire working_root through registry and supervisor",
+  "description": "BackendRegistry, SupervisorOrchestrator, and RoutingDecision pass config.paths.working_root through to each backend\nEnsure no backend defaults to Path.cwd() independently\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_0",
+  "acceptance_criteria": [
+    "All backends instantiated via registry receive config working_root",
+    "No backend falls back to Path.cwd() internally",
+    "make config-show shows working_root matches expectation"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

@@ -1,0 +1,12 @@
+{
+  "task_id": "0.5",
+  "title": "Add -C flag to codex backend",
+  "description": "CodexCliBackend.build_command() adds -C {workdir} to force working root\nFlag ensures codex stays within config working_root\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_0",
+  "acceptance_criteria": [
+    "codex command always includes -C flag",
+    "-C value matches backend workdir"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

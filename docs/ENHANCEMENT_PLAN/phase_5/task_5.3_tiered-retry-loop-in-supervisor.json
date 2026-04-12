@@ -1,0 +1,15 @@
+{
+  "task_id": "5.3",
+  "title": "Tiered retry loop in supervisor",
+  "description": "Add retry loop to verification_node in orchestrator/supervisor.py\nTier config in AppConfig:\nmax_retries_tier_1 (default 2, same model)\nmax_retries_tier_2 (default 1, stronger model from profile store)\nmax_retries_tier_3 (default 1, human checkpoint)\nLoop: on verification failure, classify \u2192 build retry task \u2192\nre-execute backend \u2192 re-verify \u2192 check tier limits \u2192 escalate\nOn tier 3 exhaustion: mark task blocked, persist all attempt context\nto reports/blocked-{task_id}-{run_id}.json, stop gracefully\nVerification: `python -m pytest tests/test_retry_loop.py -x`",
+  "phase": "phase_5",
+  "acceptance_criteria": [
+    "Syntax error triggers retry with enriched prompt",
+    "After tier_1 exhaustion, stronger model used for tier_2",
+    "After all tiers exhausted, blocked report written",
+    "Passing verification exits loop immediately",
+    "Loop never exceeds max_retries_tier_1 + tier_2 + tier_3 total"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

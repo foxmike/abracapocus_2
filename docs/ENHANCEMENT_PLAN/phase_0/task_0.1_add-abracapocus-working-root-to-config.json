@@ -1,0 +1,14 @@
+{
+  "task_id": "0.1",
+  "title": "Add ABRACAPOCUS_WORKING_ROOT to config",
+  "description": "Add working_root: Path to PathSettings in config.py\nLoad ABRACAPOCUS_WORKING_ROOT from env with Path.cwd() default\nDocument variable in .env.example and config-show output\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_0",
+  "acceptance_criteria": [
+    "ABRACAPOCUS_WORKING_ROOT env var sets working_root in AppConfig",
+    "Default Path.cwd() applies when env var is not set",
+    "make config-show displays working_root value",
+    ".env.example documents ABRACAPOCUS_WORKING_ROOT"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

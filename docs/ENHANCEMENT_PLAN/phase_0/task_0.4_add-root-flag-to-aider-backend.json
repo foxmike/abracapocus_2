@@ -1,0 +1,12 @@
+{
+  "task_id": "0.4",
+  "title": "Add --root flag to aider backend",
+  "description": "AiderCliBackend.build_command() injects --root {workdir} argument\nFlag constrains aider to stay inside configured working_root\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_0",
+  "acceptance_criteria": [
+    "aider command always includes --root flag",
+    "--root value matches backend workdir"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

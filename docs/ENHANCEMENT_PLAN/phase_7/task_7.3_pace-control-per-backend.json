@@ -1,0 +1,13 @@
+{
+  "task_id": "7.3",
+  "title": "Pace control per backend",
+  "description": "Add PaceSettings to config.py:\nmin_seconds_between_calls (default 0), max_calls_per_minute (default 0)\nLoad per-backend from env:\nAIDER_MIN_DELAY, GEMINI_MIN_DELAY, CODEX_MIN_DELAY\nCodingBackend base tracks last_call_time, sleeps if needed\nmax_calls_per_minute=0 means unlimited\nVerification: `python -m pytest tests/test_pace_control.py -x`",
+  "phase": "phase_7",
+  "acceptance_criteria": [
+    "AIDER_MIN_DELAY=5 causes 5 second minimum between aider calls",
+    "Pace delay logged at INFO level",
+    "max_calls_per_minute enforced with blocking sleep"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

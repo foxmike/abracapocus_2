@@ -1,0 +1,14 @@
+{
+  "task_id": "5.2",
+  "title": "Retry prompt builder",
+  "description": "Add runtime/retry_prompt_builder.py\nInput: original TaskDocument, FailureClassification,\nlist of prior BackendExecution attempts, attempt number\nOutput: enriched TaskDocument with description augmented with:\nfailure type and detail, exact stderr/stdout from failed attempt,\nlist of files changed in prior attempt,\nexplicit instruction not to repeat same approach\nOn attempt 2+: include diff summary of what prior attempt changed\nVerification: `python -m pytest tests/test_retry_prompt_builder.py -x`",
+  "phase": "phase_5",
+  "acceptance_criteria": [
+    "Retry task description contains failure_detail from classifier",
+    "Retry task description contains changed files from prior attempt",
+    "Attempt 3 description includes diff summary",
+    "Original acceptance_criteria preserved unchanged"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

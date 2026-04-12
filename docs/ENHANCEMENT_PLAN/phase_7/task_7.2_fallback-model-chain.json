@@ -1,0 +1,13 @@
+{
+  "task_id": "7.2",
+  "title": "Fallback model chain",
+  "description": "RoutingDecision already has models list\nIf primary model execution fails after retries, execute() moves\nto next model in decision.models list automatically\nBackendResult includes model_attempts list showing all tried models\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_7",
+  "acceptance_criteria": [
+    "Two-model list tries second model on first model failure",
+    "model_attempts in BackendResult lists all tried models in order",
+    "All models exhausted returns failure with full attempt log"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

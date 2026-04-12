@@ -1,0 +1,13 @@
+{
+  "task_id": "3.4",
+  "title": "Two-pass plan review",
+  "description": "Add agents/plan_critic.py with PlanCriticAgent\nAfter PlanningAgent generates draft, PlanCriticAgent reviews for:\nmissing verification tasks, missing research tasks,\ntasks with no acceptance criteria, phase ordering issues\nReturns list of PlanCritique items, planning agent revises if any\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_3",
+  "acceptance_criteria": [
+    "Plan with no verification task gets one added",
+    "Plan with empty acceptance criteria gets flagged",
+    "Revised plan persisted correctly"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

@@ -1,0 +1,14 @@
+{
+  "task_id": "0.2",
+  "title": "Enforce working_root in CodingBackend base class",
+  "description": "CodingBackend.__init__ accepts working_root: Path and stores it as workdir\nAdd _check_workdir_safe guard plus SecurityError definition\nCall guard in execute() before subprocess invocations\nVerification: `python -m pytest tests/test_sandbox.py -x`",
+  "phase": "phase_0",
+  "acceptance_criteria": [
+    "workdir outside working_root raises SecurityError before execution",
+    "workdir equal to working_root is allowed",
+    "workdir inside working_root is allowed",
+    "SecurityError message includes both workdir and working_root paths"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

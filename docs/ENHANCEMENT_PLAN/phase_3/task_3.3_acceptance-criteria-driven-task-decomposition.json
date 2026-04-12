@@ -1,0 +1,13 @@
+{
+  "task_id": "3.3",
+  "title": "Acceptance-criteria-driven task decomposition",
+  "description": "Add PlanningAgent._decompose_from_criteria() method\nEach criterion becomes a TaskDocument with:\ntask_id derived from criterion text slug\ndescription = criterion text\nacceptance_criteria = [criterion]\nphase assigned by criterion index and complexity score\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_3",
+  "acceptance_criteria": [
+    "Three criteria \u2192 three tasks across appropriate phases",
+    "task_id slugs are unique and deterministic",
+    "No duplicate tasks generated"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

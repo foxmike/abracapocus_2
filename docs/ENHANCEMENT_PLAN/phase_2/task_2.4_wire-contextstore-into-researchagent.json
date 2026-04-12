@@ -1,0 +1,13 @@
+{
+  "task_id": "2.4",
+  "title": "Wire ContextStore into ResearchAgent",
+  "description": "Replace _scan_repo() file walk in agents/research_agent.py with\nContextStore.query() using task goal as query text\nInitialize ContextStore in ResearchAgent.__init__\nCall update_files() after each run using changed_files from report\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_2",
+  "acceptance_criteria": [
+    "ResearchAgent.gather() returns semantically relevant files",
+    ".venv and __pycache__ never appear in context packages",
+    "ContextPackage.files contains actual relevant paths"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

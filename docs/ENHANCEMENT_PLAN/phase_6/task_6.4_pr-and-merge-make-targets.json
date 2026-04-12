@@ -1,0 +1,14 @@
+{
+  "task_id": "6.4",
+  "title": "PR and merge make targets",
+  "description": "Add to scripts/ops.py: branch-show, merge, abandon\nbranch-show: print current run branch name and status\nmerge: git merge --no-ff run branch into base branch, push if remote\nabandon: git checkout base branch, delete run branch\nAdd make targets: make branch-show, make merge TASK=<id>,\nmake abandon TASK=<id>\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_6",
+  "acceptance_criteria": [
+    "make branch-show prints branch name for last run",
+    "make merge merges run branch with no-ff commit",
+    "make abandon deletes run branch and returns to base",
+    "All targets handle no-git-repo gracefully"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

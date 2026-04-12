@@ -1,0 +1,15 @@
+{
+  "task_id": "0.6",
+  "title": "Sandbox tests",
+  "description": "Add tests/test_sandbox.py covering guard enforcement, CLI flags, and env loading\nUse tmp_path fixtures, no real subprocess execution\nVerification: `python -m pytest tests/test_sandbox.py -v`",
+  "phase": "phase_0",
+  "acceptance_criteria": [
+    "workdir inside or equal to root allowed while outside raises SecurityError",
+    "aider command includes --root flag in tests",
+    "codex command includes -C flag in tests",
+    "working_root loads correctly from env",
+    "SecurityError guard runs before subprocess execution"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

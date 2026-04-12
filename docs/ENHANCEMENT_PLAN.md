@@ -7,7 +7,100 @@ system. Each phase is independently deployable and builds on the previous.
 
 ---
 
-## Phase 1: Research Agent — RAG Context Engine
+## Phase 0: Sandbox and Working Root Enforcement
+
+### Objective
+Ensure all backend subprocess execution is constrained to a single
+configurable working root directory. Nothing reads or writes outside
+this boundary. Enforced in config, the base backend class, and per
+backend where CLI flags support it.
+
+### Entry criteria
+- abracapocus_2 passes all 21 tests
+- All backends have workdir property set
+
+### Exit criteria
+- ABRACAPOCUS_WORKING_ROOT env var loaded into AppConfig
+- CodingBackend.workdir always set from config not independently
+- Pre-execution guard raises SecurityError if workdir outside root
+- aider backend passes --root flag
+- codex backend passes -C flag
+- All 21 existing tests still pass
+- New tests cover guard enforcement and flag injection
+
+### Tasks
+
+#### Task 0.1 — Add ABRACAPOCUS_WORKING_ROOT to config
+- Add working_root: Path to PathSettings in config.py
+- Load from env ABRACAPOCUS_WORKING_ROOT, default to Path.cwd()
+- Add to .env.example with comment explaining purpose and security value
+- Add to make config-show output
+- Acceptance criteria:
+  - ABRACAPOCUS_WORKING_ROOT env var sets working_root in AppConfig
+  - Default is Path.cwd() when env var not set
+  - config-show displays working_root value
+  - .env.example documents the variable
+- Verification: python -m pytest tests/ -x
+
+#### Task 0.2 — Enforce working_root in CodingBackend base class
+- CodingBackend.__init__ accepts working_root: Path parameter
+- Sets self.workdir = working_root (replaces independent Path.cwd())
+- Add _check_workdir_safe() method:
+  resolves both paths with .resolve()
+  raises SecurityError if self.workdir is not at or below working_root
+  SecurityError message includes both paths for debuggability
+- Call _check_workdir_safe() at start of execute() before any subprocess
+- Add SecurityError to backends/base.py
+- Acceptance criteria:
+  - workdir outside working_root raises SecurityError before execution
+  - workdir equal to working_root is allowed
+  - workdir inside working_root is allowed
+  - SecurityError message includes both paths
+- Verification: python -m pytest tests/test_sandbox.py -x
+
+#### Task 0.3 — Wire working_root through registry and supervisor
+- BackendRegistry.get() passes working_root from config to each backend
+- SupervisorOrchestrator passes config.paths.working_root to router
+- RoutingDecision.backend() passes working_root when instantiating
+- Acceptance criteria:
+  - All backends instantiated through registry use config working_root
+  - No backend defaults to Path.cwd() independently
+  - make config-show shows working_root matches expectation
+- Verification: python -m pytest tests/ -x
+
+#### Task 0.4 — Add --root flag to aider backend
+- AiderCliBackend.build_command() adds --root {workdir} to command
+- This tells aider explicitly not to touch files outside workdir
+- Acceptance criteria:
+  - aider command always includes --root flag
+  - --root value matches self.workdir
+- Verification: python -m pytest tests/ -x
+
+#### Task 0.5 — Add -C flag to codex backend
+- CodexCliBackend.build_command() adds -C {workdir} to command
+- This tells codex to use workdir as its working root
+- Acceptance criteria:
+  - codex command always includes -C flag
+  - -C value matches self.workdir
+- Verification: python -m pytest tests/ -x
+
+#### Task 0.6 — Sandbox tests
+- Add tests/test_sandbox.py
+- Tests covering:
+  workdir inside root allowed
+  workdir equal to root allowed
+  workdir outside root raises SecurityError
+  aider command includes --root flag
+  codex command includes -C flag
+  working_root loads from env correctly
+- All tests use tmp_path, no real subprocess calls
+- Acceptance criteria:
+  - All 6 test scenarios pass
+  - SecurityError raised before any subprocess.run call
+- Verification: python -m pytest tests/test_sandbox.py -v
+
+
+## Phase 2: Research Agent — RAG Context Engine
 
 ### Objective
 Replace the naive 25-file alphabetical scan with a vector-search-backed
@@ -29,7 +122,7 @@ for each task.
 
 ### Tasks
 
-#### Task 1.1 — Install and wire embedding dependencies
+#### Task 2.1 — Install and wire embedding dependencies
 - Add chromadb and sentence-transformers to requirements.txt
 - Verify import in a new runtime/context_store.py stub
 - Acceptance criteria:
@@ -38,7 +131,7 @@ for each task.
   - runtime/context_store.py exists with a stub ContextStore class
 - Verification: `python -m py_compile runtime/context_store.py`
 
-#### Task 1.2 — Build ContextStore index and query
+#### Task 2.2 — Build ContextStore index and query
 - Implement ContextStore class in runtime/context_store.py
 - Methods: index_repo(root), update_files(changed_files), query(text, k=15)
 - Use ChromaDB with local persistent storage at state/chroma/
@@ -51,7 +144,7 @@ for each task.
   - state/chroma/ directory created and persisted after index
 - Verification: `python -m pytest tests/test_context_store.py -x`
 
-#### Task 1.3 — Add .abracapocus_context hint file support
+#### Task 2.3 — Add .abracapocus_context hint file support
 - ContextStore reads .abracapocus_context from repo root if present
 - Format: one file path or glob per line, # comments ignored
 - Files matching hints are always included in query results regardless
@@ -62,7 +155,7 @@ for each task.
   - Missing hint file is silently ignored
 - Verification: `python -m pytest tests/test_context_store.py -x`
 
-#### Task 1.4 — Wire ContextStore into ResearchAgent
+#### Task 2.4 — Wire ContextStore into ResearchAgent
 - Replace _scan_repo() file walk in agents/research_agent.py with
   ContextStore.query() using task goal as query text
 - Initialize ContextStore in ResearchAgent.__init__
@@ -73,7 +166,7 @@ for each task.
   - ContextPackage.files contains actual relevant paths
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 1.5 — Add context_store make targets
+#### Task 2.5 — Add context_store make targets
 - Add to Makefile: context-index, context-reset
 - context-index runs python -m scripts.ops context-index
 - context-reset deletes state/chroma/ and reinitializes
@@ -85,7 +178,7 @@ for each task.
 
 ---
 
-## Phase 2: Planning Agent Intelligence
+## Phase 3: Planning Agent Intelligence
 
 ### Objective
 Replace the rigid three-phase plan template with complexity-aware
@@ -93,7 +186,7 @@ planning that decomposes tasks from acceptance criteria, classifies
 scope, and assigns backends per task based on task characteristics.
 
 ### Entry criteria
-- Phase 1 complete
+- Phase 2 complete
 - Planning agent functional with LocalDeepAgent
 
 ### Exit criteria
@@ -105,7 +198,7 @@ scope, and assigns backends per task based on task characteristics.
 
 ### Tasks
 
-#### Task 2.1 — Build task complexity classifier
+#### Task 3.1 — Build task complexity classifier
 - Add agents/complexity_classifier.py
 - Inputs: task title, description, acceptance_criteria, context file list
 - Outputs: ComplexityScore dataclass with fields:
@@ -122,7 +215,7 @@ scope, and assigns backends per task based on task characteristics.
   - recommended_backend matches task type
 - Verification: `python -m pytest tests/test_complexity_classifier.py -x`
 
-#### Task 2.2 — Rewrite PlanningAgent.create_plan() with complexity awareness
+#### Task 3.2 — Rewrite PlanningAgent.create_plan() with complexity awareness
 - Import and call ComplexityClassifier before generating phases
 - Generate phase count from complexity score
 - For each acceptance criterion, generate one TaskDocument
@@ -134,7 +227,7 @@ scope, and assigns backends per task based on task characteristics.
   - Plans persist correctly to plans/ directory
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 2.3 — Acceptance-criteria-driven task decomposition
+#### Task 3.3 — Acceptance-criteria-driven task decomposition
 - Add PlanningAgent._decompose_from_criteria() method
 - Each criterion becomes a TaskDocument with:
   task_id derived from criterion text slug
@@ -147,7 +240,7 @@ scope, and assigns backends per task based on task characteristics.
   - No duplicate tasks generated
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 2.4 — Two-pass plan review
+#### Task 3.4 — Two-pass plan review
 - Add agents/plan_critic.py with PlanCriticAgent
 - After PlanningAgent generates draft, PlanCriticAgent reviews for:
   missing verification tasks, missing research tasks,
@@ -159,7 +252,7 @@ scope, and assigns backends per task based on task characteristics.
   - Revised plan persisted correctly
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 2.5 — Historical plan learning
+#### Task 3.5 — Historical plan learning
 - ManagementAgent stores successful plan templates in state/plan_history.json
 - PlanningAgent reads plan_history.json and passes similar prior plans
   to create_plan() as examples
@@ -172,7 +265,7 @@ scope, and assigns backends per task based on task characteristics.
 
 ---
 
-## Phase 3: Model Profiles and Non-Interactive Prompting
+## Phase 4: Model Profiles and Non-Interactive Prompting
 
 ### Objective
 Give the planning agent explicit knowledge of available models and their
@@ -180,7 +273,7 @@ strengths so it can assign the right model to each task. Ensure all
 backend prompts communicate non-interactive operation mode clearly.
 
 ### Entry criteria
-- Phase 2 complete
+- Phase 3 complete
 - OpenRouter models list in backends/openrouter_models.py
 
 ### Exit criteria
@@ -191,7 +284,7 @@ backend prompts communicate non-interactive operation mode clearly.
 
 ### Tasks
 
-#### Task 3.1 — Create model_profiles.yaml
+#### Task 4.1 — Create model_profiles.yaml
 - Create config/model_profiles.yaml
 - One entry per model in OPENROUTER_MODELS plus codex, aider, gemini,
   claude-code
@@ -207,7 +300,7 @@ backend prompts communicate non-interactive operation mode clearly.
   - `python -c "import yaml; yaml.safe_load(open('config/model_profiles.yaml'))"` succeeds
 - Verification: `python -m py_compile backends/openrouter_models.py`
 
-#### Task 3.2 — ModelProfileStore loader
+#### Task 4.2 — ModelProfileStore loader
 - Add runtime/model_profile_store.py
 - Loads config/model_profiles.yaml at startup
 - Method: get_best_model(task_type, cost_tier, context_size) → model name
@@ -219,7 +312,7 @@ backend prompts communicate non-interactive operation mode clearly.
   - Unknown model returns None without error
 - Verification: `python -m pytest tests/test_model_profile_store.py -x`
 
-#### Task 3.3 — Wire ModelProfileStore into routing
+#### Task 4.3 — Wire ModelProfileStore into routing
 - BackendRouter imports ModelProfileStore
 - select() consults profile store when routing_mode is auto
 - Overrides tag-based selection with profile-based selection
@@ -229,7 +322,7 @@ backend prompts communicate non-interactive operation mode clearly.
   - OPENROUTER_PREFERRED_MODELS still takes highest priority
 - Verification: `python -m pytest tests/test_router.py -x`
 
-#### Task 3.4 — Non-interactive prompt headers
+#### Task 4.4 — Non-interactive prompt headers
 - Add shared prompt header to prompts/shared/non_interactive_header.md
 - Content: clear statement that the agent operates non-interactively,
   must not prompt for input, must not ask clarifying questions,
@@ -242,7 +335,7 @@ backend prompts communicate non-interactive operation mode clearly.
   - `grep -r "non-interactively" prompts/` finds header in all backends
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 3.5 — Model assignment in TaskDocument
+#### Task 4.5 — Model assignment in TaskDocument
 - Add model field to TaskDocument (Optional[str], default None)
 - PlanningAgent sets model per task from ModelProfileStore
 - BackendRouter respects task.model if set, overrides profile selection
@@ -254,7 +347,7 @@ backend prompts communicate non-interactive operation mode clearly.
 
 ---
 
-## Phase 4: Verification Feedback Loop
+## Phase 5: Verification Feedback Loop
 
 ### Objective
 Transform verification from a pass/fail gate into a correction loop.
@@ -263,7 +356,7 @@ retry prompt, and re-runs the backend up to a configurable tier limit
 before escalating to human or marking blocked.
 
 ### Entry criteria
-- Phase 3 complete
+- Phase 4 complete
 - Verification profiles working (minimal, default, strict)
 
 ### Exit criteria
@@ -275,7 +368,7 @@ before escalating to human or marking blocked.
 
 ### Tasks
 
-#### Task 4.1 — Failure classifier
+#### Task 5.1 — Failure classifier
 - Add runtime/failure_classifier.py
 - Input: VerificationReport, list of BackendExecution
 - Output: FailureClassification dataclass with fields:
@@ -295,7 +388,7 @@ before escalating to human or marking blocked.
   - Unknown failures have retry_likely=False after 2nd occurrence
 - Verification: `python -m pytest tests/test_failure_classifier.py -x`
 
-#### Task 4.2 — Retry prompt builder
+#### Task 5.2 — Retry prompt builder
 - Add runtime/retry_prompt_builder.py
 - Input: original TaskDocument, FailureClassification,
   list of prior BackendExecution attempts, attempt number
@@ -311,7 +404,7 @@ before escalating to human or marking blocked.
   - Original acceptance_criteria preserved unchanged
 - Verification: `python -m pytest tests/test_retry_prompt_builder.py -x`
 
-#### Task 4.3 — Tiered retry loop in supervisor
+#### Task 5.3 — Tiered retry loop in supervisor
 - Add retry loop to verification_node in orchestrator/supervisor.py
 - Tier config in AppConfig:
   max_retries_tier_1 (default 2, same model)
@@ -329,7 +422,7 @@ before escalating to human or marking blocked.
   - Loop never exceeds max_retries_tier_1 + tier_2 + tier_3 total
 - Verification: `python -m pytest tests/test_retry_loop.py -x`
 
-#### Task 4.4 — Retry configuration in .env and config
+#### Task 5.4 — Retry configuration in .env and config
 - Add to config.py RetrySettings dataclass:
   max_retries_tier_1, max_retries_tier_2, max_retries_tier_3,
   retry_delay_seconds (default 2)
@@ -342,7 +435,7 @@ before escalating to human or marking blocked.
   - config-show includes retry settings in output
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 4.5 — Blocked task resume
+#### Task 5.5 — Blocked task resume
 - Add scripts/ops.py command: task-resume --task-id <id>
 - Reads blocked report from reports/blocked-{task_id}-*.json
 - Re-queues task with full prior context as a new run
@@ -355,7 +448,7 @@ before escalating to human or marking blocked.
 
 ---
 
-## Phase 5: Branch-Per-Run and PR Workflow
+## Phase 6: Branch-Per-Run and PR Workflow
 
 ### Objective
 Ensure all backend execution happens on isolated git branches.
@@ -364,7 +457,7 @@ for human review and merge. Make targets support the full review
 and merge workflow.
 
 ### Entry criteria
-- Phase 4 complete
+- Phase 5 complete
 - Git available in working directory
 
 ### Exit criteria
@@ -376,7 +469,7 @@ and merge workflow.
 
 ### Tasks
 
-#### Task 5.1 — GitManager utility
+#### Task 6.1 — GitManager utility
 - Add runtime/git_manager.py with GitManager class
 - Methods:
   create_branch(branch_name) → bool
@@ -393,7 +486,7 @@ and merge workflow.
   - All methods handle git-not-initialized gracefully
 - Verification: `python -m pytest tests/test_git_manager.py -x`
 
-#### Task 5.2 — Branch creation in supervisor run()
+#### Task 6.2 — Branch creation in supervisor run()
 - SupervisorOrchestrator.run() calls GitManager at start
 - If safe_to_run() is False and ABRACAPOCUS_ALLOW_MAIN not set,
   raise RuntimeError with clear message
@@ -407,7 +500,7 @@ and merge workflow.
   - ABRACAPOCUS_ALLOW_MAIN=true bypasses protection
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 5.3 — Auto-commit after successful phase
+#### Task 6.3 — Auto-commit after successful phase
 - phase_advance node calls GitManager.commit_changes() after
   each phase completes successfully
 - Commit message format:
@@ -419,7 +512,7 @@ and merge workflow.
   - Commit message includes phase name and run id
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 5.4 — PR and merge make targets
+#### Task 6.4 — PR and merge make targets
 - Add to scripts/ops.py: branch-show, merge, abandon
 - branch-show: print current run branch name and status
 - merge: git merge --no-ff run branch into base branch, push if remote
@@ -433,7 +526,7 @@ and merge workflow.
   - All targets handle no-git-repo gracefully
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 5.5 — Branch protection config and docs
+#### Task 6.5 — Branch protection config and docs
 - Add ABRACAPOCUS_ALLOW_MAIN, ABRACAPOCUS_BASE_BRANCH to .env.example
 - Add branch workflow section to docs/QUICKSTART.md
 - Default base branch: main, overridable via ABRACAPOCUS_BASE_BRANCH
@@ -445,7 +538,7 @@ and merge workflow.
 
 ---
 
-## Phase 6: Backend Hardening and Pace Control
+## Phase 7: Backend Hardening and Pace Control
 
 ### Objective
 Make all backends reliable for unattended operation. Add retry with
@@ -454,7 +547,7 @@ and pace control. Tune each backend's command construction for
 non-interactive production use.
 
 ### Entry criteria
-- Phase 5 complete
+- Phase 6 complete
 - All backends have supports_direct_execution set correctly
 
 ### Exit criteria
@@ -466,7 +559,7 @@ non-interactive production use.
 
 ### Tasks
 
-#### Task 6.1 — Retry and backoff in CodingBackend base
+#### Task 7.1 — Retry and backoff in CodingBackend base
 - Add to backends/base.py:
   max_retries (default 3), retry_delay_base (default 2.0)
 - execute() wraps subprocess call in retry loop
@@ -481,7 +574,7 @@ non-interactive production use.
   - Total retry count logged per execution
 - Verification: `python -m pytest tests/test_backend_retry.py -x`
 
-#### Task 6.2 — Fallback model chain
+#### Task 7.2 — Fallback model chain
 - RoutingDecision already has models list
 - If primary model execution fails after retries, execute() moves
   to next model in decision.models list automatically
@@ -492,7 +585,7 @@ non-interactive production use.
   - All models exhausted returns failure with full attempt log
 - Verification: `python -m pytest tests/ -x`
 
-#### Task 6.3 — Pace control per backend
+#### Task 7.3 — Pace control per backend
 - Add PaceSettings to config.py:
   min_seconds_between_calls (default 0), max_calls_per_minute (default 0)
 - Load per-backend from env:
@@ -505,7 +598,7 @@ non-interactive production use.
   - max_calls_per_minute enforced with blocking sleep
 - Verification: `python -m pytest tests/test_pace_control.py -x`
 
-#### Task 6.4 — Gemini CLI command hardening
+#### Task 7.4 — Gemini CLI command hardening
 - Run gemini --help and update backends/gemini_cli.py build_command
   to match real CLI interface same as codex fix in session
 - Add non-interactive flags appropriate to gemini CLI
@@ -515,7 +608,7 @@ non-interactive production use.
   - py_compile passes
 - Verification: `python -m py_compile backends/gemini_cli.py && python -m pytest tests/ -x`
 
-#### Task 6.5 — Claude Code CLI hardening
+#### Task 7.5 — Claude Code CLI hardening
 - Install claude-code: npm install -g @anthropic-ai/claude-code
 - Run claude --help and update backends/claude_code_cli.py build_command
 - Set supports_direct_execution = True
@@ -527,7 +620,7 @@ non-interactive production use.
   - ANTHROPIC_API_KEY documented in .env.example
 - Verification: `python -m py_compile backends/claude_code_cli.py && python -m pytest tests/ -x`
 
-#### Task 6.6 — End-to-end hardening test suite
+#### Task 7.6 — End-to-end hardening test suite
 - Add tests/test_e2e_hardening.py
 - Tests covering: retry behavior, fallback chain, pace control,
   branch creation, blocked task persistence
@@ -546,5 +639,5 @@ non-interactive production use.
 - Use `DEEP_AGENT_MOCK_MODE=true` throughout unless specifically testing real agent behavior
 - Commit after every task: `git add -A && git commit -m "feat: {task_id} {title}"`
 - Use `make task-run TASK=<task_id>` to execute each task through the system itself
-  once Phase 2 is stable enough to self-direct
+  once Phase 3 is stable enough to self-direct
 EOF
