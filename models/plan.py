@@ -26,6 +26,7 @@ class PlanPhase(BaseModel):
     tasks: List[PlanTask] = Field(default_factory=list)
     completed: bool = False
     completed_at: Optional[datetime] = None
+    human_checkpoint: Optional[bool] = None
 
 
 class PlanRecord(BaseModel):

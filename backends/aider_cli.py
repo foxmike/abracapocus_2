@@ -14,6 +14,7 @@ class AiderCliBackend(CodingBackend):
 
     def __init__(self, prompt_path: Path | None = None, timeout: int = 90):
         super().__init__(prompt_path or Path("prompts/aider_cli.md"), timeout)
+        self.supports_direct_execution = True
 
     def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
         command: List[str] = [
@@ -23,10 +24,9 @@ class AiderCliBackend(CodingBackend):
         ]
         if model:
             command += ["--model", model]
-        command += [
-            "--message",
-            task.description,
-            "--files",
-            ",".join(context.files[:5]) or "README.md",
-        ]
+        command += ["--message", task.description or task.title]
+        for f in context.files[:5]:
+            command += ["--file", f]
+        if not context.files:
+            command += ["--file", "README.md"]
         return command

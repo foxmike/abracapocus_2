@@ -14,6 +14,7 @@ class GeminiCliBackend(CodingBackend):
 
     def __init__(self, prompt_path: Path | None = None, timeout: int = 90):
         super().__init__(prompt_path or Path("prompts/gemini_cli.md"), timeout)
+        self.supports_direct_execution = True
 
     def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
         return [

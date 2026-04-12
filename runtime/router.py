@@ -32,6 +32,21 @@ def _infer_task_type(task: TaskDocument) -> str:
 def select_openrouter_model(task: TaskDocument) -> List[dict]:
     """Select the best OpenRouter models for the task."""
 
+    from backends.openrouter_models import get_preferred_models
+
+    preferred = get_preferred_models()
+    if preferred:
+        results = []
+        model_map = {m["name"]: m for m in OPENROUTER_MODELS}
+        for name in preferred:
+            if name in model_map:
+                results.append(model_map[name])
+        if results:
+            task_type = _infer_task_type(task)
+            limit = 2 if task_type == "coding" else 1
+            return results[:limit]
+
+    # fall through to existing tag-based selection
     task_type = _infer_task_type(task)
     preferred_tags = TASK_TYPE_TAGS.get(task_type, ["coding_strong"])
     ranked: List[tuple[int, int, int, dict]] = []

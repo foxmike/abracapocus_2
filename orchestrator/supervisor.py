@@ -1,10 +1,20 @@
 """Supervisor orchestrator implementation."""
 from __future__ import annotations
 
+import os
 import uuid
+from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Annotated, List, Optional, Sequence
 
+from typing_extensions import TypedDict
+
+from langgraph.checkpoint.sqlite import SqliteSaver
+from langgraph.errors import GraphInterrupt
+from langgraph.graph import END, START, StateGraph
+from langgraph.types import Command, Interrupt, Send, interrupt
+
+import typer
 from agents.management_agent import ManagementAgent
 from agents.planning_agent import PlanningAgent
 from agents.research_agent import ResearchAgent
@@ -13,7 +23,7 @@ from agents.verifier_agent import VerifierAgent
 from backends.base import BackendResult
 from config import AppConfig, load_config
 from models.plan import Plan, PlanPhase, PlanTask
-from models.project import ProjectRequest, TaskDocument
+from models.project import ContextPackage, ProjectRequest, TaskDocument
 from models.reports import (
     BackendExecution,
     ChangeAssessment,
@@ -27,8 +37,49 @@ from runtime.router import BackendRouter
 from runtime.state_store import StateStore
 
 
+@dataclass
+class TaskResult:
+    task: TaskDocument
+    execution: BackendExecution
+    review: ReviewReport
+    status: str
+
+
+@dataclass
+class PhaseResult:
+    phase_name: str
+    task_results: List[TaskResult]
+    verification: VerificationReport
+    status: str
+
+
+class _ResetTaskResults(list):
+    """Sentinel list type that signals the reducer to reset accumulated results."""
+
+
+def _task_results_reducer(
+    current: Optional[List[TaskResult]], update: List[TaskResult]
+) -> List[TaskResult]:
+    if isinstance(update, _ResetTaskResults):
+        return list(update)
+    merged: List[TaskResult] = list(current or [])
+    merged.extend(update)
+    return merged
+
+
+class SupervisorState(TypedDict):
+    request: ProjectRequest
+    plan: Plan | None
+    context: ContextPackage | None
+    phase_index: int
+    task_results: Annotated[List[TaskResult], _task_results_reducer]
+    phase_results: List[PhaseResult]
+    run_id: str
+    final_report: OrchestrationReport | None
+
+
 class SupervisorOrchestrator:
-    """Coordinates agents and coding backends."""
+    """LangGraph-based supervisor orchestrator."""
 
     def __init__(self, config: Optional[AppConfig] = None) -> None:
         self.config = config or load_config()
@@ -43,85 +94,377 @@ class SupervisorOrchestrator:
         self.reviewer_agent = ReviewerAgent(self.factory)
         self.verifier_agent = VerifierAgent(self.factory, self.config.verification)
         self.router = BackendRouter(self.config)
+        self._task_override: TaskDocument | None = None
+        self.graph = self._build_graph()
 
     def run(self, request: ProjectRequest, task: TaskDocument | None = None) -> OrchestrationReport:
-        state_snapshot = self.state_store.read_state()
-        existing_plan = self._load_plan_file(state_snapshot.plan_version)
-        if task is None:
-            plan = self.planning_agent.create_plan(request, previous_plan=existing_plan)
-        else:
-            plan = self._build_task_plan(request, task)
-        self.management_agent.register_plan(plan)
-        task = self._select_task(plan)
-        task.status = "in_progress"
-        context = self.research_agent.gather(request)
-        decision = self.router.select(task)
-        if not task.selected_backend:
-            task.selected_backend = decision.backend_name
-        backend = decision.backend()
-        results: list[BackendResult] = []
-        dry_run = not getattr(backend, "supports_direct_execution", False)
-        models_to_run = decision.models or [None]
-        for model_name in models_to_run:
-            tags = decision.model_tags.get(model_name or "", []) if model_name else []
-            result = backend.execute(
-                task,
-                context,
-                dry_run=dry_run,
-                model=model_name,
-                model_tags=tags,
-                task_type=decision.task_type,
-            )
-            results.append(result)
-        executions = [self._to_backend_execution(item) for item in results]
-        review = self._run_review(task, executions)
-        verification = self._run_verification(task, executions)
         run_id = str(uuid.uuid4())
-        any_success = any(execution.exit_code == 0 for execution in executions)
-        task.status = "completed" if any_success else "failed"
-        self.management_agent.record_execution(
-            run_id=run_id,
-            task=task,
-            backend=executions[0].backend,
-            reviewer_status=review.status,
-            verifier_status=verification.status,
-            status="ok" if any_success else "failed",
-        )
-        assessment = self._assess_changes(task, executions, verification)
-        report = OrchestrationReport(
-            plan_summary=plan.summary,
-            backend_executions=executions,
-            review=review,
-            verification=verification,
-            change_assessment=assessment,
-            metadata={
-                "run_id": run_id,
-                "backend_reason": decision.reason,
-                "models": decision.models,
-                "task_type": decision.task_type,
-                "task_id": task.task_id,
-                "task_title": task.title,
-                "task_status": task.status,
-                "selected_backend": task.selected_backend,
-                "verification_profile": task.verification_profile,
-            }
-            | decision.metadata,
-        )
-        self._persist_report(report)
-        self.logger.info(
-            "run=%s backend=%s review=%s verification=%s",
-            run_id,
-            executions[0].backend,
-            review.status,
-            verification.status,
-        )
+        initial_state: SupervisorState = {
+            "request": request,
+            "plan": None,
+            "context": None,
+            "phase_index": -1,
+            "task_results": [],
+            "phase_results": [],
+            "run_id": run_id,
+            "final_report": None,
+        }
+        config = {"configurable": {"thread_id": run_id}}
+        final_state: SupervisorState | None = None
+        self._task_override = task
+        try:
+            try:
+                for state in self.graph.stream(initial_state, config, stream_mode="values"):
+                    final_state = state  # type: ignore[assignment]
+            except GraphInterrupt as exc:
+                typer.echo(f"[abracapocus] Human checkpoint: {exc}")
+                input("Press Enter to continue...")
+                for state in self.graph.stream(Command(resume=True), config, stream_mode="values"):
+                    final_state = state  # type: ignore[assignment]
+        finally:
+            self._task_override = None
+        if final_state is None:
+            raise RuntimeError("Graph execution did not complete")
+        report = final_state.get("final_report")
+        if report is None:
+            raise RuntimeError("Final report missing from completed state")
         return report
 
-    def _select_task(self, plan: Plan) -> TaskDocument:
-        for phase in plan.phases:
-            for plan_task in phase.tasks:
-                return plan_task.task
-        raise RuntimeError("Plan contains no tasks")
+    # Graph construction -------------------------------------------------
+
+    def _build_graph(self):
+        builder = StateGraph(SupervisorState)
+        builder.add_node("planning_node", self._planning_node)
+        builder.add_node("research_node", self._research_node)
+        builder.add_node("phase_router", self._phase_router)
+        builder.add_node("finalize_node", self._finalize_node)
+        builder.add_node("task_node", self._task_node)
+        builder.add_node("verification_node", self._verification_node)
+        builder.add_node("phase_advance", self._phase_advance)
+        builder.add_node("human_checkpoint", self._human_checkpoint)
+        builder.add_edge(START, "planning_node")
+        builder.add_edge("planning_node", "research_node")
+        builder.add_edge("research_node", "phase_router")
+        builder.add_edge("task_node", "verification_node")
+        builder.add_edge("verification_node", "phase_advance")
+        builder.add_edge("human_checkpoint", "phase_router")
+        builder.add_edge("finalize_node", END)
+        checkpoints_path = Path("state") / "checkpoints.db"
+        checkpoints_path.parent.mkdir(parents=True, exist_ok=True)
+        import sqlite3
+        conn = sqlite3.connect(str(checkpoints_path), check_same_thread=False)
+        checkpointer = SqliteSaver(conn)
+        return builder.compile(checkpointer=checkpointer)
+
+    # LangGraph nodes ----------------------------------------------------
+
+    def _planning_node(self, state: SupervisorState) -> dict:
+        runtime_state = self.state_store.read_state()
+        previous_plan = self._load_plan_file(runtime_state.plan_version)
+        if self._task_override:
+            plan = self._build_task_plan(state["request"], self._task_override)
+        else:
+            plan = self.planning_agent.create_plan(state["request"], previous_plan=previous_plan)
+        self.management_agent.register_plan(plan)
+        return {"plan": plan, "phase_index": -1}
+
+    def _research_node(self, state: SupervisorState) -> dict:
+        context = self.research_agent.gather(state["request"])
+        return {"context": context}
+
+    def _phase_router(self, state: SupervisorState) -> Command:
+        plan = state["plan"]
+        if plan is None:
+            raise RuntimeError("Plan missing during phase routing")
+        next_index = self._next_incomplete_phase_index(plan)
+        if next_index is None:
+            return Command(goto="finalize_node")
+        phase = plan.phases[next_index]
+        phase.status = "in_progress"
+        updates = {"phase_index": next_index, "task_results": self._reset_task_results()}
+        context = state["context"]
+        sends: List[Send] = [
+            Send(
+                "task_node",
+                {
+                    "task": phase_task.task,
+                    "context": context,
+                    "phase_name": phase.name,
+                },
+            )
+            for phase_task in phase.tasks
+        ]
+        if sends:
+            return Command(update=updates, goto=sends)
+        return Command(update=updates, goto="verification_node")
+
+    def _finalize_node(self, state: SupervisorState) -> dict:
+        report = self._assemble_final_report(state)
+        self._persist_report(report)
+        self.logger.info(
+            "run=%s phases=%d verification=%s",
+            state["run_id"],
+            len(state["phase_results"]),
+            report.verification.status,
+        )
+        return {"final_report": report}
+
+    def _task_node(self, send_state: dict) -> dict:
+        task: TaskDocument = send_state["task"]
+        context: ContextPackage | None = send_state.get("context")
+        phase_name: str = send_state.get("phase_name", task.phase or "unknown")
+        prefix = f"[abracapocus][phase:{phase_name}][task:{task.task_id}]"
+        print(f"{prefix} routing task via backend router")
+        decision = self.router.select(task)
+        backend = decision.backend()
+        if not task.selected_backend:
+            task.selected_backend = decision.backend_name
+        dry_run = not getattr(backend, "supports_direct_execution", False)
+        model_names = decision.models or [None]
+        execution: BackendExecution | None = None
+        for model_name in model_names:
+            tags = decision.model_tags.get(model_name or "", [])
+            try:
+                result = backend.execute(
+                    task,
+                    context or ContextPackage(summaries=[], files=[], notes=""),
+                    dry_run=dry_run,
+                    model=model_name,
+                    model_tags=tags,
+                    task_type=decision.task_type,
+                )
+                execution = self._to_backend_execution(result)
+            except Exception as exc:  # pragma: no cover - unexpected backend failure
+                execution = BackendExecution(
+                    backend=decision.backend_name,
+                    command=[],
+                    stdout="",
+                    stderr=str(exc),
+                    exit_code=1,
+                    duration_seconds=0.0,
+                    model=model_name,
+                    model_tags=tags,
+                    task_type=decision.task_type,
+                    working_directory=None,
+                    changed_files=[],
+                    diff_summary="backend execution failed",
+                )
+            if execution.exit_code == 0:
+                break
+        if execution is None:
+            raise RuntimeError("Backend execution did not produce a result")
+        review = self._run_review(task, [execution])
+        status = "passed" if execution.exit_code == 0 else "failed"
+        task.status = "completed" if status == "passed" else "failed"
+        print(f"{prefix} execution exit_code={execution.exit_code}")
+        result = TaskResult(task=task, execution=execution, review=review, status=status)
+        return {"task_results": [result]}
+
+    def _verification_node(self, state: SupervisorState) -> dict:
+        plan = state["plan"]
+        phase_index = state["phase_index"]
+        if plan is None or phase_index < 0:
+            raise RuntimeError("Plan or phase index missing during verification")
+        phase = plan.phases[phase_index]
+        task_results = list(state["task_results"])
+        executions = [result.execution for result in task_results]
+        verification_task = TaskDocument(
+            task_id=f"{phase.name}-verification",
+            title=f"Verify phase {phase.name}",
+            description=phase.objective,
+            phase=phase.name,
+        )
+        print(f"[abracapocus][verification:{phase.name}] starting verification for {len(task_results)} tasks")
+        verification = (
+            self._run_verification(verification_task, executions)
+            if executions
+            else VerificationReport(
+                status="skipped",
+                checks=[],
+                notes="No tasks executed in phase",
+                profile=self.config.verification.active_profile,
+            )
+        )
+        all_tasks_passed = all(result.status == "passed" for result in task_results)
+        phase_status = "passed" if verification.status == "passed" and all_tasks_passed else "failed"
+        print(f"[abracapocus][verification:{phase.name}] status={verification.status}")
+        phase_result = PhaseResult(
+            phase_name=phase.name,
+            task_results=task_results,
+            verification=verification,
+            status=phase_status,
+        )
+        phase_results = list(state["phase_results"])
+        phase_results.append(phase_result)
+        return {"phase_results": phase_results}
+
+    def _phase_advance(self, state: SupervisorState) -> Command:
+        plan = state["plan"]
+        phase_index = state["phase_index"]
+        if plan is None or phase_index < 0 or not state["phase_results"]:
+            return Command(goto="phase_router")
+        phase = plan.phases[phase_index]
+        latest_result = state["phase_results"][-1]
+        plan.record_completion(phase.name)
+        next_index = self._next_incomplete_phase_index(plan)
+        next_phase_name = plan.phases[next_index].name if next_index is not None else "completed"
+        for task_result in latest_result.task_results:
+            run_status = "ok" if task_result.execution.exit_code == 0 else "failed"
+            self.management_agent.record_execution(
+                run_id=state["run_id"],
+                task=task_result.task,
+                backend=task_result.execution.backend,
+                reviewer_status=task_result.review.status,
+                verifier_status=latest_result.verification.status,
+                status=run_status,
+            )
+        runtime_state = self.state_store.read_state()
+        runtime_state.completed_phases = [p.name for p in plan.phases if p.completed]
+        runtime_state.remaining_phases = [p.name for p in plan.phases if not p.completed]
+        runtime_state.active_phase = next_phase_name
+        runtime_state.plan_version = plan.version
+        self.state_store.write_state(runtime_state)
+        updates = {"plan": plan, "task_results": self._reset_task_results()}
+        if self._should_checkpoint(phase):
+            return Command(update=updates, goto="human_checkpoint")
+        return Command(update=updates, goto="phase_router")
+
+    def _human_checkpoint(self, state: SupervisorState) -> dict:
+        plan = state["plan"]
+        phase_index = state["phase_index"]
+        phase_name = "unknown"
+        if plan and 0 <= phase_index < len(plan.phases):
+            phase_name = plan.phases[phase_index].name
+        response = interrupt(f"Phase '{phase_name}' completed. Confirm to continue.")
+        print(f"[abracapocus][phase:{phase_name}] human checkpoint confirmed: {response}")
+        return {}
+
+    # Helper logic -------------------------------------------------------
+
+    def _handle_interrupts(self, interrupts: Sequence[Interrupt]) -> Command:
+        responses: dict[str, str] = {}
+        for interrupt_info in interrupts:
+            prompt = str(interrupt_info.value)
+            user_response = input(f"{prompt} (press Enter to continue) ").strip() or "confirmed"
+            responses[interrupt_info.id] = user_response
+        if len(responses) == 1:
+            return Command(resume=next(iter(responses.values())))
+        return Command(resume=responses)
+
+    def _reset_task_results(self) -> List[TaskResult]:
+        return _ResetTaskResults()
+
+    def _next_incomplete_phase_index(self, plan: Plan) -> int | None:
+        for idx, phase in enumerate(plan.phases):
+            if not phase.completed:
+                return idx
+        return None
+
+    def _should_checkpoint(self, phase: PlanPhase) -> bool:
+        if phase.human_checkpoint is not None:
+            return phase.human_checkpoint
+        return os.getenv("HUMAN_CHECKPOINTS", "false").lower() in {"1", "true", "yes", "on"}
+
+    def _assemble_final_report(self, state: SupervisorState) -> OrchestrationReport:
+        plan = state["plan"]
+        phase_results = state["phase_results"]
+        all_task_results = [task for phase in phase_results for task in phase.task_results]
+        backend_executions = [task.execution for task in all_task_results]
+        combined_review = self._combine_reviews(all_task_results)
+        combined_verification = self._combine_phase_verifications(phase_results)
+        if all_task_results:
+            reference_task = all_task_results[0].task
+        else:
+            reference_task = TaskDocument(
+                task_id=f"{state['run_id']}-aggregate",
+                title=state["request"].goal,
+                description=state["request"].goal,
+                phase="aggregate",
+            )
+        assessment = self._assess_changes(reference_task, backend_executions, combined_verification)
+        first_task = all_task_results[0].task if all_task_results else None
+        metadata = {
+            "run_id": state["run_id"],
+            "project_name": state["request"].project_name,
+            "plan_version": plan.version if plan else None,
+            "task_id": first_task.task_id if first_task else None,
+            "task_title": first_task.title if first_task else None,
+            "task_status": first_task.status if first_task else None,
+            "selected_backend": first_task.selected_backend if first_task else None,
+            "verification_profile": first_task.verification_profile if first_task else None,
+            "backend_reason": "phase_based",
+            "phase_results": [
+                {
+                    "phase_name": phase.phase_name,
+                    "status": phase.status,
+                    "verification": phase.verification.status,
+                    "task_results": [
+                        {
+                            "task_id": task.task.task_id,
+                            "status": task.status,
+                            "backend": task.execution.backend,
+                        }
+                        for task in phase.task_results
+                    ],
+                }
+                for phase in phase_results
+            ],
+        }
+        return OrchestrationReport(
+            plan_summary=plan.summary if plan else state["request"].goal,
+            backend_executions=backend_executions,
+            review=combined_review,
+            verification=combined_verification,
+            change_assessment=assessment,
+            metadata=metadata,
+        )
+
+    def _combine_reviews(self, task_results: List[TaskResult]) -> ReviewReport:
+        if not task_results:
+            return ReviewReport(status="skipped", findings=[], summary="No tasks executed")
+        findings = []
+        summary_parts = []
+        statuses = []
+        for result in task_results:
+            findings.extend(result.review.findings)
+            summary_parts.append(f"{result.task.task_id}:{result.review.summary}")
+            statuses.append(result.review.status)
+        if any(status == "changes_requested" for status in statuses):
+            status = "changes_requested"
+        elif all(status == "skipped" for status in statuses):
+            status = "skipped"
+        else:
+            status = "approved"
+        summary = "; ".join(summary_parts) if summary_parts else "Review completed"
+        return ReviewReport(status=status, findings=findings, summary=summary)
+
+    def _combine_phase_verifications(self, phase_results: List[PhaseResult]) -> VerificationReport:
+        if not phase_results:
+            return VerificationReport(
+                status="skipped",
+                checks=[],
+                notes="No phases executed",
+                profile=self.config.verification.active_profile,
+            )
+        checks = []
+        notes = []
+        statuses = []
+        profile = self.config.verification.active_profile
+        for result in phase_results:
+            checks.extend(result.verification.checks)
+            notes.append(f"{result.phase_name}:{result.verification.status}")
+            statuses.append(result.verification.status)
+            profile = result.verification.profile
+        if any(status == "failed" for status in statuses):
+            status = "failed"
+        elif all(status == "skipped" for status in statuses):
+            status = "skipped"
+        else:
+            status = "passed"
+        note_text = "; ".join(notes) if notes else "Verification complete"
+        return VerificationReport(status=status, checks=checks, notes=note_text, profile=profile)
+
+    # Existing helper methods retained -----------------------------------
 
     def _build_task_plan(self, request: ProjectRequest, task: TaskDocument) -> Plan:
         phase = PlanPhase(
@@ -152,12 +495,12 @@ class SupervisorOrchestrator:
             diff_summary=result.diff_summary,
         )
 
-    def _run_review(self, task: TaskDocument, executions: list[BackendExecution]) -> ReviewReport:
+    def _run_review(self, task: TaskDocument, executions: List[BackendExecution]) -> ReviewReport:
         if not self.config.routing.reviewer_required:
             return ReviewReport(status="skipped", findings=[], summary="Reviewer disabled")
         return self.reviewer_agent.review(task, executions)
 
-    def _run_verification(self, task: TaskDocument, executions: list[BackendExecution]) -> VerificationReport:
+    def _run_verification(self, task: TaskDocument, executions: List[BackendExecution]) -> VerificationReport:
         if not self.config.routing.verification_required:
             return VerificationReport(
                 status="skipped",
@@ -170,13 +513,18 @@ class SupervisorOrchestrator:
     def _assess_changes(
         self,
         task: TaskDocument,
-        executions: list[BackendExecution],
+        executions: List[BackendExecution],
         verification: VerificationReport,
     ) -> ChangeAssessment:
         primary = executions[0] if executions else None
         changed_files = primary.changed_files if primary else []
         diff_summary = primary.diff_summary if primary else ""
-        changed_summary = diff_summary or (f"{len(changed_files)} files changed" if changed_files else "No file changes recorded")
+        if diff_summary:
+            changed_summary = diff_summary
+        elif changed_files:
+            changed_summary = f"{len(changed_files)} files changed"
+        else:
+            changed_summary = "No file changes recorded"
         verification_summary = verification.status
         if verification.status == "failed":
             assessment_status = "not_aligned"

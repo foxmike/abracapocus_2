@@ -3,26 +3,17 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, Optional
+from typing import Any, Dict, Iterable
 
 from config import DeepAgentSettings
 
+try:  # pragma: no cover - import guarded for optional dependency
+    from deepagents import create_deep_agent as _create_deep_agent
 
-def _try_import_create_deep_agent() -> Optional[Any]:
-    """Attempt to import create_deep_agent from known locations."""
-
-    candidates = (
-        "langchain.agents.deep_agents.base",
-        "langchain_deep_agents.factory",
-        "langchain_experimental.deep_agents",
-    )
-    for module_name in candidates:
-        try:
-            module = __import__(module_name, fromlist=["create_deep_agent"])
-            return getattr(module, "create_deep_agent")
-        except (ImportError, AttributeError):
-            continue
-    return None
+    DEEPAGENTS_AVAILABLE = True
+except ImportError:  # pragma: no cover - exercised when dependency missing
+    DEEPAGENTS_AVAILABLE = False
+    _create_deep_agent = None
 
 
 @dataclass
@@ -51,31 +42,14 @@ class DeepAgentFactory:
 
     def __init__(self, settings: DeepAgentSettings):
         self.settings = settings
-        self._create_deep_agent = None if settings.mock_mode else _try_import_create_deep_agent()
-        self._llm = None
-        if self._create_deep_agent is not None:
-            self._llm = self._build_llm()
-
-    def _build_llm(self) -> Optional[Any]:
-        try:
-            from langchain_openai import ChatOpenAI
-
-            return ChatOpenAI(
-                model=self.settings.model,
-                temperature=self.settings.temperature,
-                timeout=self.settings.timeout_seconds,
-            )
-        except ImportError:
-            return None
 
     def create(self, name: str, instructions_path: Path, skills: Iterable[str]):
         instructions = Path(instructions_path).read_text(encoding="utf-8")
-        if self._create_deep_agent is None or self._llm is None:
+        if self.settings.mock_mode or not DEEPAGENTS_AVAILABLE or _create_deep_agent is None:
             return LocalDeepAgent(name=name, instructions=instructions, skills=skills)
-        return self._create_deep_agent(
-            name=name,
-            llm=self._llm,
-            instructions=instructions,
+        return _create_deep_agent(
+            model=self.settings.model,
+            tools=[],
+            system_prompt=instructions,
             skills=list(skills),
-            max_iterations=4,
         )

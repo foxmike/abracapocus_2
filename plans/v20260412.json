@@ -1,0 +1,91 @@
+{
+  "project_name": "abracapocus_2",
+  "summary": "Plan for Update docs/demo_status.md with the latest demo guidance",
+  "phases": [
+    {
+      "name": "Phase 1: Research",
+      "objective": "Collect repo intelligence and constraints",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "research-update-docs/demo_sta",
+            "title": "Research existing assets",
+            "description": "Summarize repository and docs for downstream agents",
+            "phase": "research",
+            "status": "pending",
+            "acceptance_criteria": [
+              "Key directories cataloged",
+              "Constraints captured"
+            ],
+            "created_at": "2026-04-12T19:28:55.286955",
+            "selected_backend": null,
+            "verification_profile": null
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    },
+    {
+      "name": "Phase 2: Implementation",
+      "objective": "Execute coding work via CLI backend",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "build-update-docs/demo_sta",
+            "title": "Execute coding work",
+            "description": "Update docs/demo_status.md with the latest demo guidance",
+            "phase": "implementation",
+            "status": "pending",
+            "acceptance_criteria": [
+              "Implements goal description"
+            ],
+            "created_at": "2026-04-12T19:28:55.286961",
+            "selected_backend": null,
+            "verification_profile": null
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    },
+    {
+      "name": "Phase 3: Verification",
+      "objective": "Stabilize, verify, and prepare handoff",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "verify-update-docs/demo_sta",
+            "title": "Verify and document",
+            "description": "Run deterministic verification and document changes",
+            "phase": "verification",
+            "status": "pending",
+            "acceptance_criteria": [
+              "Verification run recorded",
+              "Reports stored"
+            ],
+            "created_at": "2026-04-12T19:28:55.286964",
+            "selected_backend": null,
+            "verification_profile": null
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    }
+  ],
+  "version": "v20260412",
+  "created_at": "2026-04-12T19:28:55.287004"
+}

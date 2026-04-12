@@ -1,0 +1,33 @@
+{
+  "project_name": "abracapocus_2",
+  "summary": "Task run: Custom Work",
+  "phases": [
+    {
+      "name": "Implementation Phase",
+      "objective": "Execute custom task",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "custom-task",
+            "title": "Custom Work",
+            "description": "Execute custom task",
+            "phase": "implementation",
+            "status": "pending",
+            "acceptance_criteria": [],
+            "created_at": "2026-04-12T19:33:41.784352",
+            "selected_backend": "aider_cli",
+            "verification_profile": "minimal"
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    }
+  ],
+  "version": "task-custom-task",
+  "created_at": "2026-04-12T19:33:41.787183"
+}

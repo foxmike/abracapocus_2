@@ -13,9 +13,9 @@ load_dotenv()
 
 
 class DeepAgentSettings(BaseModel):
-    """Parameters for LangChain Deep Agents."""
+    """Parameters for LangChain Deep Agents (model format 'provider:model_name')."""
 
-    model: str = "gpt-4o-mini"
+    model: str = "openai:gpt-4o"
     temperature: float = 0.1
     mock_mode: bool = True
     timeout_seconds: int = 60
@@ -115,7 +115,7 @@ def load_config() -> AppConfig:
     environment = os.getenv("APP_ENV", "development")
 
     deep_agent = DeepAgentSettings(
-        model=os.getenv("DEEP_AGENT_MODEL", "gpt-4o-mini"),
+        model=os.getenv("DEEP_AGENT_MODEL", "openai:gpt-4o"),
         temperature=float(os.getenv("DEEP_AGENT_TEMPERATURE", "0.1")),
         mock_mode=os.getenv("DEEP_AGENT_MOCK_MODE", "true").lower() == "true",
         timeout_seconds=int(os.getenv("DEEP_AGENT_TIMEOUT_SECONDS", "60")),

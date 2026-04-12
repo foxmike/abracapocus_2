@@ -1,6 +1,8 @@
 """Curated OpenRouter model registry for the Aider backend."""
 from __future__ import annotations
 
+import os
+
 OPENROUTER_MODELS = [
     {"name": "openrouter/qwen/qwen3-coder-next", "tags": ["coding_strong", "reasoning_strong"], "context": 128000},
     {"name": "openrouter/qwen/qwen3-235b-a22b-2507", "tags": ["coding_strong"], "context": 128000},
@@ -20,3 +22,14 @@ OPENROUTER_MODELS = [
     {"name": "openrouter/jondurbin/airoboros-70b", "tags": ["experimental", "reasoning"], "context": 4096},
     {"name": "openrouter/pygmalionai/mythalion-13b", "tags": ["experimental"], "context": 8192},
 ]
+
+
+def get_preferred_models() -> list[str]:
+    """Return operator-preferred model names from env, or empty list if not set.
+    Set OPENROUTER_PREFERRED_MODELS as a comma-separated list of model names.
+    Example: OPENROUTER_PREFERRED_MODELS=openrouter/qwen/qwen3-coder-next,openrouter/deepseek/deepseek-v3.2
+    """
+    raw = os.getenv("OPENROUTER_PREFERRED_MODELS", "").strip()
+    if not raw:
+        return []
+    return [m.strip() for m in raw.split(",") if m.strip()]
