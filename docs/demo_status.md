@@ -61,3 +61,9 @@ This file is updated automatically when `python main.py demo` runs.
 - Phase: implementation
 - Goal: Update docs/demo_status.md with the latest demo guidance
 - Context: Collected 25 documentation/code files
+## Run 2026-04-12T19:38:55
+- Task ID: demo-self-improve
+- Title: Refresh demo status log
+- Phase: implementation
+- Goal: Update docs/demo_status.md with the latest demo guidance
+- Context: Collected 25 documentation/code files

@@ -55,7 +55,9 @@ def test_codex_backend_executes_cli(monkeypatch, tmp_path):
 
     assert recorded["cwd"] == str(tmp_path)
     assert recorded["command"][0] == "codex"
-    assert "--id" in recorded["command"]
+    assert recorded["command"][1] == "exec"
+    assert "--full-auto" in recorded["command"]
+    assert any("Implement feature" in arg for arg in recorded["command"])
     assert result.stdout == "ok"
     assert result.exit_code == 0
     assert result.working_directory == str(tmp_path)
