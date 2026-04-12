@@ -1,0 +1,13 @@
+{
+  "task_id": "2.5",
+  "title": "Historical plan learning",
+  "description": "ManagementAgent stores successful plan templates in state/plan_history.json\nPlanningAgent reads plan_history.json and passes similar prior plans\nto create_plan() as examples\nSimilarity matched by: project_name, goal keyword overlap\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_2",
+  "acceptance_criteria": [
+    "Successful run writes plan template to plan_history.json",
+    "Second run on same project loads prior plan as example",
+    "plan_history.json capped at 20 entries, oldest removed"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

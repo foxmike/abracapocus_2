@@ -1,0 +1,13 @@
+{
+  "task_id": "3.5",
+  "title": "Model assignment in TaskDocument",
+  "description": "Add model field to TaskDocument (Optional[str], default None)\nPlanningAgent sets model per task from ModelProfileStore\nBackendRouter respects task.model if set, overrides profile selection\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_3",
+  "acceptance_criteria": [
+    "TaskDocument serializes/deserializes model field correctly",
+    "task.model set by planner appears in routing decision",
+    "task.model=None falls through to normal routing"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

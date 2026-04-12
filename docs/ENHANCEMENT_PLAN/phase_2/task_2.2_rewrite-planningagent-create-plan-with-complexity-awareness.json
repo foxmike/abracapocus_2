@@ -1,0 +1,14 @@
+{
+  "task_id": "2.2",
+  "title": "Rewrite PlanningAgent.create_plan() with complexity awareness",
+  "description": "Import and call ComplexityClassifier before generating phases\nGenerate phase count from complexity score\nFor each acceptance criterion, generate one TaskDocument\nAssign selected_backend from complexity score per task\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_2",
+  "acceptance_criteria": [
+    "Single-criterion task produces single-phase plan",
+    "Five-criterion task produces five or more tasks across phases",
+    "Each task has selected_backend set",
+    "Plans persist correctly to plans/ directory"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

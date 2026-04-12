@@ -1,0 +1,13 @@
+{
+  "task_id": "3.2",
+  "title": "ModelProfileStore loader",
+  "description": "Add runtime/model_profile_store.py\nLoads config/model_profiles.yaml at startup\nMethod: get_best_model(task_type, cost_tier, context_size) \u2192 model name\nMethod: get_profile(model_name) \u2192 dict\nMethod: get_non_interactive_models() \u2192 list\nVerification: `python -m pytest tests/test_model_profile_store.py -x`",
+  "phase": "phase_3",
+  "acceptance_criteria": [
+    "get_best_model(\"coding\", \"low\", 8000) returns a valid model name",
+    "get_profile returns all fields for known model",
+    "Unknown model returns None without error"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

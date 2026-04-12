@@ -1,0 +1,14 @@
+{
+  "task_id": "1.2",
+  "title": "Build ContextStore index and query",
+  "description": "Implement ContextStore class in runtime/context_store.py\nMethods: index_repo(root), update_files(changed_files), query(text, k=15)\nUse ChromaDB with local persistent storage at state/chroma/\nChunk files by function/class boundary for .py, by paragraph for .md\nFilter out .venv, __pycache__, .git, node_modules, *.pyc on index\nVerification: `python -m pytest tests/test_context_store.py -x`",
+  "phase": "phase_1",
+  "acceptance_criteria": [
+    "index_repo() indexes all eligible files under repo root",
+    "query() returns k most relevant chunks with file paths",
+    "update_files() re-indexes only the provided paths",
+    "state/chroma/ directory created and persisted after index"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

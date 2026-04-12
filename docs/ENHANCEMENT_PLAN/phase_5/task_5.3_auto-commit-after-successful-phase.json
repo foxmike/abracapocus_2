@@ -1,0 +1,13 @@
+{
+  "task_id": "5.3",
+  "title": "Auto-commit after successful phase",
+  "description": "phase_advance node calls GitManager.commit_changes() after\neach phase completes successfully\nCommit message format:\nabracapocus: phase {phase_name} complete [{run_id[:8]}]\nOnly commits if changed_files non-empty\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_5",
+  "acceptance_criteria": [
+    "Successful phase produces a git commit on run branch",
+    "Empty phase (no file changes) skips commit silently",
+    "Commit message includes phase name and run id"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

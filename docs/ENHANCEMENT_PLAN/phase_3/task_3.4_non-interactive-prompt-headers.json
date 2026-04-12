@@ -1,0 +1,13 @@
+{
+  "task_id": "3.4",
+  "title": "Non-interactive prompt headers",
+  "description": "Add shared prompt header to prompts/shared/non_interactive_header.md\nContent: clear statement that the agent operates non-interactively,\nmust not prompt for input, must not ask clarifying questions,\nmust make reasonable assumptions and proceed, must output\nmachine-parseable results\nCodingBackend base class prepends this header to all prompts on load\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_3",
+  "acceptance_criteria": [
+    "All backend prompts include non-interactive header when loaded",
+    "Header file exists at prompts/shared/non_interactive_header.md",
+    "`grep -r \"non-interactively\" prompts/` finds header in all backends"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

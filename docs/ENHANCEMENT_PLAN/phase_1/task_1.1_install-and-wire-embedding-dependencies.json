@@ -1,0 +1,13 @@
+{
+  "task_id": "1.1",
+  "title": "Install and wire embedding dependencies",
+  "description": "Add chromadb and sentence-transformers to requirements.txt\nVerify import in a new runtime/context_store.py stub\nVerification: `python -m py_compile runtime/context_store.py`",
+  "phase": "phase_1",
+  "acceptance_criteria": [
+    "`pip install -r requirements.txt` completes without error",
+    "`python -c \"import chromadb; import sentence_transformers\"` succeeds",
+    "runtime/context_store.py exists with a stub ContextStore class"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

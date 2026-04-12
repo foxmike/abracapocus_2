@@ -1,0 +1,12 @@
+{
+  "task_id": "1.5",
+  "title": "Add context_store make targets",
+  "description": "Add to Makefile: context-index, context-reset\ncontext-index runs python -m scripts.ops context-index\ncontext-reset deletes state/chroma/ and reinitializes\nAdd context_index and context_reset commands to scripts/ops.py\nVerification: `make context-index && make test`",
+  "phase": "phase_1",
+  "acceptance_criteria": [
+    "make context-index completes without error on real repo",
+    "make context-reset clears and rebuilds the index"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}

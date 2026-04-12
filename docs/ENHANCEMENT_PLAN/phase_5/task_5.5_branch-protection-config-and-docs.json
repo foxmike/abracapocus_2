@@ -1,0 +1,13 @@
+{
+  "task_id": "5.5",
+  "title": "Branch protection config and docs",
+  "description": "Add ABRACAPOCUS_ALLOW_MAIN, ABRACAPOCUS_BASE_BRANCH to .env.example\nAdd branch workflow section to docs/QUICKSTART.md\nDefault base branch: main, overridable via ABRACAPOCUS_BASE_BRANCH\nVerification: `python -m pytest tests/ -x`",
+  "phase": "phase_5",
+  "acceptance_criteria": [
+    ".env.example documents both variables with comments",
+    "QUICKSTART.md explains branch workflow end to end",
+    "ABRACAPOCUS_BASE_BRANCH=develop routes merges to develop"
+  ],
+  "selected_backend": "codex_cli",
+  "verification_profile": "strict"
+}
