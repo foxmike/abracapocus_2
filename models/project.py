@@ -36,3 +36,5 @@ class ContextPackage(BaseModel):
     summaries: List[str]
     files: List[str]
     notes: str
+    agents_md: str = ""
+    agents_metadata: dict = Field(default_factory=dict)

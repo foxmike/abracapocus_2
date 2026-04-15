@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Dict, List
 
 from backends.openrouter_models import OPENROUTER_MODELS
@@ -74,8 +75,8 @@ class RoutingDecision:
     model_tags: Dict[str, List[str]] = field(default_factory=dict)
     task_type: str | None = None
 
-    def backend(self):
-        return REGISTRY.get(self.backend_name)
+    def backend(self, working_root: Path):
+        return REGISTRY.get(self.backend_name, working_root=working_root)
 
 
 class BackendRouter:

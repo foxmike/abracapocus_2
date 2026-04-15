@@ -22,6 +22,10 @@ STATUS_LABELS = {
 }
 
 
+class SecurityError(RuntimeError):
+    """Raised when backend execution escapes the configured working root."""
+
+
 @dataclass(slots=True)
 class BackendResult:
     backend: str
@@ -45,13 +49,24 @@ class CodingBackend:
     name: str = "generic"
     executable: str = ""
 
-    def __init__(self, prompt_path: Path, timeout: int = 60, workdir: Path | None = None):
+    def __init__(self, prompt_path: Path, working_root: Path, timeout: int = 60):
         self.prompt_path = prompt_path
         self.prompt = Path(prompt_path).read_text(encoding="utf-8")
         self.timeout = timeout
-        self.workdir = Path(workdir) if workdir else Path.cwd()
+        if working_root is None:
+            raise ValueError("working_root is required for backend initialization")
+        self.working_root = Path(working_root)
+        self.workdir = self.working_root
         # Backends can opt-in to real CLI effects (writes, edits, etc.).
         self.supports_direct_execution = False
+
+    def _check_workdir_safe(self) -> None:
+        resolved_workdir = self.workdir.resolve()
+        resolved_working_root = self.working_root.resolve()
+        if resolved_workdir != resolved_working_root and resolved_working_root not in resolved_workdir.parents:
+            raise SecurityError(
+                f"Unsafe backend workdir: workdir={resolved_workdir} working_root={resolved_working_root}"
+            )
 
     def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
         """Construct the CLI command for the backend."""
@@ -69,12 +84,19 @@ class CodingBackend:
     ) -> BackendResult:
         command = self.build_command(task, context, model=model)
         start = time.time()
+        self._check_workdir_safe()
         workdir = str(self.workdir)
         before_snapshot, before_error = self._git_status_snapshot(workdir)
         real_execution = not dry_run and self._can_run_cli()
         if not real_execution:
             stdout = json.dumps(
-                {"task": task.model_dump(mode="json"), "context_notes": context.notes}, indent=2
+                {
+                    "task": task.model_dump(mode="json"),
+                    "context_notes": context.notes,
+                    "agents_metadata": context.agents_metadata,
+                    "agents_md_applied": bool(context.agents_md.strip()),
+                },
+                indent=2,
             )
             stderr = ""
             exit_code = 0

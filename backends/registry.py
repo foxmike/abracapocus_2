@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Callable, Dict, Iterable, List
 
 from backends.aider_cli import AiderCliBackend
@@ -16,7 +17,7 @@ from backends.gemini_cli import GeminiCliBackend
 class BackendDescriptor:
     name: str
     description: str
-    factory: Callable[[], CodingBackend]
+    factory: Callable[[Path], CodingBackend]
 
 
 class BackendRegistry:
@@ -27,27 +28,27 @@ class BackendRegistry:
             "codex_cli": BackendDescriptor(
                 name="codex_cli",
                 description="Codex CLI coding agent",
-                factory=lambda: CodexCliBackend(),
+                factory=lambda working_root: CodexCliBackend(working_root=working_root),
             ),
             "claude_code_cli": BackendDescriptor(
                 name="claude_code_cli",
                 description="Claude Code CLI coding agent",
-                factory=lambda: ClaudeCodeCliBackend(),
+                factory=lambda working_root: ClaudeCodeCliBackend(working_root=working_root),
             ),
             "gemini_cli": BackendDescriptor(
                 name="gemini_cli",
                 description="Gemini Code CLI coding agent",
-                factory=lambda: GeminiCliBackend(),
+                factory=lambda working_root: GeminiCliBackend(working_root=working_root),
             ),
             "aider_cli": BackendDescriptor(
                 name="aider_cli",
                 description="Aider CLI agent",
-                factory=lambda: AiderCliBackend(),
+                factory=lambda working_root: AiderCliBackend(working_root=working_root),
             ),
             "demo_cli": BackendDescriptor(
                 name="demo_cli",
                 description="Demo improvement backend",
-                factory=lambda: DemoCliBackend(),
+                factory=lambda working_root: DemoCliBackend(working_root=working_root),
             ),
         }
 
@@ -57,10 +58,10 @@ class BackendRegistry:
     def names(self) -> List[str]:
         return list(self._registry.keys())
 
-    def get(self, name: str) -> CodingBackend:
+    def get(self, name: str, working_root: Path) -> CodingBackend:
         if name not in self._registry:
             raise KeyError(f"Unknown backend {name}")
-        return self._registry[name].factory()
+        return self._registry[name].factory(Path(working_root))
 
     def describe(self, name: str) -> BackendDescriptor:
         if name not in self._registry:

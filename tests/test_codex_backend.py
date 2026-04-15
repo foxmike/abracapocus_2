@@ -24,8 +24,18 @@ def _sample_context() -> ContextPackage:
     return ContextPackage(summaries=["s"], files=["main.py"], notes="context")
 
 
+def _sample_context_with_agents() -> ContextPackage:
+    return ContextPackage(
+        summaries=["s"],
+        files=["main.py"],
+        notes="context",
+        agents_md="# AGENTS\n- rule one",
+        agents_metadata={"loaded": True},
+    )
+
+
 def test_codex_backend_executes_cli(monkeypatch, tmp_path):
-    backend = CodexCliBackend()
+    backend = CodexCliBackend(working_root=tmp_path)
     backend.workdir = Path(tmp_path)
     recorded = {}
     monkeypatch.setattr(CodexCliBackend, "_can_run_cli", lambda self: True)
@@ -57,6 +67,12 @@ def test_codex_backend_executes_cli(monkeypatch, tmp_path):
     assert recorded["command"][0] == "codex"
     assert recorded["command"][1] == "exec"
     assert "--full-auto" in recorded["command"]
+    assert "-m" in recorded["command"]
+    model_index = recorded["command"].index("-m")
+    assert recorded["command"][model_index + 1] == "gpt-5.3-codex"
+    assert "-C" in recorded["command"]
+    cd_index = recorded["command"].index("-C")
+    assert recorded["command"][cd_index + 1] == str(tmp_path)
     assert any("Implement feature" in arg for arg in recorded["command"])
     assert result.stdout == "ok"
     assert result.exit_code == 0
@@ -66,7 +82,7 @@ def test_codex_backend_executes_cli(monkeypatch, tmp_path):
 
 
 def test_codex_backend_handles_cli_errors(monkeypatch, tmp_path):
-    backend = CodexCliBackend()
+    backend = CodexCliBackend(working_root=tmp_path)
     backend.workdir = Path(tmp_path)
     monkeypatch.setattr(CodexCliBackend, "_can_run_cli", lambda self: True)
     monkeypatch.setattr(CodexCliBackend, "_git_status_snapshot", lambda self, workdir: ({}, None))
@@ -87,7 +103,7 @@ def test_codex_backend_handles_cli_errors(monkeypatch, tmp_path):
 
 
 def test_codex_backend_git_unavailable(monkeypatch, tmp_path):
-    backend = CodexCliBackend()
+    backend = CodexCliBackend(working_root=tmp_path)
     backend.workdir = Path(tmp_path)
     monkeypatch.setattr(CodexCliBackend, "_can_run_cli", lambda self: False)
     monkeypatch.setattr(
@@ -100,3 +116,36 @@ def test_codex_backend_git_unavailable(monkeypatch, tmp_path):
     result = backend.execute(task, context, dry_run=False)
     assert result.changed_files == []
     assert "git metadata unavailable" in result.diff_summary
+
+
+def test_codex_backend_includes_agents_md_prompt():
+    backend = CodexCliBackend(working_root=Path.cwd())
+    command = backend.build_command(_sample_task(), _sample_context_with_agents())
+    assert any("AGENTS.md" in token for token in command)
+    assert any("rule one" in token for token in command)
+    assert any("AGENTS metadata" in token for token in command)
+    assert any('"loaded": true' in token for token in command)
+
+
+def test_codex_backend_includes_acceptance_criteria_in_prompt():
+    backend = CodexCliBackend(working_root=Path.cwd())
+    task = TaskDocument(
+        task_id="task-acceptance",
+        title="Implement feature",
+        description="Do something real",
+        phase="implementation",
+        acceptance_criteria=["criterion one", "criterion two"],
+    )
+    command = backend.build_command(task, _sample_context())
+    assert any("Acceptance criteria:" in token for token in command)
+    assert any("criterion one" in token for token in command)
+    assert any("criterion two" in token for token in command)
+
+
+def test_codex_backend_respects_env_model_override(monkeypatch):
+    monkeypatch.setenv("CODEX_MODEL", "custom-codex-model")
+    backend = CodexCliBackend(working_root=Path.cwd())
+    command = backend.build_command(_sample_task(), _sample_context())
+    assert "-m" in command
+    idx = command.index("-m")
+    assert command[idx + 1] == "custom-codex-model"

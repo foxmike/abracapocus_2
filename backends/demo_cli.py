@@ -12,12 +12,18 @@ class DemoCliBackend(CodingBackend):
     name = "demo_cli"
     executable = "python"
 
-    def __init__(self, prompt_path: Path | None = None, timeout: int = 60):
-        super().__init__(prompt_path or Path("prompts/demo_cli.md"), timeout)
+    def __init__(self, prompt_path: Path | None = None, timeout: int = 60, working_root: Path | None = None):
+        super().__init__(
+            prompt_path=prompt_path or Path("prompts/demo_cli.md"),
+            working_root=working_root,
+            timeout=timeout,
+        )
         self.supports_direct_execution = True
 
     def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
         notes = context.notes or ""
+        if context.agents_md:
+            notes = f"{notes}\n\nAGENTS.md guidance:\n{context.agents_md}" if notes else f"AGENTS.md guidance:\n{context.agents_md}"
         return [
             self.executable,
             "scripts/demo_improvement.py",

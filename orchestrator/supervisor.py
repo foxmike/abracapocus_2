@@ -32,6 +32,7 @@ from models.reports import (
     VerificationReport,
 )
 from runtime.deep_agent_factory import DeepAgentFactory
+from runtime.agents_md import compose_agents_backend_notes, load_root_agents_md
 from runtime.logging import configure_logging
 from runtime.router import BackendRouter
 from runtime.state_store import StateStore
@@ -94,6 +95,7 @@ class SupervisorOrchestrator:
         self.reviewer_agent = ReviewerAgent(self.factory)
         self.verifier_agent = VerifierAgent(self.factory, self.config.verification)
         self.router = BackendRouter(self.config)
+        self._agents_md, self._agents_metadata = load_root_agents_md(self.config.paths.root_dir)
         self._task_override: TaskDocument | None = None
         self.graph = self._build_graph()
 
@@ -170,6 +172,17 @@ class SupervisorOrchestrator:
 
     def _research_node(self, state: SupervisorState) -> dict:
         context = self.research_agent.gather(state["request"])
+        agents_notes = compose_agents_backend_notes(self._agents_md)
+        notes = context.notes
+        if agents_notes:
+            notes = f"{notes}; {agents_notes}" if notes else agents_notes
+        context = context.model_copy(
+            update={
+                "notes": notes,
+                "agents_md": self._agents_md,
+                "agents_metadata": self._agents_metadata,
+            }
+        )
         return {"context": context}
 
     def _phase_router(self, state: SupervisorState) -> Command:
@@ -216,7 +229,7 @@ class SupervisorOrchestrator:
         prefix = f"[abracapocus][phase:{phase_name}][task:{task.task_id}]"
         print(f"{prefix} routing task via backend router")
         decision = self.router.select(task)
-        backend = decision.backend()
+        backend = decision.backend(self.config.paths.working_root)
         if not task.selected_backend:
             task.selected_backend = decision.backend_name
         dry_run = not getattr(backend, "supports_direct_execution", False)
@@ -268,11 +281,20 @@ class SupervisorOrchestrator:
         phase = plan.phases[phase_index]
         task_results = list(state["task_results"])
         executions = [result.execution for result in task_results]
+        phase_verification_profile = next(
+            (
+                result.task.verification_profile
+                for result in task_results
+                if result.task.verification_profile
+            ),
+            None,
+        )
         verification_task = TaskDocument(
             task_id=f"{phase.name}-verification",
             title=f"Verify phase {phase.name}",
             description=phase.objective,
             phase=phase.name,
+            verification_profile=phase_verification_profile,
         )
         print(f"[abracapocus][verification:{phase.name}] starting verification for {len(task_results)} tasks")
         verification = (
@@ -393,6 +415,12 @@ class SupervisorOrchestrator:
             "selected_backend": first_task.selected_backend if first_task else None,
             "verification_profile": first_task.verification_profile if first_task else None,
             "backend_reason": "phase_based",
+            "agents_md": {
+                "loaded": self._agents_metadata.get("loaded", False),
+                "path": self._agents_metadata.get("path"),
+                "rule_count": self._agents_metadata.get("rule_count", 0),
+                "sha256_12": self._agents_metadata.get("sha256_12"),
+            },
             "phase_results": [
                 {
                     "phase_name": phase.phase_name,

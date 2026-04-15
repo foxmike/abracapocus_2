@@ -203,6 +203,7 @@ def config_show() -> None:
             "environment": config.environment,
             "default_backend": config.default_backend,
             "routing_mode": config.routing.routing_mode,
+            "working_root": str(config.paths.working_root),
         },
         indent=2,
     ))

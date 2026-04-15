@@ -54,6 +54,18 @@ def test_runtime_backend_override(monkeypatch, tmp_path):
     assert decision.backend_name == "gemini_cli"
 
 
+def test_routing_decision_backend_uses_config_working_root(monkeypatch, tmp_path):
+    monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    config = _tmp_config(tmp_path)
+    orchestrator = SupervisorOrchestrator(config)
+    task = TaskDocument(task_id="t-root", title="Root", description="root", phase="build")
+    decision = orchestrator.router.select(task)
+
+    backend = decision.backend(orchestrator.config.paths.working_root)
+
+    assert backend.working_root == tmp_path
+
+
 def test_runtime_verification_override(monkeypatch, tmp_path):
     monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
     config = _tmp_config(tmp_path)
@@ -134,6 +146,7 @@ def _tmp_config(tmp_path: Path):
     config = load_config()
     paths = config.paths.model_copy(
         update={
+            "working_root": tmp_path,
             "logs_dir": tmp_path / "logs",
             "reports_dir": tmp_path / "reports",
             "plans_dir": tmp_path / "plans",

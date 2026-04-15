@@ -12,11 +12,18 @@ class GeminiCliBackend(CodingBackend):
     name = "gemini_cli"
     executable = "gemini"
 
-    def __init__(self, prompt_path: Path | None = None, timeout: int = 90):
-        super().__init__(prompt_path or Path("prompts/gemini_cli.md"), timeout)
+    def __init__(self, prompt_path: Path | None = None, timeout: int = 90, working_root: Path | None = None):
+        super().__init__(
+            prompt_path=prompt_path or Path("prompts/gemini_cli.md"),
+            working_root=working_root,
+            timeout=timeout,
+        )
         self.supports_direct_execution = True
 
     def build_command(self, task: TaskDocument, context: ContextPackage, model: str | None = None) -> List[str]:
+        summary = task.description
+        if context.agents_md:
+            summary = f"{task.description}\n\nAGENTS.md guidance:\n{context.agents_md}"
         return [
             self.executable,
             "code",
@@ -25,5 +32,5 @@ class GeminiCliBackend(CodingBackend):
             "--task",
             task.task_id,
             "--summary",
-            task.description,
+            summary,
         ]

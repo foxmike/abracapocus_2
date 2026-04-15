@@ -35,6 +35,7 @@ class PathSettings(BaseModel):
     """Important filesystem paths."""
 
     root_dir: Path = Path(__file__).parent
+    working_root: Path = Field(default_factory=Path.cwd)
     logs_dir: Path = Path("logs")
     reports_dir: Path = Path("reports")
     state_file: Path = Path("state/runtime_state.json")
@@ -96,7 +97,10 @@ class AppConfig:
 def load_config() -> AppConfig:
     """Load config from environment + defaults."""
 
-    paths = PathSettings()
+    working_root_env = os.getenv("ABRACAPOCUS_WORKING_ROOT")
+    paths = PathSettings(
+        working_root=Path(working_root_env) if working_root_env else Path.cwd(),
+    )
     for directory in (
         paths.logs_dir,
         paths.reports_dir,
