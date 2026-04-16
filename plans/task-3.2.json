@@ -1,0 +1,38 @@
+{
+  "project_name": "abracapocus_2",
+  "summary": "Task run: Rewrite PlanningAgent.create_plan() with complexity awareness",
+  "phases": [
+    {
+      "name": "Phase_3 Phase",
+      "objective": "Import and call ComplexityClassifier before generating phases\nGenerate phase count from complexity score\nFor each acceptance criterion, generate one TaskDocument\nAssign selected_backend from complexity score per task\nVerification: `python -m pytest tests/ -x`",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "3.2",
+            "title": "Rewrite PlanningAgent.create_plan() with complexity awareness",
+            "description": "Import and call ComplexityClassifier before generating phases\nGenerate phase count from complexity score\nFor each acceptance criterion, generate one TaskDocument\nAssign selected_backend from complexity score per task\nVerification: `python -m pytest tests/ -x`",
+            "phase": "phase_3",
+            "status": "pending",
+            "acceptance_criteria": [
+              "Single-criterion task produces single-phase plan",
+              "Five-criterion task produces five or more tasks across phases",
+              "Each task has selected_backend set",
+              "Plans persist correctly to plans/ directory"
+            ],
+            "created_at": "2026-04-16T20:42:10.140376",
+            "selected_backend": "codex_cli",
+            "verification_profile": "strict"
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    }
+  ],
+  "version": "task-3.2",
+  "created_at": "2026-04-16T20:42:10.158420"
+}

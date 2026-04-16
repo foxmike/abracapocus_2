@@ -1,0 +1,36 @@
+{
+  "project_name": "abracapocus_2",
+  "summary": "Task run: Add context_store make targets",
+  "phases": [
+    {
+      "name": "Phase_2 Phase",
+      "objective": "Add to Makefile: context-index, context-reset\ncontext-index runs python -m scripts.ops context-index\ncontext-reset deletes state/chroma/ and reinitializes\nAdd context_index and context_reset commands to scripts/ops.py\nVerification: `make context-index && make test`",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "2.5",
+            "title": "Add context_store make targets",
+            "description": "Add to Makefile: context-index, context-reset\ncontext-index runs python -m scripts.ops context-index\ncontext-reset deletes state/chroma/ and reinitializes\nAdd context_index and context_reset commands to scripts/ops.py\nVerification: `make context-index && make test`",
+            "phase": "phase_2",
+            "status": "pending",
+            "acceptance_criteria": [
+              "make context-index completes without error on real repo",
+              "make context-reset clears and rebuilds the index"
+            ],
+            "created_at": "2026-04-16T20:10:00.627778",
+            "selected_backend": "codex_cli",
+            "verification_profile": "strict"
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    }
+  ],
+  "version": "task-2.5",
+  "created_at": "2026-04-16T20:10:00.648062"
+}

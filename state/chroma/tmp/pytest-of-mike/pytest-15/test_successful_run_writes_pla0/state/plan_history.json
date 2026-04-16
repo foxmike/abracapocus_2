@@ -1,0 +1,40 @@
+[
+  {
+    "created_at": "2026-04-16T21:25:02.227643",
+    "project_name": "abracapocus_2",
+    "goal": "Verify history persistence",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: History Task",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Verify history persistence",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "history-task",
+                "title": "History Task",
+                "description": "Verify history persistence",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:25:01.985839",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:25:02.225143",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-history-task",
+      "created_at": "2026-04-16T21:25:01.988346"
+    }
+  }
+]

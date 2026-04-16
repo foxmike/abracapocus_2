@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 from pathlib import Path
 from typing import List, Optional
@@ -14,6 +15,7 @@ from models.plan import Plan
 from models.project import ProjectRequest, TaskDocument
 from orchestrator.supervisor import SupervisorOrchestrator
 from runtime.state_store import StateStore
+from runtime.context_store import ContextStore
 
 app = typer.Typer(help="Operational helpers")
 
@@ -133,6 +135,25 @@ def state_reset() -> None:
     store = StateStore(load_config())
     store.reset()
     typer.echo("Runtime state reset")
+
+
+@app.command()
+def context_index() -> None:
+    config = load_config()
+    store = ContextStore()
+    store.index_repo(config.paths.working_root)
+    typer.echo(f"Context index built at {config.paths.working_root / 'state' / 'chroma'}")
+
+
+@app.command()
+def context_reset() -> None:
+    config = load_config()
+    chroma_dir = config.paths.working_root / "state" / "chroma"
+    if chroma_dir.exists():
+        shutil.rmtree(chroma_dir)
+    store = ContextStore()
+    store.index_repo(config.paths.working_root)
+    typer.echo(f"Context index reset at {chroma_dir}")
 
 
 @app.command()

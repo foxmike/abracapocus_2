@@ -1,0 +1,802 @@
+[
+  {
+    "created_at": "2026-04-16T21:25:27.713991",
+    "project_name": "abracapocus_2",
+    "goal": "goal-5",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.713454",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.713502"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.716267",
+    "project_name": "abracapocus_2",
+    "goal": "goal-6",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.715641",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.715689"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.718777",
+    "project_name": "abracapocus_2",
+    "goal": "goal-7",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.718117",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.718171"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.721962",
+    "project_name": "abracapocus_2",
+    "goal": "goal-8",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.721252",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.721312"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.725214",
+    "project_name": "abracapocus_2",
+    "goal": "goal-9",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.724464",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.724528"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.728974",
+    "project_name": "abracapocus_2",
+    "goal": "goal-10",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.728175",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.728267"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.733651",
+    "project_name": "abracapocus_2",
+    "goal": "goal-11",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.732597",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.732658"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.737263",
+    "project_name": "abracapocus_2",
+    "goal": "goal-12",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.736490",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.736544"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.741395",
+    "project_name": "abracapocus_2",
+    "goal": "goal-13",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.740137",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.740581"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.745351",
+    "project_name": "abracapocus_2",
+    "goal": "goal-14",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.744538",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.744593"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.750213",
+    "project_name": "abracapocus_2",
+    "goal": "goal-15",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.749283",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.749345"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.754623",
+    "project_name": "abracapocus_2",
+    "goal": "goal-16",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.753737",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.753792"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.759177",
+    "project_name": "abracapocus_2",
+    "goal": "goal-17",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.758125",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.758173"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.763756",
+    "project_name": "abracapocus_2",
+    "goal": "goal-18",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.762870",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.762918"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.768590",
+    "project_name": "abracapocus_2",
+    "goal": "goal-19",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.767629",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.767683"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.773527",
+    "project_name": "abracapocus_2",
+    "goal": "goal-20",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.772613",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.772663"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.777015",
+    "project_name": "abracapocus_2",
+    "goal": "goal-21",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.776431",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.776461"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.780298",
+    "project_name": "abracapocus_2",
+    "goal": "goal-22",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.779666",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.779703"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.783624",
+    "project_name": "abracapocus_2",
+    "goal": "goal-23",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.782963",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.783002"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:27.786461",
+    "project_name": "abracapocus_2",
+    "goal": "goal-24",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "sample",
+      "phases": [
+        {
+          "name": "Phase 1",
+          "objective": "obj",
+          "status": "planned",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "t1",
+                "title": "Task",
+                "description": "desc",
+                "phase": "Phase 1",
+                "status": "pending",
+                "acceptance_criteria": [
+                  "ok"
+                ],
+                "created_at": "2026-04-16T21:25:27.785937",
+                "selected_backend": null,
+                "verification_profile": null
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": false,
+          "completed_at": null,
+          "human_checkpoint": null
+        }
+      ],
+      "version": "vtest",
+      "created_at": "2026-04-16T21:25:27.785971"
+    }
+  }
+]

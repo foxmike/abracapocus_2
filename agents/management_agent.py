@@ -1,6 +1,7 @@
 """Management agent for project state."""
 from __future__ import annotations
 
+import json
 from datetime import datetime
 from pathlib import Path
 
@@ -84,3 +85,24 @@ class ManagementAgent(BaseAgent):
         plans_dir.mkdir(parents=True, exist_ok=True)
         path = plans_dir / f"{plan.version}.json"
         path.write_text(plan.model_dump_json(indent=2), encoding="utf-8")
+
+    def store_successful_plan_template(self, plan: Plan, goal: str) -> None:
+        history_path = self.state_store.path.parent / "plan_history.json"
+        history_path.parent.mkdir(parents=True, exist_ok=True)
+        if history_path.exists():
+            data = json.loads(history_path.read_text(encoding="utf-8") or "[]")
+            history = data if isinstance(data, list) else []
+        else:
+            history = []
+
+        history.append(
+            {
+                "created_at": datetime.utcnow().isoformat(),
+                "project_name": plan.project_name,
+                "goal": goal,
+                "plan_template": plan.model_dump(mode="json"),
+            }
+        )
+        if len(history) > 20:
+            history = history[-20:]
+        history_path.write_text(json.dumps(history, indent=2), encoding="utf-8")

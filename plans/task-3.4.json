@@ -1,0 +1,37 @@
+{
+  "project_name": "abracapocus_2",
+  "summary": "Task run: Two-pass plan review",
+  "phases": [
+    {
+      "name": "Phase_3 Phase",
+      "objective": "Add agents/plan_critic.py with PlanCriticAgent\nAfter PlanningAgent generates draft, PlanCriticAgent reviews for:\nmissing verification tasks, missing research tasks,\ntasks with no acceptance criteria, phase ordering issues\nReturns list of PlanCritique items, planning agent revises if any\nVerification: `python -m pytest tests/ -x`",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "3.4",
+            "title": "Two-pass plan review",
+            "description": "Add agents/plan_critic.py with PlanCriticAgent\nAfter PlanningAgent generates draft, PlanCriticAgent reviews for:\nmissing verification tasks, missing research tasks,\ntasks with no acceptance criteria, phase ordering issues\nReturns list of PlanCritique items, planning agent revises if any\nVerification: `python -m pytest tests/ -x`",
+            "phase": "phase_3",
+            "status": "pending",
+            "acceptance_criteria": [
+              "Plan with no verification task gets one added",
+              "Plan with empty acceptance criteria gets flagged",
+              "Revised plan persisted correctly"
+            ],
+            "created_at": "2026-04-16T21:10:46.022740",
+            "selected_backend": "codex_cli",
+            "verification_profile": "strict"
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    }
+  ],
+  "version": "task-3.4",
+  "created_at": "2026-04-16T21:10:46.042795"
+}

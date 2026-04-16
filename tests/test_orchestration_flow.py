@@ -37,6 +37,32 @@ def test_run_with_task_document(monkeypatch):
     assert report.metadata["verification_profile"] == "minimal"
 
 
+def test_research_agent_update_files_called_after_task(monkeypatch):
+    monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    config = load_config()
+    orchestrator = SupervisorOrchestrator(config)
+    captured = {"called": False, "changed_files": None}
+
+    def _capture(changed_files):
+        captured["called"] = True
+        captured["changed_files"] = changed_files
+
+    orchestrator.research_agent.update_files = _capture
+    task = TaskDocument(
+        task_id="custom-task",
+        title="Custom Work",
+        description="Execute custom task",
+        phase="implementation",
+        selected_backend="aider_cli",
+        verification_profile="minimal",
+    )
+    request = ProjectRequest(project_name=config.project_name, goal=task.description, context="manual-run")
+    orchestrator.run(request, task=task)
+
+    assert captured["called"] is True
+    assert isinstance(captured["changed_files"], list)
+
+
 def test_runtime_backend_override(monkeypatch, tmp_path):
     monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
     config = _tmp_config(tmp_path)

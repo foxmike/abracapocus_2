@@ -89,8 +89,11 @@ class SupervisorOrchestrator:
         self._apply_overrides(initial_state.operator_overrides)
         self.logger = configure_logging(self.config)
         self.factory = DeepAgentFactory(self.config.deep_agent)
-        self.planning_agent = PlanningAgent(self.factory)
-        self.research_agent = ResearchAgent(self.factory)
+        self.planning_agent = PlanningAgent(
+            self.factory,
+            history_path=self.config.paths.state_file.parent / "plan_history.json",
+        )
+        self.research_agent = ResearchAgent(self.factory, repo_root=self.config.paths.working_root)
         self.management_agent = ManagementAgent(self.factory, self.state_store)
         self.reviewer_agent = ReviewerAgent(self.factory)
         self.verifier_agent = VerifierAgent(self.factory, self.config.verification)
@@ -213,6 +216,9 @@ class SupervisorOrchestrator:
 
     def _finalize_node(self, state: SupervisorState) -> dict:
         report = self._assemble_final_report(state)
+        plan = state.get("plan")
+        if plan is not None and report.verification.status == "passed":
+            self.management_agent.store_successful_plan_template(plan, state["request"].goal)
         self._persist_report(report)
         self.logger.info(
             "run=%s phases=%d verification=%s",
@@ -267,6 +273,7 @@ class SupervisorOrchestrator:
         if execution is None:
             raise RuntimeError("Backend execution did not produce a result")
         review = self._run_review(task, [execution])
+        self.research_agent.update_files(execution.changed_files)
         status = "passed" if execution.exit_code == 0 else "failed"
         task.status = "completed" if status == "passed" else "failed"
         print(f"{prefix} execution exit_code={execution.exit_code}")

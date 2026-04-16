@@ -1,0 +1,37 @@
+{
+  "project_name": "abracapocus_2",
+  "summary": "Task run: Acceptance-criteria-driven task decomposition",
+  "phases": [
+    {
+      "name": "Phase_3 Phase",
+      "objective": "Add PlanningAgent._decompose_from_criteria() method\nEach criterion becomes a TaskDocument with:\ntask_id derived from criterion text slug\ndescription = criterion text\nacceptance_criteria = [criterion]\nphase assigned by criterion index and complexity score\nVerification: `python -m pytest tests/ -x`",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "3.3",
+            "title": "Acceptance-criteria-driven task decomposition",
+            "description": "Add PlanningAgent._decompose_from_criteria() method\nEach criterion becomes a TaskDocument with:\ntask_id derived from criterion text slug\ndescription = criterion text\nacceptance_criteria = [criterion]\nphase assigned by criterion index and complexity score\nVerification: `python -m pytest tests/ -x`",
+            "phase": "phase_3",
+            "status": "pending",
+            "acceptance_criteria": [
+              "Three criteria → three tasks across appropriate phases",
+              "task_id slugs are unique and deterministic",
+              "No duplicate tasks generated"
+            ],
+            "created_at": "2026-04-16T20:58:48.472126",
+            "selected_backend": "codex_cli",
+            "verification_profile": "strict"
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    }
+  ],
+  "version": "task-3.3",
+  "created_at": "2026-04-16T20:58:48.491507"
+}

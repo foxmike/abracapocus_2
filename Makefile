@@ -13,6 +13,7 @@ AGENT ?=
 ENABLED ?=true
 
 .PHONY: help install setup run demo test lint format clean tree docs state-show state-reset \
+	context-index context-reset \
 	plan-init plan-show phase-init phase-show task-init task-list task-show task-run task-verify \
 	report-show backend-list backend-set agent-list agent-set config-show prompt-show skill-list \
 	plan-init verification-set
@@ -55,6 +56,12 @@ state-show: ## Show runtime state
 
 state-reset: ## Reset runtime state
 	$(PYTHON) -m scripts.ops state-reset
+
+context-index: ## Build context store index for working repo
+	$(PYTHON) -m scripts.ops context-index
+
+context-reset: ## Reset and rebuild context store index
+	$(PYTHON) -m scripts.ops context-reset
 
 plan-init: ## Initialize a plan document
 	$(PYTHON) -m scripts.ops plan-init --name $(PLAN_NAME)

@@ -1,0 +1,746 @@
+[
+  {
+    "created_at": "2026-04-16T21:22:13.614577",
+    "project_name": "abracapocus_2",
+    "goal": "Update docs/demo_status.md with the latest demo guidance",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Refresh demo status log",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Update docs/demo_status.md with the latest demo guidance",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "demo-self-improve",
+                "title": "Refresh demo status log",
+                "description": "Update docs/demo_status.md with the latest demo guidance",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/demo_status.md exists",
+                  "Log includes latest task details"
+                ],
+                "created_at": "2026-04-16T21:22:11.619520",
+                "selected_backend": "demo_cli",
+                "verification_profile": "default"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:22:13.608558",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-demo-self-improve",
+      "created_at": "2026-04-16T21:22:11.624867"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:22:15.359874",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:22:13.667392",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:22:15.353709",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:22:13.671936"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:22:17.221622",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:22:15.428201",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:22:17.215452",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:22:15.432520"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:22:44.848421",
+    "project_name": "abracapocus_2",
+    "goal": "Update docs/demo_status.md with the latest demo guidance",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Refresh demo status log",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Update docs/demo_status.md with the latest demo guidance",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "demo-self-improve",
+                "title": "Refresh demo status log",
+                "description": "Update docs/demo_status.md with the latest demo guidance",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/demo_status.md exists",
+                  "Log includes latest task details"
+                ],
+                "created_at": "2026-04-16T21:22:42.843978",
+                "selected_backend": "demo_cli",
+                "verification_profile": "default"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:22:44.841710",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-demo-self-improve",
+      "created_at": "2026-04-16T21:22:42.849460"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:22:46.773366",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:22:44.900657",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:22:46.767262",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:22:44.904785"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:22:48.770392",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:22:46.852967",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:22:48.764345",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:22:46.858134"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:23:04.709756",
+    "project_name": "abracapocus_2",
+    "goal": "Update docs/demo_status.md with the latest demo guidance",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Refresh demo status log",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Update docs/demo_status.md with the latest demo guidance",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "demo-self-improve",
+                "title": "Refresh demo status log",
+                "description": "Update docs/demo_status.md with the latest demo guidance",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/demo_status.md exists",
+                  "Log includes latest task details"
+                ],
+                "created_at": "2026-04-16T21:23:02.644178",
+                "selected_backend": "demo_cli",
+                "verification_profile": "default"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:23:04.703107",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-demo-self-improve",
+      "created_at": "2026-04-16T21:23:02.650121"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:23:06.728079",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:23:04.767751",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:23:06.721294",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:23:04.772674"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:23:08.678993",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:23:06.790060",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:23:08.673387",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:23:06.794774"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:24:10.025974",
+    "project_name": "abracapocus_2",
+    "goal": "Update docs/demo_status.md with the latest demo guidance",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Refresh demo status log",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Update docs/demo_status.md with the latest demo guidance",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "demo-self-improve",
+                "title": "Refresh demo status log",
+                "description": "Update docs/demo_status.md with the latest demo guidance",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/demo_status.md exists",
+                  "Log includes latest task details"
+                ],
+                "created_at": "2026-04-16T21:24:07.880997",
+                "selected_backend": "demo_cli",
+                "verification_profile": "default"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:24:10.019599",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-demo-self-improve",
+      "created_at": "2026-04-16T21:24:07.887242"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:24:12.424835",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:24:10.127940",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:24:12.418834",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:24:10.132401"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:24:14.469829",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:24:12.480504",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:24:14.462869",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:24:12.485386"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:24:53.825793",
+    "project_name": "abracapocus_2",
+    "goal": "Update docs/demo_status.md with the latest demo guidance",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Refresh demo status log",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Update docs/demo_status.md with the latest demo guidance",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "demo-self-improve",
+                "title": "Refresh demo status log",
+                "description": "Update docs/demo_status.md with the latest demo guidance",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/demo_status.md exists",
+                  "Log includes latest task details"
+                ],
+                "created_at": "2026-04-16T21:24:51.715350",
+                "selected_backend": "demo_cli",
+                "verification_profile": "default"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:24:53.819615",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-demo-self-improve",
+      "created_at": "2026-04-16T21:24:51.720824"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:24:55.801844",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:24:53.897661",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:24:55.791927",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:24:53.902713"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:24:58.020922",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:24:55.890655",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:24:58.014687",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:24:55.905028"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:17.961737",
+    "project_name": "abracapocus_2",
+    "goal": "Update docs/demo_status.md with the latest demo guidance",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Refresh demo status log",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Update docs/demo_status.md with the latest demo guidance",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "demo-self-improve",
+                "title": "Refresh demo status log",
+                "description": "Update docs/demo_status.md with the latest demo guidance",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [
+                  "docs/demo_status.md exists",
+                  "Log includes latest task details"
+                ],
+                "created_at": "2026-04-16T21:25:15.726276",
+                "selected_backend": "demo_cli",
+                "verification_profile": "default"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:25:17.955346",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-demo-self-improve",
+      "created_at": "2026-04-16T21:25:15.732119"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:20.002126",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:25:17.998072",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:25:19.996385",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:25:18.001601"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:22.000755",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T21:25:20.061727",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:25:21.994503",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T21:25:20.065977"
+    }
+  },
+  {
+    "created_at": "2026-04-16T21:25:30.662956",
+    "project_name": "abracapocus_2",
+    "goal": "ManagementAgent stores successful plan templates in state/plan_history.json\nPlanningAgent reads plan_history.json and passes similar prior plans\nto create_plan() as examples\nSimilarity matched by: project_name, goal keyword overlap\nVerification: `python -m pytest tests/ -x`",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Historical plan learning",
+      "phases": [
+        {
+          "name": "Phase_3 Phase",
+          "objective": "ManagementAgent stores successful plan templates in state/plan_history.json\nPlanningAgent reads plan_history.json and passes similar prior plans\nto create_plan() as examples\nSimilarity matched by: project_name, goal keyword overlap\nVerification: `python -m pytest tests/ -x`",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "3.5",
+                "title": "Historical plan learning",
+                "description": "ManagementAgent stores successful plan templates in state/plan_history.json\nPlanningAgent reads plan_history.json and passes similar prior plans\nto create_plan() as examples\nSimilarity matched by: project_name, goal keyword overlap\nVerification: `python -m pytest tests/ -x`",
+                "phase": "phase_3",
+                "status": "completed",
+                "acceptance_criteria": [
+                  "Successful run writes plan template to plan_history.json",
+                  "Second run on same project loads prior plan as example",
+                  "plan_history.json capped at 20 entries, oldest removed"
+                ],
+                "created_at": "2026-04-16T21:23:27.086781",
+                "selected_backend": "codex_cli",
+                "verification_profile": "strict"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T21:25:30.654669",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-3.5",
+      "created_at": "2026-04-16T21:23:27.107262"
+    }
+  }
+]
