@@ -20,6 +20,7 @@ class BackendExecution(BaseModel):
     working_directory: Optional[str] = None
     changed_files: List[dict] = Field(default_factory=list)
     diff_summary: str = ""
+    model_attempts: List[str] = Field(default_factory=list)
 
 
 class ReviewFinding(BaseModel):

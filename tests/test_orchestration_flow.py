@@ -9,6 +9,7 @@ from runtime.state_store import StateStore
 
 def test_demo_flow_runs(tmp_path, monkeypatch):
     monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    monkeypatch.setenv("ABRACAPOCUS_ALLOW_MAIN", "true")
     report = run_demo()
     assert report.backend_executions
     assert report.backend_execution.exit_code == 0
@@ -20,6 +21,7 @@ def test_demo_flow_runs(tmp_path, monkeypatch):
 
 def test_run_with_task_document(monkeypatch):
     monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    monkeypatch.setenv("ABRACAPOCUS_ALLOW_MAIN", "true")
     config = load_config()
     orchestrator = SupervisorOrchestrator(config)
     task = TaskDocument(
@@ -35,10 +37,12 @@ def test_run_with_task_document(monkeypatch):
     assert report.metadata["task_id"] == "custom-task"
     assert report.metadata["selected_backend"] == "aider_cli"
     assert report.metadata["verification_profile"] == "minimal"
+    assert report.metadata["branch_name"].startswith("abracapocus/custom-task-")
 
 
 def test_research_agent_update_files_called_after_task(monkeypatch):
     monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    monkeypatch.setenv("ABRACAPOCUS_ALLOW_MAIN", "true")
     config = load_config()
     orchestrator = SupervisorOrchestrator(config)
     captured = {"called": False, "changed_files": None}
@@ -104,6 +108,7 @@ def test_runtime_verification_override(monkeypatch, tmp_path):
 
 def test_agent_overrides_disable(monkeypatch, tmp_path):
     monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    monkeypatch.setenv("ABRACAPOCUS_ALLOW_MAIN", "true")
     config = _tmp_config(tmp_path)
     store = StateStore(config)
     store.reset()
@@ -119,6 +124,38 @@ def test_agent_overrides_disable(monkeypatch, tmp_path):
     report = orchestrator.run(request, task=task)
     assert report.review.status == "skipped"
     assert report.verification.status == "skipped"
+
+
+def test_run_on_main_without_allow_main_raises(monkeypatch, tmp_path):
+    monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    monkeypatch.delenv("ABRACAPOCUS_ALLOW_MAIN", raising=False)
+    config = _tmp_config(tmp_path)
+    orchestrator = SupervisorOrchestrator(config)
+    monkeypatch.setattr(orchestrator.git_manager, "safe_to_run", lambda: False)
+    task = TaskDocument(task_id="blocked-main", title="Blocked", description="blocked", phase="impl")
+    request = ProjectRequest(project_name=config.project_name, goal="Blocked", context="test")
+
+    try:
+        orchestrator.run(request, task=task)
+    except RuntimeError as exc:
+        assert "ABRACAPOCUS_ALLOW_MAIN=true" in str(exc)
+    else:
+        raise AssertionError("Expected RuntimeError when running on protected branch")
+
+
+def test_allow_main_true_bypasses_branch_protection(monkeypatch, tmp_path):
+    monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    monkeypatch.setenv("ABRACAPOCUS_ALLOW_MAIN", "true")
+    config = _tmp_config(tmp_path)
+    orchestrator = SupervisorOrchestrator(config)
+    monkeypatch.setattr(orchestrator.git_manager, "safe_to_run", lambda: False)
+    monkeypatch.setattr(orchestrator.git_manager, "create_branch", lambda name: True)
+    task = TaskDocument(task_id="allow-main", title="Allow", description="allow", phase="impl")
+    request = ProjectRequest(project_name=config.project_name, goal="Allow", context="test")
+
+    report = orchestrator.run(request, task=task)
+
+    assert report.metadata.get("branch_name")
 
 
 def test_assessment_aligned(monkeypatch, tmp_path):

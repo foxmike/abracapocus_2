@@ -24,6 +24,8 @@ The system automatically falls back to dry-run simulations when a CLI is missing
 | `DEFAULT_BACKEND` | Supervisor fallback backend when no overrides apply. | `codex_cli`, `aider_cli`, etc. |
 | `BACKEND_OVERRIDE` | Forces `RoutingSettings.manual_backend`. Used when `ROUTING_MODE=manual`. | backend name |
 | `ROUTING_MODE` | Routing policy: `manual`, `rules`, or `auto` (see `runtime/router.py`). | `manual` (default) |
+| `ABRACAPOCUS_ALLOW_MAIN` | Enables/disables protection against running from `main`/`master`. | `false` (recommended) |
+| `ABRACAPOCUS_BASE_BRANCH` | Target base branch used by `make merge` / `make abandon`. | `main` (or `develop`) |
 | `DEEP_AGENT_MOCK_MODE` | Toggles the LangChain Deep Agent factory between mock and real execution. | `true` \| `false` |
 | `DEEP_AGENT_MODEL` | Provider:model string used when mock mode is disabled. | `openai:gpt-4o`, etc. |
 | `OPENAI_API_KEY` | Required when Deep Agents call OpenAI models directly. | API key |
@@ -93,6 +95,27 @@ make task-run TASK=api-add-orders CONTEXT="beta branch cut"
 ```
 
 The supervisor loads the JSON, routes it to the backend, runs review + verification, and prints the resulting report. Use `make report-show` afterward to re-open the saved JSON.
+
+### Branch workflow
+abracapocus_2 can enforce per-run git branch isolation:
+
+1. Configure protection in `.env`:
+   - `ABRACAPOCUS_ALLOW_MAIN=false` to block direct runs on `main` / `master`.
+   - `ABRACAPOCUS_BASE_BRANCH=main` (default) or another integration branch like `develop`.
+2. Start work with `make task-run ...`; `SupervisorOrchestrator.run()` creates a run branch named `abracapocus/{task_id}-{YYYYMMDD}-{run_id[:8]}` before planning/execution starts.
+3. If you are currently on `main` / `master` and protection is enabled, the run stops with a clear error until you switch branches (or explicitly set `ABRACAPOCUS_ALLOW_MAIN=true`).
+4. Successful phases can auto-commit on the run branch.
+5. Use `make branch-show` to inspect the latest run branch metadata.
+6. Use `make merge TASK=<task_id>` to merge the run branch into the configured base branch (`ABRACAPOCUS_BASE_BRANCH`).
+7. Use `make abandon TASK=<task_id>` to drop a run branch and return to the configured base branch.
+
+Example for a non-default base branch:
+
+```bash
+ABRACAPOCUS_BASE_BRANCH=develop make merge TASK=api-add-orders
+```
+
+This routes the merge into `develop` instead of `main`.
 
 ### Running a full goal
 To ask the supervisor to plan and execute a new goal end-to-end without a pre-authored task:

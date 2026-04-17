@@ -71,6 +71,8 @@ def test_each_task_uses_backend_from_its_complexity_score(monkeypatch):
 
     assert criterion_tasks[0].selected_backend == "claude_code_cli"
     assert criterion_tasks[1].selected_backend == "gemini_cli"
+    assert criterion_tasks[0].model == "claude-code"
+    assert criterion_tasks[1].model == "gemini"
 
 
 def test_three_criteria_create_three_tasks_across_phases(monkeypatch):

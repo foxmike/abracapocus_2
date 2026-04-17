@@ -44,3 +44,30 @@ def test_get_non_interactive_models_returns_names() -> None:
 
     assert models
     assert "codex" in models
+
+
+def test_get_best_model_for_backend_returns_codex_for_codex_backend() -> None:
+    store = ModelProfileStore()
+
+    best = store.get_best_model_for_backend(
+        backend_name="codex_cli",
+        task_type="coding",
+        cost_tier="high",
+        context_size=8000,
+    )
+
+    assert best == "codex"
+
+
+def test_get_best_model_for_backend_returns_openrouter_for_aider_backend() -> None:
+    store = ModelProfileStore()
+
+    best = store.get_best_model_for_backend(
+        backend_name="aider_cli",
+        task_type="coding",
+        cost_tier="medium",
+        context_size=8000,
+    )
+
+    assert isinstance(best, str)
+    assert best.startswith("openrouter/") or best == "aider"

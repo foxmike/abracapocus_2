@@ -13,6 +13,7 @@ from runtime.state_store import StateStore
 
 def test_successful_run_writes_plan_template_history(monkeypatch, tmp_path):
     monkeypatch.setenv("DEEP_AGENT_MOCK_MODE", "true")
+    monkeypatch.setenv("ABRACAPOCUS_ALLOW_MAIN", "true")
     config = _tmp_config(tmp_path)
     orchestrator = SupervisorOrchestrator(config)
     task = TaskDocument(

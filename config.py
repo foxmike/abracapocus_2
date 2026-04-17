@@ -78,6 +78,22 @@ class VerificationSettings(BaseModel):
 
 
 @dataclass(slots=True)
+class RetrySettings:
+    """Bounded retry policy used by supervisor verification retries."""
+
+    max_retries_tier_1: int = 2
+    max_retries_tier_2: int = 1
+    max_retries_tier_3: int = 1
+    retry_delay_seconds: int = 2
+
+
+@dataclass(slots=True)
+class PaceSettings:
+    min_seconds_between_calls: float = 0.0
+    max_calls_per_minute: int = 0
+
+
+@dataclass(slots=True)
 class AppConfig:
     """Bundled configuration object shared across the system."""
 
@@ -88,10 +104,36 @@ class AppConfig:
     paths: PathSettings
     extra: Dict[str, Any]
     verification: VerificationSettings
+    retry: RetrySettings
+    pace: Dict[str, PaceSettings]
 
     @property
     def default_backend(self) -> str:
         return self.routing.manual_backend or self.routing.default_backend
+
+    @property
+    def max_retries_tier_1(self) -> int:
+        return self.retry.max_retries_tier_1
+
+    @max_retries_tier_1.setter
+    def max_retries_tier_1(self, value: int) -> None:
+        self.retry.max_retries_tier_1 = value
+
+    @property
+    def max_retries_tier_2(self) -> int:
+        return self.retry.max_retries_tier_2
+
+    @max_retries_tier_2.setter
+    def max_retries_tier_2(self, value: int) -> None:
+        self.retry.max_retries_tier_2 = value
+
+    @property
+    def max_retries_tier_3(self) -> int:
+        return self.retry.max_retries_tier_3
+
+    @max_retries_tier_3.setter
+    def max_retries_tier_3(self, value: int) -> None:
+        self.retry.max_retries_tier_3 = value
 
 
 def load_config() -> AppConfig:
@@ -189,6 +231,30 @@ def load_config() -> AppConfig:
         profiles=profiles,
         workdir=paths.root_dir,
     )
+    retry = RetrySettings(
+        max_retries_tier_1=int(os.getenv("RETRY_TIER_1", "2")),
+        max_retries_tier_2=int(os.getenv("RETRY_TIER_2", "1")),
+        max_retries_tier_3=int(os.getenv("RETRY_TIER_3", "1")),
+        retry_delay_seconds=int(os.getenv("RETRY_DELAY_SECONDS", "2")),
+    )
+    pace = {
+        "aider_cli": PaceSettings(
+            min_seconds_between_calls=float(os.getenv("AIDER_MIN_DELAY", "0")),
+            max_calls_per_minute=int(os.getenv("AIDER_MAX_CALLS_PER_MINUTE", "0")),
+        ),
+        "gemini_cli": PaceSettings(
+            min_seconds_between_calls=float(os.getenv("GEMINI_MIN_DELAY", "0")),
+            max_calls_per_minute=int(os.getenv("GEMINI_MAX_CALLS_PER_MINUTE", "0")),
+        ),
+        "codex_cli": PaceSettings(
+            min_seconds_between_calls=float(os.getenv("CODEX_MIN_DELAY", "0")),
+            max_calls_per_minute=int(os.getenv("CODEX_MAX_CALLS_PER_MINUTE", "0")),
+        ),
+        "claude_code_cli": PaceSettings(
+            min_seconds_between_calls=float(os.getenv("CLAUDE_MIN_DELAY", "0")),
+            max_calls_per_minute=int(os.getenv("CLAUDE_MAX_CALLS_PER_MINUTE", "0")),
+        ),
+    }
 
     config = AppConfig(
         project_name=project_name,
@@ -198,5 +264,7 @@ def load_config() -> AppConfig:
         paths=paths,
         extra={},
         verification=verification,
+        retry=retry,
+        pace=pace,
     )
     return config

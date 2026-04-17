@@ -15,6 +15,7 @@ ENABLED ?=true
 .PHONY: help install setup run demo test lint format clean tree docs state-show state-reset \
 	context-index context-reset \
 	plan-init plan-show phase-init phase-show task-init task-list task-show task-run task-verify \
+	task-resume branch-show merge abandon \
 	report-show backend-list backend-set agent-list agent-set config-show prompt-show skill-list \
 	plan-init verification-set
 
@@ -90,11 +91,26 @@ task-run: ## Run supervisor using TASK document (id or path)
 	@if [ -z "$(TASK)" ]; then echo "Set TASK=<task_id or path>"; exit 1; fi
 	$(PYTHON) -m scripts.ops task-run --task-id $(TASK) --context "$(CONTEXT)"
 
+task-resume: ## Resume most recent blocked task report for TASK id
+	@if [ -z "$(TASK)" ]; then echo "Set TASK=<task_id>"; exit 1; fi
+	$(PYTHON) -m scripts.ops task-resume --task-id $(TASK) --context "$(CONTEXT)"
+
 task-verify: ## Run verification profile commands
 	$(PYTHON) -m scripts.ops task-verify $(if $(PROFILE),--profile $(PROFILE),)
 
 report-show: ## Show latest or specific report
 	$(PYTHON) -m scripts.ops report-show
+
+branch-show: ## Show branch info for latest run
+	$(PYTHON) -m scripts.ops branch-show
+
+merge: ## Merge latest run branch for TASK into base branch
+	@if [ -z "$(TASK)" ]; then echo "Set TASK=<task_id>"; exit 1; fi
+	$(PYTHON) -m scripts.ops merge --task-id $(TASK)
+
+abandon: ## Abandon latest run branch for TASK and return to base
+	@if [ -z "$(TASK)" ]; then echo "Set TASK=<task_id>"; exit 1; fi
+	$(PYTHON) -m scripts.ops abandon --task-id $(TASK)
 
 backend-list: ## List registered backends
 	$(PYTHON) -m scripts.ops backend-list

@@ -11,6 +11,7 @@ def test_plan_and_task_models():
         phase="alpha",
         acceptance_criteria=["ship it"],
         selected_backend="codex_cli",
+        model="codex",
         verification_profile="default",
     )
     phase = PlanPhase(name="alpha", objective="o", tasks=[PlanTask(task=task)])
@@ -22,7 +23,18 @@ def test_plan_and_task_models():
     stored_task = plan.phases[0].tasks[0].task
     assert stored_task.title == "Do work"
     assert stored_task.selected_backend == "codex_cli"
+    assert stored_task.model == "codex"
     assert stored_task.verification_profile == "default"
+
+
+def test_task_document_serializes_and_deserializes_model() -> None:
+    task = TaskDocument(task_id="t-model", title="Route", description="desc", phase="impl", model="openrouter/deepseek/deepseek-v3.2")
+
+    encoded = task.model_dump(mode="json")
+    restored = TaskDocument.model_validate(encoded)
+
+    assert encoded["model"] == "openrouter/deepseek/deepseek-v3.2"
+    assert restored.model == "openrouter/deepseek/deepseek-v3.2"
 
 
 def test_plan_record_completed():

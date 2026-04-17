@@ -18,8 +18,9 @@
               "docs/demo_status.md exists",
               "Log includes latest task details"
             ],
-            "created_at": "2026-04-16T23:38:45.152825",
+            "created_at": "2026-04-17T20:29:00.846056",
             "selected_backend": "demo_cli",
+            "model": null,
             "verification_profile": "default"
           },
           "dependencies": [],
@@ -32,5 +33,5 @@
     }
   ],
   "version": "task-demo-self-improve",
-  "created_at": "2026-04-16T23:38:45.163811"
+  "created_at": "2026-04-17T20:29:00.851429"
 }

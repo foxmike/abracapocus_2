@@ -5,8 +5,20 @@ from models.project import TaskDocument
 from runtime.router import BackendRouter
 
 
-def _task(title: str = "Build", phase: str = "impl", selected_backend: str | None = None):
-    return TaskDocument(task_id="task", title=title, description="x", phase=phase, selected_backend=selected_backend)
+def _task(
+    title: str = "Build",
+    phase: str = "impl",
+    selected_backend: str | None = None,
+    model: str | None = None,
+):
+    return TaskDocument(
+        task_id="task",
+        title=title,
+        description="x",
+        phase=phase,
+        selected_backend=selected_backend,
+        model=model,
+    )
 
 
 def test_manual_routing_override(monkeypatch):
@@ -96,3 +108,35 @@ def test_manual_and_rules_routing_unchanged(monkeypatch):
 
     rules_decision = router.select(_task(title="Refactor module"))
     assert rules_decision.backend_name == "aider_cli"
+
+
+def test_task_model_override_appears_in_routing_decision(monkeypatch):
+    model = "openrouter/deepseek/deepseek-v3.2"
+    monkeypatch.setenv("ROUTING_MODE", "auto")
+    monkeypatch.delenv("BACKEND_OVERRIDE", raising=False)
+    monkeypatch.delenv("OPENROUTER_PREFERRED_MODELS", raising=False)
+    config = load_config()
+    router = BackendRouter(config)
+
+    decision = router.select(_task(model=model))
+
+    assert decision.backend_name == "aider_cli"
+    assert decision.reason == f"task model override ({model})"
+    assert decision.models == [model]
+    assert decision.metadata["task_model"] == model
+
+
+def test_task_model_none_falls_back_to_normal_auto_routing(monkeypatch):
+    profile_model = "openrouter/meta-llama/llama-2-13b-chat"
+    monkeypatch.setenv("ROUTING_MODE", "auto")
+    monkeypatch.delenv("BACKEND_OVERRIDE", raising=False)
+    monkeypatch.delenv("OPENROUTER_PREFERRED_MODELS", raising=False)
+    config = load_config()
+    router = BackendRouter(config)
+    monkeypatch.setattr(router.model_profiles, "get_best_model", lambda *_args: profile_model)
+
+    decision = router.select(_task(model=None))
+
+    assert decision.reason == f"auto: profile-selected model ({profile_model})"
+    assert decision.backend_name == "aider_cli"
+    assert decision.models == [profile_model]

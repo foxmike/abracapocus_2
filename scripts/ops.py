@@ -14,6 +14,7 @@ from config import load_config
 from models.plan import Plan
 from models.project import ProjectRequest, TaskDocument
 from orchestrator.supervisor import SupervisorOrchestrator
+from runtime.git_manager import GitManager
 from runtime.state_store import StateStore
 from runtime.context_store import ContextStore
 
@@ -96,6 +97,25 @@ def task_run(task_id: str, context: str = typer.Option("", "--context")) -> None
     )
     orchestrator = SupervisorOrchestrator(config)
     report = orchestrator.run(request, task=task)
+    typer.echo(report.model_dump_json(indent=2))
+
+
+@app.command()
+def task_resume(
+    task_id: str = typer.Option(..., "--task-id"),
+    context: str = typer.Option("", "--context"),
+) -> None:
+    config = load_config()
+    blocked_path = _latest_blocked_report(config.paths.reports_dir, task_id)
+    blocked_payload = json.loads(blocked_path.read_text(encoding="utf-8"))
+    resumed_task = _task_from_blocked_payload(blocked_payload, blocked_path)
+    request = ProjectRequest(
+        project_name=config.project_name,
+        goal=resumed_task.description or resumed_task.title,
+        context=context or f"resume:{resumed_task.task_id}:{blocked_path.name}",
+    )
+    orchestrator = SupervisorOrchestrator(config)
+    report = orchestrator.run(request, task=resumed_task)
     typer.echo(report.model_dump_json(indent=2))
 
 
@@ -225,6 +245,12 @@ def config_show() -> None:
             "default_backend": config.default_backend,
             "routing_mode": config.routing.routing_mode,
             "working_root": str(config.paths.working_root),
+            "retry": {
+                "max_retries_tier_1": config.retry.max_retries_tier_1,
+                "max_retries_tier_2": config.retry.max_retries_tier_2,
+                "max_retries_tier_3": config.retry.max_retries_tier_3,
+                "retry_delay_seconds": config.retry.retry_delay_seconds,
+            },
         },
         indent=2,
     ))
@@ -259,6 +285,66 @@ def report_show(run_id: Optional[str] = None) -> None:
 
 
 @app.command()
+def branch_show() -> None:
+    config = load_config()
+    git = GitManager(config.paths.root_dir)
+    current = git.current_branch()
+    if not current:
+        typer.echo("No git repository detected")
+        return
+    report_payload = _latest_run_report_payload(config.paths.reports_dir)
+    run_branch = _extract_branch_name(report_payload) or current
+    status = "dirty" if git.get_changed_files() else "clean"
+    typer.echo(json.dumps({"branch": run_branch, "current": current, "status": status}, indent=2))
+
+
+@app.command()
+def merge(task_id: str = typer.Option(..., "--task-id")) -> None:
+    config = load_config()
+    git = GitManager(config.paths.root_dir)
+    if not git.current_branch():
+        typer.echo("No git repository detected")
+        return
+    payload = _latest_run_report_payload(config.paths.reports_dir, task_id=task_id)
+    if payload is None:
+        typer.echo(f"No run report found for task_id '{task_id}'")
+        return
+    run_branch = _extract_branch_name(payload)
+    if not run_branch:
+        typer.echo(f"Run report for task_id '{task_id}' does not contain branch_name")
+        return
+    if not _run_git(config.paths.root_dir, ["checkout", git.base_branch]):
+        raise typer.Exit(code=1)
+    if not _run_git(config.paths.root_dir, ["merge", "--no-ff", run_branch]):
+        raise typer.Exit(code=1)
+    if _run_git(config.paths.root_dir, ["remote", "get-url", "origin"], quiet=True):
+        _run_git(config.paths.root_dir, ["push", "origin", git.base_branch], quiet=True)
+    typer.echo(f"Merged {run_branch} into {git.base_branch}")
+
+
+@app.command()
+def abandon(task_id: str = typer.Option(..., "--task-id")) -> None:
+    config = load_config()
+    git = GitManager(config.paths.root_dir)
+    if not git.current_branch():
+        typer.echo("No git repository detected")
+        return
+    payload = _latest_run_report_payload(config.paths.reports_dir, task_id=task_id)
+    if payload is None:
+        typer.echo(f"No run report found for task_id '{task_id}'")
+        return
+    run_branch = _extract_branch_name(payload)
+    if not run_branch:
+        typer.echo(f"Run report for task_id '{task_id}' does not contain branch_name")
+        return
+    if not _run_git(config.paths.root_dir, ["checkout", git.base_branch]):
+        raise typer.Exit(code=1)
+    if not _run_git(config.paths.root_dir, ["branch", "-D", run_branch]):
+        raise typer.Exit(code=1)
+    typer.echo(f"Abandoned {run_branch} and returned to {git.base_branch}")
+
+
+@app.command()
 def tree() -> None:
     for path in Path('.').rglob('*'):
         if any(part.startswith('.git') for part in path.parts):
@@ -274,6 +360,85 @@ def _load_task(task_id: str) -> tuple[TaskDocument, Path]:
         raise typer.BadParameter(f"Task file {path} not found")
     data = json.loads(path.read_text(encoding="utf-8"))
     return TaskDocument(**data), path
+
+
+def _latest_blocked_report(reports_dir: Path, task_id: str) -> Path:
+    candidates = sorted(reports_dir.glob(f"blocked-{task_id}-*.json"), key=lambda path: path.stat().st_mtime)
+    if not candidates:
+        raise typer.BadParameter(f"No blocked report found for task_id '{task_id}' in {reports_dir}")
+    return candidates[-1]
+
+
+def _latest_run_report_payload(reports_dir: Path, task_id: str | None = None) -> dict | None:
+    reports = sorted(reports_dir.glob("run-*.json"), key=lambda path: path.stat().st_mtime, reverse=True)
+    for report_path in reports:
+        payload = json.loads(report_path.read_text(encoding="utf-8"))
+        metadata = payload.get("metadata") or {}
+        if task_id is None or metadata.get("task_id") == task_id:
+            return payload
+    return None
+
+
+def _extract_branch_name(report_payload: dict | None) -> str:
+    if not report_payload:
+        return ""
+    metadata = report_payload.get("metadata") or {}
+    branch_name = metadata.get("branch_name")
+    return str(branch_name) if branch_name else ""
+
+
+def _run_git(repo_root: Path, args: List[str], quiet: bool = False) -> bool:
+    command = ["git", *args]
+    result = subprocess.run(command, cwd=repo_root, capture_output=True, text=True)
+    if result.returncode == 0:
+        return True
+    if not quiet:
+        error = result.stderr.strip() or result.stdout.strip() or "git command failed"
+        typer.echo(error)
+    return False
+
+
+def _task_from_blocked_payload(payload: dict, blocked_path: Path) -> TaskDocument:
+    task_payload = payload.get("task")
+    if not isinstance(task_payload, dict):
+        raise typer.BadParameter(f"Blocked report {blocked_path} is missing task payload")
+    task = TaskDocument.model_validate(task_payload)
+    attempt_summaries = _render_attempt_summaries(payload.get("attempts") or [])
+    resume_context = "\n".join(
+        [
+            f"Resume source: {blocked_path.name}",
+            "Prior attempts context:",
+            attempt_summaries,
+        ]
+    )
+    description = f"{task.description}\n\n{resume_context}".strip()
+    return task.model_copy(update={"description": description, "status": "pending"})
+
+
+def _render_attempt_summaries(attempts: list) -> str:
+    if not attempts:
+        return "No prior attempts recorded"
+    lines: List[str] = []
+    for index, attempt in enumerate(attempts, start=1):
+        if not isinstance(attempt, dict):
+            continue
+        changed_files = []
+        for changed in attempt.get("changed_files") or []:
+            if not isinstance(changed, dict):
+                continue
+            path = changed.get("path") or changed.get("file")
+            if isinstance(path, str) and path:
+                changed_files.append(path)
+        lines.extend(
+            [
+                f"Attempt {index}: backend={attempt.get('backend')} model={attempt.get('model') or 'default'} exit_code={attempt.get('exit_code')}",
+                f"stdout:\n{attempt.get('stdout') or ''}",
+                f"stderr:\n{attempt.get('stderr') or ''}",
+                f"diff_summary:\n{attempt.get('diff_summary') or ''}",
+                f"changed_files: {', '.join(changed_files) if changed_files else 'none'}",
+            ]
+        )
+    return "\n\n".join(lines)
 
 
 if __name__ == "__main__":

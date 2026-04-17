@@ -77,6 +77,11 @@ def select_openrouter_model(task: TaskDocument) -> List[dict]:
     return filtered[:limit]
 
 
+def _record_for_model(model_name: str, context_size: int = 0) -> dict:
+    model_map = {model["name"]: model for model in OPENROUTER_MODELS}
+    return model_map.get(model_name, {"name": model_name, "tags": [], "context": context_size})
+
+
 @dataclass(slots=True)
 class RoutingDecision:
     backend_name: str
@@ -109,6 +114,11 @@ class BackendRouter:
         if task.selected_backend:
             backend_name = task.selected_backend
             reason = "task override"
+            if task.model:
+                model_records = self._model_records_for_backend(task.model, backend_name)
+                reason = "task override + model assignment"
+        elif task.model:
+            backend_name, reason, model_records = self._route_from_task_model(task)
         elif routing_mode == "manual" and self.config.routing.manual_backend:
             backend_name = self.config.routing.manual_backend
             reason = "manual override"
@@ -125,6 +135,8 @@ class BackendRouter:
         model_tags = {record["name"]: record["tags"] for record in model_records}
         metadata["reason"] = reason
         metadata["plan_phase"] = task.phase
+        if task.model:
+            metadata["task_model"] = task.model
         return RoutingDecision(
             backend_name=backend_name,
             reason=reason,
@@ -182,3 +194,28 @@ class BackendRouter:
 
         backend_name, reason = self._auto_placeholder(task)
         return backend_name, reason, []
+
+    def _route_from_task_model(self, task: TaskDocument) -> tuple[str, str, List[dict]]:
+        model_name = str(task.model)
+        if model_name.startswith("openrouter/"):
+            return "aider_cli", f"task model override ({model_name})", [_record_for_model(model_name)]
+        if model_name == "codex":
+            return "codex_cli", "task model override (codex)", [_record_for_model(model_name)]
+        if model_name == "gemini":
+            return "gemini_cli", "task model override (gemini)", [_record_for_model(model_name)]
+        if model_name == "claude-code":
+            return "claude_code_cli", "task model override (claude-code)", [_record_for_model(model_name)]
+        if model_name == "aider":
+            return "aider_cli", "task model override (aider)", [_record_for_model(model_name)]
+        return self.config.default_backend, f"task model unrecognized ({model_name})", []
+
+    def _model_records_for_backend(self, model_name: str, backend_name: str) -> List[dict]:
+        if backend_name == "aider_cli" and (model_name == "aider" or model_name.startswith("openrouter/")):
+            return [_record_for_model(model_name)]
+        if backend_name == "codex_cli" and model_name == "codex":
+            return [_record_for_model(model_name)]
+        if backend_name == "gemini_cli" and model_name == "gemini":
+            return [_record_for_model(model_name)]
+        if backend_name == "claude_code_cli" and model_name == "claude-code":
+            return [_record_for_model(model_name)]
+        return []

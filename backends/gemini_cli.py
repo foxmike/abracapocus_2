@@ -24,13 +24,24 @@ class GeminiCliBackend(CodingBackend):
         summary = task.description
         if context.agents_md:
             summary = f"{task.description}\n\nAGENTS.md guidance:\n{context.agents_md}"
-        return [
+        prompt = (
+            f"Task: {task.title}\n"
+            f"Phase: {task.phase}\n"
+            f"Description: {summary}\n"
+            f"Context: {context.notes}\n"
+        )
+        command = [
             self.executable,
-            "code",
-            "--project",
-            task.phase,
-            "--task",
-            task.task_id,
-            "--summary",
-            summary,
+            "--prompt",
+            prompt,
+            "--output-format",
+            "json",
+            "--include-directories",
+            str(self.workdir),
+            "--yolo",
+            "--approval-mode",
+            "yolo",
         ]
+        if model:
+            command.extend(["--model", model])
+        return command

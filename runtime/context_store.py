@@ -6,10 +6,12 @@ import hashlib
 import math
 import os
 import re
+import shutil
+import tempfile
+import uuid
 from pathlib import Path
 
 import chromadb
-import sentence_transformers
 from chromadb.errors import NotFoundError
 
 
@@ -24,6 +26,7 @@ class ContextStore:
     def __init__(self) -> None:
         self.client: chromadb.PersistentClient | None = None
         self.collection = None
+        self.collection_name = "context_store"
         self.repo_root: Path | None = None
         self.hint_paths: list[str] = []
 
@@ -33,8 +36,14 @@ class ContextStore:
         self.repo_root = repo_root
         self.hint_paths = self._load_hint_paths()
         self._ensure_store()
-        self.client.delete_collection(name="context_store")
-        self.collection = self.client.get_or_create_collection(name="context_store")
+        self.collection_name = "context_store"
+        try:
+            self.client.delete_collection(name=self.collection_name)
+            self.collection = self.client.get_or_create_collection(name=self.collection_name)
+        except Exception:
+            self._reinitialize_store_with_tmp()
+            self.collection_name = f"context_store_{uuid.uuid4().hex[:8]}"
+            self.collection = self.client.get_or_create_collection(name=self.collection_name)
 
         ids: list[str] = []
         documents: list[str] = []
@@ -176,19 +185,42 @@ class ContextStore:
         temp_path.mkdir(parents=True, exist_ok=True)
         os.environ.setdefault("TMPDIR", str(temp_path))
         os.environ.setdefault("SQLITE_TMPDIR", str(temp_path))
+        try:
+            self.client = chromadb.PersistentClient(path=str(persist_path))
+            self.collection = self.client.get_or_create_collection(name=self.collection_name)
+        except Exception:
+            self.client = None
+            self.collection = None
+            recovered_path = self.repo_root / "state" / "chroma_recovered"
+            shutil.rmtree(recovered_path, ignore_errors=True)
+            recovered_path.mkdir(parents=True, exist_ok=True)
+            temp_path = recovered_path / "tmp"
+            temp_path.mkdir(parents=True, exist_ok=True)
+            os.environ["TMPDIR"] = str(temp_path)
+            os.environ["SQLITE_TMPDIR"] = str(temp_path)
+            self.client = chromadb.PersistentClient(path=str(recovered_path))
+            self.collection = self.client.get_or_create_collection(name=self.collection_name)
+
+    def _reinitialize_store_with_tmp(self) -> None:
+        self.client = None
+        self.collection = None
+        persist_path = Path(tempfile.mkdtemp(prefix="abracapocus_chroma_"))
+        temp_path = persist_path / "tmp"
+        temp_path.mkdir(parents=True, exist_ok=True)
+        os.environ["TMPDIR"] = str(temp_path)
+        os.environ["SQLITE_TMPDIR"] = str(temp_path)
         self.client = chromadb.PersistentClient(path=str(persist_path))
-        self.collection = self.client.get_or_create_collection(name="context_store")
 
     def _ensure_collection(self, force: bool = False) -> None:
         if self.client is None:
             return
         if force or self.collection is None:
-            self.collection = self.client.get_or_create_collection(name="context_store")
+            self.collection = self.client.get_or_create_collection(name=self.collection_name)
             return
         try:
             self.collection.count()
         except NotFoundError:
-            self.collection = self.client.get_or_create_collection(name="context_store")
+            self.collection = self.client.get_or_create_collection(name=self.collection_name)
 
     def _iter_eligible_files(self, root: Path):
         for current_root, dirs, files in os.walk(root):
@@ -288,6 +320,3 @@ class ContextStore:
         if norm > 0:
             vector = [value / norm for value in vector]
         return vector
-
-
-_ = sentence_transformers

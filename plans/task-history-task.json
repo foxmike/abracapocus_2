@@ -15,8 +15,9 @@
             "phase": "implementation",
             "status": "pending",
             "acceptance_criteria": [],
-            "created_at": "2026-04-16T23:39:10.247711",
+            "created_at": "2026-04-17T20:29:10.732762",
             "selected_backend": "aider_cli",
+            "model": null,
             "verification_profile": "minimal"
           },
           "dependencies": [],
@@ -29,5 +30,5 @@
     }
   ],
   "version": "task-history-task",
-  "created_at": "2026-04-16T23:39:10.250638"
+  "created_at": "2026-04-17T20:29:10.737085"
 }

@@ -11,6 +11,12 @@ class ModelProfileStore:
     """Load model profiles from YAML and expose lookup helpers."""
 
     _COST_RANK = {"low": 0, "medium": 1, "high": 2}
+    _BACKEND_MODEL_FILTERS = {
+        "codex_cli": lambda name: name == "codex",
+        "gemini_cli": lambda name: name == "gemini",
+        "claude_code_cli": lambda name: name == "claude-code",
+        "aider_cli": lambda name: name == "aider" or name.startswith("openrouter/"),
+    }
 
     def __init__(self, path: str | Path = "config/model_profiles.yaml") -> None:
         self.path = Path(path)
@@ -38,28 +44,27 @@ class ModelProfileStore:
 
     def get_best_model(self, task_type: str, cost_tier: str, context_size: int) -> str | None:
         """Return the best matching model name for task, budget, and context needs."""
-        if not self._profiles:
-            return None
+        return self._select_best_model(self._profiles, task_type, cost_tier, context_size)
 
-        requested_cost_rank = self._COST_RANK.get(cost_tier, self._COST_RANK["high"])
-        context_candidates = [
+    def get_best_model_for_backend(
+        self,
+        backend_name: str,
+        task_type: str,
+        cost_tier: str,
+        context_size: int,
+    ) -> str | None:
+        """Return the best matching model for a specific backend, if any."""
+        matcher = self._BACKEND_MODEL_FILTERS.get(backend_name)
+        if matcher is None:
+            return None
+        backend_profiles = [
             profile
             for profile in self._profiles
-            if int(profile.get("context_window", 0)) >= int(context_size)
+            if isinstance(profile.get("name"), str) and matcher(str(profile.get("name")))
         ]
-        if not context_candidates:
-            context_candidates = list(self._profiles)
-
-        affordable_candidates = [
-            profile
-            for profile in context_candidates
-            if self._COST_RANK.get(str(profile.get("cost_tier", "high")), self._COST_RANK["high"])
-            <= requested_cost_rank
-        ]
-        candidates = affordable_candidates or context_candidates
-
-        best = max(candidates, key=lambda profile: self._score_profile(profile, task_type))
-        return str(best.get("name")) if best.get("name") else None
+        if not backend_profiles:
+            return None
+        return self._select_best_model(backend_profiles, task_type, cost_tier, context_size)
 
     def _load_profiles(self) -> list[dict[str, Any]]:
         if not self.path.exists():
@@ -83,3 +88,33 @@ class ModelProfileStore:
 
         context = int(profile.get("context_window", 0))
         return task_match, speed_bonus, context
+
+    def _select_best_model(
+        self,
+        profiles: list[dict[str, Any]],
+        task_type: str,
+        cost_tier: str,
+        context_size: int,
+    ) -> str | None:
+        if not profiles:
+            return None
+
+        requested_cost_rank = self._COST_RANK.get(cost_tier, self._COST_RANK["high"])
+        context_candidates = [
+            profile
+            for profile in profiles
+            if int(profile.get("context_window", 0)) >= int(context_size)
+        ]
+        if not context_candidates:
+            context_candidates = list(profiles)
+
+        affordable_candidates = [
+            profile
+            for profile in context_candidates
+            if self._COST_RANK.get(str(profile.get("cost_tier", "high")), self._COST_RANK["high"])
+            <= requested_cost_rank
+        ]
+        candidates = affordable_candidates or context_candidates
+
+        best = max(candidates, key=lambda profile: self._score_profile(profile, task_type))
+        return str(best.get("name")) if best.get("name") else None

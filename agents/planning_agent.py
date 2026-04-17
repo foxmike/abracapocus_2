@@ -13,6 +13,7 @@ from agents.plan_critic import PlanCriticAgent, PlanCritique
 from models.plan import Plan, PlanPhase, PlanTask
 from models.project import ProjectRequest, TaskDocument
 from runtime.deep_agent_factory import DeepAgentFactory
+from runtime.model_profile_store import ModelProfileStore
 
 
 class PlanningAgent(BaseAgent):
@@ -28,6 +29,7 @@ class PlanningAgent(BaseAgent):
         self.last_critiques: List[PlanCritique] = []
         self.history_path = history_path or Path("state") / "plan_history.json"
         self.last_historical_examples: List[dict] = []
+        self.model_profiles = ModelProfileStore()
 
     def create_plan(self, request: ProjectRequest, previous_plan: Plan | None = None) -> Plan:
         examples = self._load_similar_plan_examples(request.project_name, request.goal)
@@ -139,6 +141,14 @@ class PlanningAgent(BaseAgent):
                 task_score=task_score,
                 phase_count=phase_count,
             )
+            task_type = self._infer_task_type(phases[phase_index].name, normalized_criterion)
+            cost_tier, context_size = self._complexity_budget(task_score, normalized_criterion)
+            assigned_model = self.model_profiles.get_best_model_for_backend(
+                backend_name=task_score.recommended_backend,
+                task_type=task_type,
+                cost_tier=cost_tier,
+                context_size=context_size,
+            )
             tasks.append(
                 TaskDocument(
                     task_id=task_id,
@@ -147,9 +157,28 @@ class PlanningAgent(BaseAgent):
                     phase=phases[phase_index].name,
                     acceptance_criteria=[normalized_criterion],
                     selected_backend=task_score.recommended_backend,
+                    model=assigned_model,
                 )
             )
         return tasks
+
+    def _infer_task_type(self, phase: str, description: str) -> str:
+        phase_lower = (phase or "").lower()
+        description_lower = (description or "").lower()
+        if "research" in phase_lower or "plan" in phase_lower or "design" in description_lower:
+            return "planning"
+        if "verify" in phase_lower or "review" in phase_lower or "qa" in description_lower:
+            return "review"
+        if len(description) < 160:
+            return "quick"
+        return "coding"
+
+    def _complexity_budget(self, score: ComplexityScore, description: str) -> tuple[str, int]:
+        if score.recommended_phases >= 5 or len(description) >= 320:
+            return "high", 64000
+        if score.recommended_phases >= 3 or len(description) >= 180:
+            return "medium", 32000
+        return "low", 8000
 
     def _phase_index_for_criterion(
         self,
@@ -235,6 +264,12 @@ class PlanningAgent(BaseAgent):
                     phase=verification_phase.name,
                     acceptance_criteria=["Verification checks pass"],
                     selected_backend=verification_score.recommended_backend,
+                    model=self.model_profiles.get_best_model_for_backend(
+                        backend_name=verification_score.recommended_backend,
+                        task_type="review",
+                        cost_tier="medium",
+                        context_size=32000,
+                    ),
                 )
             )
         )

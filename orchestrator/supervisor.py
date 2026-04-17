@@ -3,16 +3,52 @@ from __future__ import annotations
 
 import os
 import uuid
+import json
+from datetime import datetime
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Annotated, List, Optional, Sequence
 
 from typing_extensions import TypedDict
 
-from langgraph.checkpoint.sqlite import SqliteSaver
-from langgraph.errors import GraphInterrupt
-from langgraph.graph import END, START, StateGraph
-from langgraph.types import Command, Interrupt, Send, interrupt
+try:
+    from langgraph.checkpoint.sqlite import SqliteSaver
+    from langgraph.errors import GraphInterrupt
+    from langgraph.graph import END, START, StateGraph
+    from langgraph.types import Command, Interrupt, Send, interrupt
+
+    LANGGRAPH_AVAILABLE = True
+except ImportError:  # pragma: no cover - environment-dependent fallback
+    SqliteSaver = None  # type: ignore[assignment]
+    START = "START"
+    END = "END"
+    LANGGRAPH_AVAILABLE = False
+
+    class GraphInterrupt(Exception):
+        pass
+
+    @dataclass
+    class Send:
+        node: str
+        arg: dict
+
+    @dataclass
+    class Interrupt:
+        id: str
+        value: str
+
+    @dataclass
+    class Command:
+        resume: object | None = None
+        update: dict | None = None
+        goto: object | None = None
+
+    def interrupt(value: str) -> str:
+        return value
+
+    class StateGraph:  # pragma: no cover - only instantiated when langgraph exists
+        def __init__(self, _schema):
+            raise RuntimeError("langgraph is required for graph execution")
 
 import typer
 from agents.management_agent import ManagementAgent
@@ -33,6 +69,9 @@ from models.reports import (
 )
 from runtime.deep_agent_factory import DeepAgentFactory
 from runtime.agents_md import compose_agents_backend_notes, load_root_agents_md
+from runtime.failure_classifier import classify_failure
+from runtime.retry_prompt_builder import build_retry_task
+from runtime.git_manager import GitManager
 from runtime.logging import configure_logging
 from runtime.router import BackendRouter
 from runtime.state_store import StateStore
@@ -98,12 +137,15 @@ class SupervisorOrchestrator:
         self.reviewer_agent = ReviewerAgent(self.factory)
         self.verifier_agent = VerifierAgent(self.factory, self.config.verification)
         self.router = BackendRouter(self.config)
+        self.git_manager = GitManager(self.config.paths.root_dir)
         self._agents_md, self._agents_metadata = load_root_agents_md(self.config.paths.root_dir)
         self._task_override: TaskDocument | None = None
-        self.graph = self._build_graph()
+        self._run_branch_name: str | None = None
+        self.graph = self._build_graph() if LANGGRAPH_AVAILABLE else None
 
     def run(self, request: ProjectRequest, task: TaskDocument | None = None) -> OrchestrationReport:
         run_id = str(uuid.uuid4())
+        self._prepare_run_branch(task, run_id)
         initial_state: SupervisorState = {
             "request": request,
             "plan": None,
@@ -117,6 +159,12 @@ class SupervisorOrchestrator:
         config = {"configurable": {"thread_id": run_id}}
         final_state: SupervisorState | None = None
         self._task_override = task
+        if self.graph is None:
+            try:
+                return self._run_without_langgraph(initial_state)
+            finally:
+                self._task_override = None
+                self._run_branch_name = None
         try:
             try:
                 for state in self.graph.stream(initial_state, config, stream_mode="values"):
@@ -128,6 +176,7 @@ class SupervisorOrchestrator:
                     final_state = state  # type: ignore[assignment]
         finally:
             self._task_override = None
+            self._run_branch_name = None
         if final_state is None:
             raise RuntimeError("Graph execution did not complete")
         report = final_state.get("final_report")
@@ -135,9 +184,69 @@ class SupervisorOrchestrator:
             raise RuntimeError("Final report missing from completed state")
         return report
 
+    def _prepare_run_branch(self, task: TaskDocument | None, run_id: str) -> None:
+        allow_main = os.getenv("ABRACAPOCUS_ALLOW_MAIN", "false").lower() in {"1", "true", "yes", "on"}
+        if not self.git_manager.safe_to_run() and not allow_main:
+            raise RuntimeError(
+                "Refusing to run on protected branch (main/master). "
+                "Set ABRACAPOCUS_ALLOW_MAIN=true to bypass."
+            )
+        task_id = task.task_id if task else "run"
+        date_part = datetime.utcnow().strftime("%Y%m%d")
+        branch_name = f"abracapocus/{task_id}-{date_part}-{run_id[:8]}"
+        if not self.git_manager.create_branch(branch_name):
+            raise RuntimeError(f"Failed to create run branch '{branch_name}'")
+        self._run_branch_name = branch_name
+
+    def _run_without_langgraph(self, initial_state: SupervisorState) -> OrchestrationReport:
+        planning_update = self._planning_node(initial_state)
+        state = dict(initial_state)
+        state.update(planning_update)
+
+        research_update = self._research_node(state)
+        state.update(research_update)
+
+        plan = state.get("plan")
+        if plan is None:
+            raise RuntimeError("Plan missing during fallback execution")
+
+        phase_results: List[PhaseResult] = []
+        for phase_index, phase in enumerate(plan.phases):
+            if phase.completed:
+                continue
+            phase.status = "in_progress"
+            state["phase_index"] = phase_index
+            state["task_results"] = []
+            for phase_task in phase.tasks:
+                task_update = self._task_node(
+                    {
+                        "task": phase_task.task,
+                        "context": state.get("context"),
+                        "phase_name": phase.name,
+                    }
+                )
+                state["task_results"].extend(task_update.get("task_results", []))
+            verification_update = self._verification_node(state)
+            state["phase_results"] = verification_update.get("phase_results", [])
+            phase_results = list(state["phase_results"])
+            advance_command = self._phase_advance(state)
+            if advance_command.update:
+                state.update(advance_command.update)
+
+        if not phase_results:
+            state["phase_results"] = []
+        final_update = self._finalize_node(state)
+        report = final_update.get("final_report")
+        if report is None:
+            raise RuntimeError("Final report missing from fallback finalization")
+        state["final_report"] = report
+        return report
+
     # Graph construction -------------------------------------------------
 
     def _build_graph(self):
+        if not LANGGRAPH_AVAILABLE:
+            raise RuntimeError("langgraph is not available")
         builder = StateGraph(SupervisorState)
         builder.add_node("planning_node", self._planning_node)
         builder.add_node("research_node", self._research_node)
@@ -234,44 +343,7 @@ class SupervisorOrchestrator:
         phase_name: str = send_state.get("phase_name", task.phase or "unknown")
         prefix = f"[abracapocus][phase:{phase_name}][task:{task.task_id}]"
         print(f"{prefix} routing task via backend router")
-        decision = self.router.select(task)
-        backend = decision.backend(self.config.paths.working_root)
-        if not task.selected_backend:
-            task.selected_backend = decision.backend_name
-        dry_run = not getattr(backend, "supports_direct_execution", False)
-        model_names = decision.models or [None]
-        execution: BackendExecution | None = None
-        for model_name in model_names:
-            tags = decision.model_tags.get(model_name or "", [])
-            try:
-                result = backend.execute(
-                    task,
-                    context or ContextPackage(summaries=[], files=[], notes=""),
-                    dry_run=dry_run,
-                    model=model_name,
-                    model_tags=tags,
-                    task_type=decision.task_type,
-                )
-                execution = self._to_backend_execution(result)
-            except Exception as exc:  # pragma: no cover - unexpected backend failure
-                execution = BackendExecution(
-                    backend=decision.backend_name,
-                    command=[],
-                    stdout="",
-                    stderr=str(exc),
-                    exit_code=1,
-                    duration_seconds=0.0,
-                    model=model_name,
-                    model_tags=tags,
-                    task_type=decision.task_type,
-                    working_directory=None,
-                    changed_files=[],
-                    diff_summary="backend execution failed",
-                )
-            if execution.exit_code == 0:
-                break
-        if execution is None:
-            raise RuntimeError("Backend execution did not produce a result")
+        execution = self._execute_task_attempt(task, context, phase_name)
         review = self._run_review(task, [execution])
         self.research_agent.update_files(execution.changed_files)
         status = "passed" if execution.exit_code == 0 else "failed"
@@ -314,6 +386,15 @@ class SupervisorOrchestrator:
                 profile=self.config.verification.active_profile,
             )
         )
+        if verification.status == "failed" and task_results:
+            task_results, verification = self._run_tiered_retry_loop(
+                task_results=task_results,
+                verification_task=verification_task,
+                verification=verification,
+                context=state.get("context"),
+                phase_name=phase.name,
+                run_id=state["run_id"],
+            )
         all_tasks_passed = all(result.status == "passed" for result in task_results)
         phase_status = "passed" if verification.status == "passed" and all_tasks_passed else "failed"
         print(f"[abracapocus][verification:{phase.name}] status={verification.status}")
@@ -327,6 +408,181 @@ class SupervisorOrchestrator:
         phase_results.append(phase_result)
         return {"phase_results": phase_results}
 
+    def _execute_task_attempt(
+        self,
+        task: TaskDocument,
+        context: ContextPackage | None,
+        phase_name: str,
+        forced_model: str | None = None,
+    ) -> BackendExecution:
+        decision = self.router.select(task)
+        backend = decision.backend(self.config.paths.working_root)
+        if not task.selected_backend:
+            task.selected_backend = decision.backend_name
+        dry_run = not getattr(backend, "supports_direct_execution", False)
+        model_names = [forced_model] if forced_model else (decision.models or [None])
+        model_tag_list = []
+        for model_name in model_names:
+            model_tag_list.extend(decision.model_tags.get(model_name or "", []))
+        execution: BackendExecution | None = None
+        try:
+            result = backend.execute(
+                task,
+                context or ContextPackage(summaries=[], files=[], notes=""),
+                dry_run=dry_run,
+                model=model_names,
+                model_tags=model_tag_list,
+                task_type=decision.task_type,
+            )
+            execution = self._to_backend_execution(result)
+        except Exception as exc:  # pragma: no cover - unexpected backend failure
+            execution = BackendExecution(
+                backend=decision.backend_name,
+                command=[],
+                stdout="",
+                stderr=str(exc),
+                exit_code=1,
+                duration_seconds=0.0,
+                model=model_names[0] if model_names else None,
+                model_tags=model_tag_list,
+                task_type=decision.task_type,
+                working_directory=None,
+                changed_files=[],
+                diff_summary="backend execution failed",
+                model_attempts=[model for model in model_names if model],
+            )
+        if execution is None:
+            raise RuntimeError("Backend execution did not produce a result")
+        print(f"[abracapocus][phase:{phase_name}][task:{task.task_id}] execution exit_code={execution.exit_code}")
+        return execution
+
+    def _run_tiered_retry_loop(
+        self,
+        task_results: List[TaskResult],
+        verification_task: TaskDocument,
+        verification: VerificationReport,
+        context: ContextPackage | None,
+        phase_name: str,
+        run_id: str,
+    ) -> tuple[List[TaskResult], VerificationReport]:
+        if verification.status != "failed" or not task_results:
+            return task_results, verification
+        target_index = next((idx for idx, item in enumerate(task_results) if item.status != "passed"), 0)
+        target = task_results[target_index]
+        attempts: List[BackendExecution] = [target.execution]
+        current_result = target
+        tier_limits = [
+            ("tier_1", self.config.max_retries_tier_1),
+            ("tier_2", self.config.max_retries_tier_2),
+            ("tier_3", self.config.max_retries_tier_3),
+        ]
+        total_limit = sum(limit for _, limit in tier_limits)
+        retry_attempt_number = 0
+        for tier_name, tier_limit in tier_limits:
+            for _ in range(max(tier_limit, 0)):
+                if verification.status == "passed" or retry_attempt_number >= total_limit:
+                    break
+                retry_attempt_number += 1
+                classification = classify_failure(verification, attempts)
+                retry_task = build_retry_task(
+                    original_task=current_result.task,
+                    classification=classification,
+                    attempts=attempts,
+                    attempt_number=retry_attempt_number,
+                )
+                forced_model = None
+                if tier_name == "tier_2":
+                    forced_model = self._select_tier2_model(retry_task, attempts[-1])
+                    if forced_model:
+                        retry_task = retry_task.model_copy(update={"model": forced_model})
+                if tier_name == "tier_3":
+                    self._emit_tier3_checkpoint(retry_task.task_id, run_id, retry_attempt_number)
+                retry_execution = self._execute_task_attempt(
+                    task=retry_task,
+                    context=context,
+                    phase_name=phase_name,
+                    forced_model=forced_model,
+                )
+                attempts.append(retry_execution)
+                retry_review = self._run_review(retry_task, [retry_execution])
+                self.research_agent.update_files(retry_execution.changed_files)
+                retry_status = "passed" if retry_execution.exit_code == 0 else "failed"
+                retry_task.status = "completed" if retry_status == "passed" else "failed"
+                current_result = TaskResult(
+                    task=retry_task,
+                    execution=retry_execution,
+                    review=retry_review,
+                    status=retry_status,
+                )
+                verification = self._run_verification(verification_task, attempts)
+            if verification.status == "passed":
+                break
+        if verification.status != "passed":
+            classification = classify_failure(verification, attempts)
+            blocked_path = self._persist_blocked_report(
+                task=current_result.task,
+                run_id=run_id,
+                attempts=attempts,
+                verification=verification,
+                classification=classification,
+            )
+            current_result.task.status = "blocked"
+            current_result = TaskResult(
+                task=current_result.task,
+                execution=current_result.execution,
+                review=current_result.review,
+                status="blocked",
+            )
+            verification = verification.model_copy(
+                update={"notes": f"{verification.notes}; blocked_report={blocked_path}".strip("; ")}
+            )
+        updated_results = list(task_results)
+        updated_results[target_index] = current_result
+        return updated_results, verification
+
+    def _select_tier2_model(self, task: TaskDocument, latest_attempt: BackendExecution) -> str | None:
+        backend_name = task.selected_backend or latest_attempt.backend
+        decision = self.router.select(task)
+        task_type = decision.task_type or "coding"
+        stronger_model = self.router.model_profiles.get_best_model_for_backend(
+            backend_name=backend_name,
+            task_type=task_type,
+            cost_tier="high",
+            context_size=64000,
+        )
+        current_model = latest_attempt.model or task.model
+        if stronger_model and stronger_model != current_model:
+            return stronger_model
+        return stronger_model or current_model
+
+    def _emit_tier3_checkpoint(self, task_id: str, run_id: str, attempt_number: int) -> None:
+        print(
+            f"[abracapocus][retry][tier_3] task={task_id} run={run_id} attempt={attempt_number} checkpoint=ack"
+        )
+
+    def _persist_blocked_report(
+        self,
+        task: TaskDocument,
+        run_id: str,
+        attempts: List[BackendExecution],
+        verification: VerificationReport,
+        classification,
+    ) -> str:
+        reports_dir = self.config.paths.reports_dir
+        reports_dir.mkdir(parents=True, exist_ok=True)
+        path = reports_dir / f"blocked-{task.task_id}-{run_id}.json"
+        payload = {
+            "task": task.model_dump(mode="json"),
+            "run_id": run_id,
+            "attempt_count": len(attempts),
+            "classification": classification.as_dict(),
+            "verification": verification.model_dump(mode="json"),
+            "attempts": [attempt.model_dump(mode="json") for attempt in attempts],
+            "status": "blocked",
+        }
+        path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        return str(path)
+
     def _phase_advance(self, state: SupervisorState) -> Command:
         plan = state["plan"]
         phase_index = state["phase_index"]
@@ -335,6 +591,15 @@ class SupervisorOrchestrator:
         phase = plan.phases[phase_index]
         latest_result = state["phase_results"][-1]
         plan.record_completion(phase.name)
+        if latest_result.status == "passed":
+            changed_files = [
+                file
+                for task_result in latest_result.task_results
+                for file in (task_result.execution.changed_files or [])
+            ]
+            if changed_files:
+                commit_message = f"abracapocus: phase {phase.name} complete [{state['run_id'][:8]}]"
+                self.git_manager.commit_changes(commit_message)
         next_index = self._next_incomplete_phase_index(plan)
         next_phase_name = plan.phases[next_index].name if next_index is not None else "completed"
         for task_result in latest_result.task_results:
@@ -421,6 +686,8 @@ class SupervisorOrchestrator:
             "task_status": first_task.status if first_task else None,
             "selected_backend": first_task.selected_backend if first_task else None,
             "verification_profile": first_task.verification_profile if first_task else None,
+            "branch_name": self._run_branch_name,
+            "base_branch": self.git_manager.base_branch,
             "backend_reason": "phase_based",
             "agents_md": {
                 "loaded": self._agents_metadata.get("loaded", False),
@@ -445,6 +712,11 @@ class SupervisorOrchestrator:
                 for phase in phase_results
             ],
         }
+        if combined_verification.status == "failed" and backend_executions:
+            metadata["failure_classification"] = classify_failure(
+                combined_verification,
+                backend_executions,
+            ).as_dict()
         return OrchestrationReport(
             plan_summary=plan.summary if plan else state["request"].goal,
             backend_executions=backend_executions,
@@ -528,6 +800,7 @@ class SupervisorOrchestrator:
             working_directory=result.working_directory,
             changed_files=result.changed_files,
             diff_summary=result.diff_summary,
+            model_attempts=result.model_attempts,
         )
 
     def _run_review(self, task: TaskDocument, executions: List[BackendExecution]) -> ReviewReport:

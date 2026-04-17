@@ -7371,3 +7371,11061 @@ All agents must follow these rules when modifying the codebase.
 
 If conflicts occur, follow this order.
 
+## Run 2026-04-17T19:17:12
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:17:24
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:17:43
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:17:56
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:18:46
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:19:00
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:19:36
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 3 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:19:50
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:22:21
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:26:58
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:27:12
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:32:09
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:32:24
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:32:48
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:33:03
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:33:22
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:34:00
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:34:34
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:34:49
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:35:11
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:35:27
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:35:47
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:36:20
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:36:46
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:37:02
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:37:22
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:37:38
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:38:05
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:38:46
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:39:21
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:39:37
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:39:57
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:40:14
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:40:35
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:41:37
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:42:04
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:42:20
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 2 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:42:43
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T19:43:00
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:19:52
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:20:09
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:20:32
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:20:50
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:21:12
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:22:22
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:22:56
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:23:14
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:23:37
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:23:54
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:25:17
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:25:35
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:26:00
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:26:19
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:26:43
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:28:24
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:28:55
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+
+## Run 2026-04-17T20:29:14
+- Task ID: make-resume-task
+- Title: Resume Task
+- Phase: phase_5
+- Goal: Original blocked task description
+
+Resume source: blocked-make-resume-task-for-make.json
+Prior attempts context:
+Attempt 1: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt one stdout
+
+stderr:
+attempt one stderr
+
+diff_summary:
+a.py | 2 ++
+
+changed_files: a.py
+
+Attempt 2: backend=codex_cli model=codex exit_code=1
+
+stdout:
+attempt two stdout
+
+stderr:
+attempt two stderr
+
+diff_summary:
+b.py | 3 ++-
+
+changed_files: b.py
+- Context: Collected 1 semantically relevant files; AGENTS.md guidance:
+# AGENTS.md
+## Purpose
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+---
+## Core Principles
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+---
+## Project Structure
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+...(truncated)
+
+AGENTS.md guidance:
+# AGENTS.md
+
+## Purpose
+
+This repository is operated by an autonomous multi-agent system (abracapocus_2).
+All agents must follow these rules when modifying the codebase.
+
+---
+
+## Core Principles
+
+- Minimal blast radius: only modify what is required for the task
+- Deterministic verification: all changes must be verifiable via code (tests, compile, scripts)
+- No architecture drift: do not introduce new frameworks or major design changes unless explicitly required
+- No unrelated refactors
+- All changes must be reproducible from a clean clone
+
+---
+
+## Project Structure
+
+- docs/ → design, plans, architecture constraints
+- plans/ → master plans
+- phases/ → phase definitions
+- tasks/ → executable task documents
+- backends/ → CLI backend adapters
+- agents/ → specialist agents
+- runtime/ → orchestration, routing, state
+- reports/ → execution reports (DO NOT MODIFY MANUALLY)
+- state/runtime_state.json → runtime state (DO NOT COMMIT)
+
+---
+
+## Task Execution Rules
+
+- Always operate from a task document when available
+- Respect:
+  - selected_backend
+  - verification_profile
+  - acceptance_criteria
+- If a task conflicts with architecture constraints or phase scope:
+  - STOP and report conflict
+
+---
+
+## Backend Rules
+
+- Backends must:
+  - execute commands deterministically
+  - capture stdout, stderr, exit_code
+  - not silently fail
+- Do not invent backend interfaces; use existing adapters
+- Codex CLI, Aider, Gemini, Claude Code should be invoked through backends only
+
+---
+
+## Verification Rules
+
+- Verification must be deterministic
+- Preferred checks:
+  - pytest
+  - python -m py_compile
+- Do not rely on model self-evaluation
+
+---
+
+## Git Rules
+
+- Do not commit:
+  - runtime_state.json
+  - reports/
+  - logs/
+  - virtual environments
+- Do not modify .gitignore unless required by task
+- Do not create excessive commits; prefer grouped logical commits
+
+---
+
+## Allowed Changes
+
+- Implement task requirements
+- Fix failing verification
+- Update relevant tests
+- Improve documentation tied to the task
+
+---
+
+## Forbidden Changes
+
+- Changing architecture without explicit instruction
+- Adding dependencies without justification
+- Modifying unrelated files
+- Deleting important files
+- Bypassing verification
+
+---
+
+## Planning Rules
+
+- Plans are multi-phase
+- Completed sections are immutable
+- Remaining sections may be updated
+- Tasks must align with:
+  - project brief
+  - architecture constraints
+  - active phase
+
+---
+
+## Reporting
+
+- All executions must produce structured reports
+- Reports must include:
+  - changed files
+  - verification results
+  - assessment
+
+---
+
+## Behavior
+
+- Do not ask unnecessary questions
+- Do not stall execution
+- Do not perform broad scans unless required
+- Prefer direct action over analysis
+
+---
+
+## Priority Order
+
+1. Architecture constraints
+2. Task definition
+3. Verification results
+4. Plan guidance
+
+If conflicts occur, follow this order.
+

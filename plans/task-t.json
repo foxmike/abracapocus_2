@@ -1,21 +1,21 @@
 {
-  "project_name": "abracapocus_2",
-  "summary": "Task run: Skip",
+  "project_name": "p",
+  "summary": "Task run: T",
   "phases": [
     {
-      "name": "Impl Phase",
-      "objective": "skip",
+      "name": "Implementation Phase",
+      "objective": "D",
       "status": "planned",
       "tasks": [
         {
           "task": {
-            "task_id": "no-review",
-            "title": "Skip",
-            "description": "skip",
-            "phase": "impl",
+            "task_id": "t",
+            "title": "T",
+            "description": "D",
+            "phase": "implementation",
             "status": "pending",
             "acceptance_criteria": [],
-            "created_at": "2026-04-17T20:29:09.553544",
+            "created_at": "2026-04-17T20:28:15.714575",
             "selected_backend": null,
             "model": null,
             "verification_profile": null
@@ -29,6 +29,6 @@
       "human_checkpoint": null
     }
   ],
-  "version": "task-no-review",
-  "created_at": "2026-04-17T20:29:09.557802"
+  "version": "task-t",
+  "created_at": "2026-04-17T20:28:15.717091"
 }

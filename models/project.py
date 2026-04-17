@@ -27,6 +27,7 @@ class TaskDocument(BaseModel):
     acceptance_criteria: List[str] = Field(default_factory=list)
     created_at: datetime = Field(default_factory=datetime.utcnow)
     selected_backend: Optional[str] = None
+    model: Optional[str] = None
     verification_profile: Optional[str] = None
 
 
