@@ -1,0 +1,210 @@
+model_profiles:
+  - name: openrouter/qwen/qwen3-coder-next
+    provider: openrouter
+    strengths: [coding, reasoning, long_context]
+    weaknesses: [cost]
+    context_window: 128000
+    speed: medium
+    cost_tier: high
+    non_interactive: true
+    best_for: [complex_coding, architecture, debugging]
+
+  - name: openrouter/qwen/qwen3-235b-a22b-2507
+    provider: openrouter
+    strengths: [coding, large_model_reasoning]
+    weaknesses: [cost, latency]
+    context_window: 128000
+    speed: slow
+    cost_tier: high
+    non_interactive: true
+    best_for: [complex_coding, refactoring]
+
+  - name: openrouter/deepseek/deepseek-v3.2
+    provider: openrouter
+    strengths: [coding, reasoning, long_context]
+    weaknesses: [latency]
+    context_window: 128000
+    speed: medium
+    cost_tier: medium
+    non_interactive: true
+    best_for: [complex_coding, analysis, bug_fixes]
+
+  - name: openrouter/z-ai/glm-4.7-flash
+    provider: openrouter
+    strengths: [fast_iteration, coding, low_cost]
+    weaknesses: [depth_on_hard_reasoning]
+    context_window: 64000
+    speed: fast
+    cost_tier: low
+    non_interactive: true
+    best_for: [quick_edits, triage, lightweight_generation]
+
+  - name: openrouter/phind/codellama-34b-v2
+    provider: openrouter
+    strengths: [coding]
+    weaknesses: [short_context, weaker_reasoning]
+    context_window: 4096
+    speed: medium
+    cost_tier: medium
+    non_interactive: true
+    best_for: [code_completion, small_fixes]
+
+  - name: openrouter/meta-llama/codellama-34b-instruct
+    provider: openrouter
+    strengths: [coding, instruction_following]
+    weaknesses: [limited_context]
+    context_window: 8192
+    speed: medium
+    cost_tier: medium
+    non_interactive: true
+    best_for: [small_to_medium_coding, patch_generation]
+
+  - name: openrouter/mistralai/mistral-openorca-7b
+    provider: openrouter
+    strengths: [general, low_cost, speed]
+    weaknesses: [complex_reasoning]
+    context_window: 8192
+    speed: fast
+    cost_tier: low
+    non_interactive: true
+    best_for: [summaries, quick_tasks, drafting]
+
+  - name: openrouter/teknium/openhermes-2-mistral-7b
+    provider: openrouter
+    strengths: [general, instruction_following]
+    weaknesses: [advanced_reasoning, coding_depth]
+    context_window: 8192
+    speed: fast
+    cost_tier: low
+    non_interactive: true
+    best_for: [general_assistance, quick_iteration]
+
+  - name: openrouter/nousresearch/hermes-70b
+    provider: openrouter
+    strengths: [reasoning, synthesis]
+    weaknesses: [short_context, cost]
+    context_window: 4096
+    speed: slow
+    cost_tier: high
+    non_interactive: true
+    best_for: [analysis, difficult_reasoning]
+
+  - name: openrouter/nousresearch/hermes-13b
+    provider: openrouter
+    strengths: [reasoning, balanced_cost]
+    weaknesses: [short_context]
+    context_window: 4096
+    speed: medium
+    cost_tier: medium
+    non_interactive: true
+    best_for: [analysis, medium_complexity_tasks]
+
+  - name: openrouter/xwin/xwin-70b
+    provider: openrouter
+    strengths: [reasoning, instruction_following]
+    weaknesses: [latency, cost]
+    context_window: 8192
+    speed: slow
+    cost_tier: high
+    non_interactive: true
+    best_for: [complex_reasoning, design_tradeoffs]
+
+  - name: openrouter/migtissera/synthia-70b
+    provider: openrouter
+    strengths: [reasoning, generation]
+    weaknesses: [latency, cost]
+    context_window: 8192
+    speed: slow
+    cost_tier: high
+    non_interactive: true
+    best_for: [analysis, exploratory_ideation]
+
+  - name: openrouter/huggingfaceh4/zephyr-7b
+    provider: openrouter
+    strengths: [speed, low_cost]
+    weaknesses: [limited_depth, short_context]
+    context_window: 4096
+    speed: fast
+    cost_tier: low
+    non_interactive: true
+    best_for: [quick_prompts, lightweight_tasks]
+
+  - name: openrouter/meta-llama/llama-2-13b-chat
+    provider: openrouter
+    strengths: [low_cost, speed]
+    weaknesses: [short_context, older_capabilities]
+    context_window: 4096
+    speed: fast
+    cost_tier: low
+    non_interactive: true
+    best_for: [simple_chat, basic_transformations]
+
+  - name: openrouter/meta-llama/llama-2-70b-chat
+    provider: openrouter
+    strengths: [general_reasoning, reliability]
+    weaknesses: [short_context, latency]
+    context_window: 4096
+    speed: medium
+    cost_tier: high
+    non_interactive: true
+    best_for: [general_tasks, moderate_reasoning]
+
+  - name: openrouter/jondurbin/airoboros-70b
+    provider: openrouter
+    strengths: [reasoning, experimentation]
+    weaknesses: [short_context, cost]
+    context_window: 4096
+    speed: slow
+    cost_tier: high
+    non_interactive: true
+    best_for: [experimental_workflows, analytical_tasks]
+
+  - name: openrouter/pygmalionai/mythalion-13b
+    provider: openrouter
+    strengths: [creative_generation, experimentation]
+    weaknesses: [coding_depth, reasoning_stability]
+    context_window: 8192
+    speed: medium
+    cost_tier: medium
+    non_interactive: true
+    best_for: [brainstorming, creative_drafts]
+
+  - name: codex
+    provider: openai
+    strengths: [code_editing, tool_use, repository_changes]
+    weaknesses: [cost]
+    context_window: 128000
+    speed: medium
+    cost_tier: high
+    non_interactive: true
+    best_for: [end_to_end_tasks, coding_agents, autonomous_execution]
+
+  - name: aider
+    provider: aider
+    strengths: [cli_workflows, patch_generation, iterative_coding]
+    weaknesses: [depends_on_underlying_model]
+    context_window: 128000
+    speed: medium
+    cost_tier: medium
+    non_interactive: true
+    best_for: [terminal_driven_editing, iterative_fix_loops]
+
+  - name: gemini
+    provider: google
+    strengths: [reasoning, long_context, multimodal]
+    weaknesses: [integration_variance]
+    context_window: 1000000
+    speed: medium
+    cost_tier: medium
+    non_interactive: true
+    best_for: [long_context_analysis, synthesis, cross_file_review]
+
+  - name: claude-code
+    provider: anthropic
+    strengths: [coding, reasoning, long_context]
+    weaknesses: [cost]
+    context_window: 200000
+    speed: medium
+    cost_tier: high
+    non_interactive: true
+    best_for: [complex_refactors, code_review, architecture_work]
