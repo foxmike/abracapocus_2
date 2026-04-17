@@ -1,1 +1,0 @@
-Guide should be included by glob hint.

@@ -1,5 +1,6 @@
 # Python
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 
@@ -27,21 +28,28 @@ logs/
 !logs/.gitkeep
 *.log
 
-# Generated reports
-reports/
-!reports/README.md
-reports/run-*.json
-
-# Runtime state snapshots
+# Runtime/local state
+state/
+!state/
+state/*
+state/chroma/
+!state/README.md
 runtime_state.json
 state/runtime_state.json
+
+# Generated reports
+reports/
+!reports/
+reports/*
+!reports/README.md
+reports/run-*.json
 
 # Env files
 .env
 .env.*
 !.env.example
 
-# PyCharm / IDE
+# IDE
 .idea/
 *.iml
 .vscode/
@@ -55,27 +63,3 @@ state/runtime_state.json
 # OS
 .DS_Store
 Thumbs.db
-runtime_state.json
-reports/
-logs/
-*.log
-__pycache__/
-*.pyc
-.venv/
-venv/
-env/
-.env
-.idea/
-*.iml
-runtime_state.json
-reports/
-logs/
-*.log
-__pycache__/
-*.pyc
-.venv/
-venv/
-env/
-.env
-.idea/
-*.iml

@@ -1,4 +1,0 @@
-# include files for every query
-README.md   # inline comment should be ignored
-docs/*.md
-missing.md

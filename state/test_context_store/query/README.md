@@ -1,1 +1,0 @@
-This paragraph is unrelated to the app implementation.
