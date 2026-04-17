@@ -9,6 +9,7 @@ from backends.openrouter_models import OPENROUTER_MODELS
 from backends.registry import REGISTRY
 from config import AppConfig
 from models.project import TaskDocument
+from runtime.model_profile_store import ModelProfileStore
 
 TASK_TYPE_TAGS = {
     "coding": ["coding_strong", "coding"],
@@ -28,6 +29,16 @@ def _infer_task_type(task: TaskDocument) -> str:
     if len(task.acceptance_criteria) <= 1 and len(task.description or "") < 160:
         return "quick"
     return "coding"
+
+
+def _infer_task_complexity(task: TaskDocument) -> str:
+    criteria_count = len(task.acceptance_criteria)
+    description_length = len(task.description or "")
+    if criteria_count >= 5 or description_length >= 320:
+        return "high"
+    if criteria_count >= 3 or description_length >= 180:
+        return "medium"
+    return "low"
 
 
 def select_openrouter_model(task: TaskDocument) -> List[dict]:
@@ -84,6 +95,7 @@ class BackendRouter:
 
     def __init__(self, config: AppConfig):
         self.config = config
+        self.model_profiles = ModelProfileStore()
 
     def select(self, task: TaskDocument) -> RoutingDecision:
         routing_mode = self.config.routing.routing_mode
@@ -103,9 +115,9 @@ class BackendRouter:
         elif routing_mode == "rules":
             backend_name, reason = self._rules_based(task)
         elif routing_mode == "auto":
-            backend_name, reason = self._auto_placeholder(task)
+            backend_name, reason, model_records = self._auto_profile_routing(task)
 
-        if backend_name == "aider_cli":
+        if backend_name == "aider_cli" and not model_records:
             model_records = select_openrouter_model(task)
             metadata["openrouter_models"] = model_records
 
@@ -134,3 +146,39 @@ class BackendRouter:
         if priority > 2:
             return "codex_cli", "auto: complex task"
         return "gemini_cli", "auto: lightweight task"
+
+    def _auto_profile_routing(self, task: TaskDocument) -> tuple[str, str, List[dict]]:
+        from backends.openrouter_models import get_preferred_models
+
+        preferred = get_preferred_models()
+        if preferred:
+            model_map = {model["name"]: model for model in OPENROUTER_MODELS}
+            preferred_model = next((name for name in preferred if name in model_map), None)
+            if preferred_model:
+                return "aider_cli", "auto: preferred openrouter model", [model_map[preferred_model]]
+
+        task_type = _infer_task_type(task)
+        complexity = _infer_task_complexity(task)
+        cost_tier = {"low": "low", "medium": "medium", "high": "high"}[complexity]
+        context_size = {"low": 8000, "medium": 32000, "high": 64000}[complexity]
+
+        selected_model = self.model_profiles.get_best_model(task_type, cost_tier, context_size)
+        if not selected_model:
+            backend_name, reason = self._auto_placeholder(task)
+            return backend_name, reason, []
+
+        if selected_model.startswith("openrouter/"):
+            model_map = {model["name"]: model for model in OPENROUTER_MODELS}
+            record = model_map.get(selected_model, {"name": selected_model, "tags": [], "context": context_size})
+            return "aider_cli", f"auto: profile-selected model ({selected_model})", [record]
+        if selected_model == "codex":
+            return "codex_cli", "auto: profile-selected model (codex)", []
+        if selected_model == "gemini":
+            return "gemini_cli", "auto: profile-selected model (gemini)", []
+        if selected_model == "claude-code":
+            return "claude_code_cli", "auto: profile-selected model (claude-code)", []
+        if selected_model == "aider":
+            return "aider_cli", "auto: profile-selected model (aider)", []
+
+        backend_name, reason = self._auto_placeholder(task)
+        return backend_name, reason, []

@@ -1,6 +1,82 @@
 [
   {
-    "created_at": "2026-04-16T21:22:13.614577",
+    "created_at": "2026-04-16T23:33:04.103777",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T23:33:00.121429",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T23:33:04.093854",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T23:33:00.126403"
+    }
+  },
+  {
+    "created_at": "2026-04-16T23:33:08.871697",
+    "project_name": "abracapocus_2",
+    "goal": "Execute custom task",
+    "plan_template": {
+      "project_name": "abracapocus_2",
+      "summary": "Task run: Custom Work",
+      "phases": [
+        {
+          "name": "Implementation Phase",
+          "objective": "Execute custom task",
+          "status": "completed",
+          "tasks": [
+            {
+              "task": {
+                "task_id": "custom-task",
+                "title": "Custom Work",
+                "description": "Execute custom task",
+                "phase": "implementation",
+                "status": "completed",
+                "acceptance_criteria": [],
+                "created_at": "2026-04-16T23:33:04.208958",
+                "selected_backend": "aider_cli",
+                "verification_profile": "minimal"
+              },
+              "dependencies": [],
+              "status": "planned"
+            }
+          ],
+          "completed": true,
+          "completed_at": "2026-04-16T23:33:08.857334",
+          "human_checkpoint": null
+        }
+      ],
+      "version": "task-custom-task",
+      "created_at": "2026-04-16T23:33:04.213794"
+    }
+  },
+  {
+    "created_at": "2026-04-16T23:33:31.644537",
     "project_name": "abracapocus_2",
     "goal": "Update docs/demo_status.md with the latest demo guidance",
     "plan_template": {
@@ -23,7 +99,7 @@
                   "docs/demo_status.md exists",
                   "Log includes latest task details"
                 ],
-                "created_at": "2026-04-16T21:22:11.619520",
+                "created_at": "2026-04-16T23:33:26.005580",
                 "selected_backend": "demo_cli",
                 "verification_profile": "default"
               },
@@ -32,16 +108,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:22:13.608558",
+          "completed_at": "2026-04-16T23:33:31.635178",
           "human_checkpoint": null
         }
       ],
       "version": "task-demo-self-improve",
-      "created_at": "2026-04-16T21:22:11.624867"
+      "created_at": "2026-04-16T23:33:26.012769"
     }
   },
   {
-    "created_at": "2026-04-16T21:22:15.359874",
+    "created_at": "2026-04-16T23:33:35.625716",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -61,7 +137,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:22:13.667392",
+                "created_at": "2026-04-16T23:33:31.769506",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -70,16 +146,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:22:15.353709",
+          "completed_at": "2026-04-16T23:33:35.615991",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:22:13.671936"
+      "created_at": "2026-04-16T23:33:31.778588"
     }
   },
   {
-    "created_at": "2026-04-16T21:22:17.221622",
+    "created_at": "2026-04-16T23:33:41.279188",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -99,7 +175,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:22:15.428201",
+                "created_at": "2026-04-16T23:33:35.758253",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -108,16 +184,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:22:17.215452",
+          "completed_at": "2026-04-16T23:33:41.268385",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:22:15.432520"
+      "created_at": "2026-04-16T23:33:35.769316"
     }
   },
   {
-    "created_at": "2026-04-16T21:22:44.848421",
+    "created_at": "2026-04-16T23:35:00.707726",
     "project_name": "abracapocus_2",
     "goal": "Update docs/demo_status.md with the latest demo guidance",
     "plan_template": {
@@ -140,7 +216,7 @@
                   "docs/demo_status.md exists",
                   "Log includes latest task details"
                 ],
-                "created_at": "2026-04-16T21:22:42.843978",
+                "created_at": "2026-04-16T23:34:54.857486",
                 "selected_backend": "demo_cli",
                 "verification_profile": "default"
               },
@@ -149,16 +225,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:22:44.841710",
+          "completed_at": "2026-04-16T23:35:00.699432",
           "human_checkpoint": null
         }
       ],
       "version": "task-demo-self-improve",
-      "created_at": "2026-04-16T21:22:42.849460"
+      "created_at": "2026-04-16T23:34:54.864094"
     }
   },
   {
-    "created_at": "2026-04-16T21:22:46.773366",
+    "created_at": "2026-04-16T23:35:06.173020",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -178,7 +254,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:22:44.900657",
+                "created_at": "2026-04-16T23:35:00.849211",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -187,16 +263,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:22:46.767262",
+          "completed_at": "2026-04-16T23:35:06.157720",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:22:44.904785"
+      "created_at": "2026-04-16T23:35:00.860010"
     }
   },
   {
-    "created_at": "2026-04-16T21:22:48.770392",
+    "created_at": "2026-04-16T23:35:11.589794",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -216,7 +292,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:22:46.852967",
+                "created_at": "2026-04-16T23:35:06.296753",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -225,16 +301,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:22:48.764345",
+          "completed_at": "2026-04-16T23:35:11.572290",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:22:46.858134"
+      "created_at": "2026-04-16T23:35:06.304966"
     }
   },
   {
-    "created_at": "2026-04-16T21:23:04.709756",
+    "created_at": "2026-04-16T23:35:53.619375",
     "project_name": "abracapocus_2",
     "goal": "Update docs/demo_status.md with the latest demo guidance",
     "plan_template": {
@@ -257,7 +333,7 @@
                   "docs/demo_status.md exists",
                   "Log includes latest task details"
                 ],
-                "created_at": "2026-04-16T21:23:02.644178",
+                "created_at": "2026-04-16T23:35:48.622414",
                 "selected_backend": "demo_cli",
                 "verification_profile": "default"
               },
@@ -266,16 +342,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:23:04.703107",
+          "completed_at": "2026-04-16T23:35:53.600760",
           "human_checkpoint": null
         }
       ],
       "version": "task-demo-self-improve",
-      "created_at": "2026-04-16T21:23:02.650121"
+      "created_at": "2026-04-16T23:35:48.628991"
     }
   },
   {
-    "created_at": "2026-04-16T21:23:06.728079",
+    "created_at": "2026-04-16T23:35:59.171158",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -295,7 +371,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:23:04.767751",
+                "created_at": "2026-04-16T23:35:53.761952",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -304,16 +380,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:23:06.721294",
+          "completed_at": "2026-04-16T23:35:59.161989",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:23:04.772674"
+      "created_at": "2026-04-16T23:35:53.771414"
     }
   },
   {
-    "created_at": "2026-04-16T21:23:08.678993",
+    "created_at": "2026-04-16T23:36:05.194432",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -333,7 +409,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:23:06.790060",
+                "created_at": "2026-04-16T23:35:59.355553",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -342,16 +418,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:23:08.673387",
+          "completed_at": "2026-04-16T23:36:05.177042",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:23:06.794774"
+      "created_at": "2026-04-16T23:35:59.363017"
     }
   },
   {
-    "created_at": "2026-04-16T21:24:10.025974",
+    "created_at": "2026-04-16T23:36:33.433729",
     "project_name": "abracapocus_2",
     "goal": "Update docs/demo_status.md with the latest demo guidance",
     "plan_template": {
@@ -374,7 +450,7 @@
                   "docs/demo_status.md exists",
                   "Log includes latest task details"
                 ],
-                "created_at": "2026-04-16T21:24:07.880997",
+                "created_at": "2026-04-16T23:36:27.885228",
                 "selected_backend": "demo_cli",
                 "verification_profile": "default"
               },
@@ -383,16 +459,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:24:10.019599",
+          "completed_at": "2026-04-16T23:36:33.421083",
           "human_checkpoint": null
         }
       ],
       "version": "task-demo-self-improve",
-      "created_at": "2026-04-16T21:24:07.887242"
+      "created_at": "2026-04-16T23:36:27.892235"
     }
   },
   {
-    "created_at": "2026-04-16T21:24:12.424835",
+    "created_at": "2026-04-16T23:36:38.240646",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -412,7 +488,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:24:10.127940",
+                "created_at": "2026-04-16T23:36:33.554604",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -421,16 +497,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:24:12.418834",
+          "completed_at": "2026-04-16T23:36:38.222488",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:24:10.132401"
+      "created_at": "2026-04-16T23:36:33.564876"
     }
   },
   {
-    "created_at": "2026-04-16T21:24:14.469829",
+    "created_at": "2026-04-16T23:36:43.759959",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -450,7 +526,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:24:12.480504",
+                "created_at": "2026-04-16T23:36:38.343765",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -459,16 +535,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:24:14.462869",
+          "completed_at": "2026-04-16T23:36:43.751779",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:24:12.485386"
+      "created_at": "2026-04-16T23:36:38.352386"
     }
   },
   {
-    "created_at": "2026-04-16T21:24:53.825793",
+    "created_at": "2026-04-16T23:37:52.744756",
     "project_name": "abracapocus_2",
     "goal": "Update docs/demo_status.md with the latest demo guidance",
     "plan_template": {
@@ -491,7 +567,7 @@
                   "docs/demo_status.md exists",
                   "Log includes latest task details"
                 ],
-                "created_at": "2026-04-16T21:24:51.715350",
+                "created_at": "2026-04-16T23:37:46.915971",
                 "selected_backend": "demo_cli",
                 "verification_profile": "default"
               },
@@ -500,16 +576,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:24:53.819615",
+          "completed_at": "2026-04-16T23:37:52.733158",
           "human_checkpoint": null
         }
       ],
       "version": "task-demo-self-improve",
-      "created_at": "2026-04-16T21:24:51.720824"
+      "created_at": "2026-04-16T23:37:46.922772"
     }
   },
   {
-    "created_at": "2026-04-16T21:24:55.801844",
+    "created_at": "2026-04-16T23:37:58.703171",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -529,7 +605,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:24:53.897661",
+                "created_at": "2026-04-16T23:37:52.881434",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -538,16 +614,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:24:55.791927",
+          "completed_at": "2026-04-16T23:37:58.683931",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:24:53.902713"
+      "created_at": "2026-04-16T23:37:52.891561"
     }
   },
   {
-    "created_at": "2026-04-16T21:24:58.020922",
+    "created_at": "2026-04-16T23:38:04.375475",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -567,7 +643,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:24:55.890655",
+                "created_at": "2026-04-16T23:37:58.789280",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -576,16 +652,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:24:58.014687",
+          "completed_at": "2026-04-16T23:38:04.355109",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:24:55.905028"
+      "created_at": "2026-04-16T23:37:58.794558"
     }
   },
   {
-    "created_at": "2026-04-16T21:25:17.961737",
+    "created_at": "2026-04-16T23:38:52.272716",
     "project_name": "abracapocus_2",
     "goal": "Update docs/demo_status.md with the latest demo guidance",
     "plan_template": {
@@ -608,7 +684,7 @@
                   "docs/demo_status.md exists",
                   "Log includes latest task details"
                 ],
-                "created_at": "2026-04-16T21:25:15.726276",
+                "created_at": "2026-04-16T23:38:45.152825",
                 "selected_backend": "demo_cli",
                 "verification_profile": "default"
               },
@@ -617,16 +693,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:25:17.955346",
+          "completed_at": "2026-04-16T23:38:52.254370",
           "human_checkpoint": null
         }
       ],
       "version": "task-demo-self-improve",
-      "created_at": "2026-04-16T21:25:15.732119"
+      "created_at": "2026-04-16T23:38:45.163811"
     }
   },
   {
-    "created_at": "2026-04-16T21:25:20.002126",
+    "created_at": "2026-04-16T23:38:57.987060",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -646,7 +722,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:25:17.998072",
+                "created_at": "2026-04-16T23:38:52.429158",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -655,16 +731,16 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:25:19.996385",
+          "completed_at": "2026-04-16T23:38:57.967666",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:25:18.001601"
+      "created_at": "2026-04-16T23:38:52.438460"
     }
   },
   {
-    "created_at": "2026-04-16T21:25:22.000755",
+    "created_at": "2026-04-16T23:39:04.010953",
     "project_name": "abracapocus_2",
     "goal": "Execute custom task",
     "plan_template": {
@@ -684,7 +760,7 @@
                 "phase": "implementation",
                 "status": "completed",
                 "acceptance_criteria": [],
-                "created_at": "2026-04-16T21:25:20.061727",
+                "created_at": "2026-04-16T23:38:58.121511",
                 "selected_backend": "aider_cli",
                 "verification_profile": "minimal"
               },
@@ -693,54 +769,12 @@
             }
           ],
           "completed": true,
-          "completed_at": "2026-04-16T21:25:21.994503",
+          "completed_at": "2026-04-16T23:39:04.000098",
           "human_checkpoint": null
         }
       ],
       "version": "task-custom-task",
-      "created_at": "2026-04-16T21:25:20.065977"
-    }
-  },
-  {
-    "created_at": "2026-04-16T21:25:30.662956",
-    "project_name": "abracapocus_2",
-    "goal": "ManagementAgent stores successful plan templates in state/plan_history.json\nPlanningAgent reads plan_history.json and passes similar prior plans\nto create_plan() as examples\nSimilarity matched by: project_name, goal keyword overlap\nVerification: `python -m pytest tests/ -x`",
-    "plan_template": {
-      "project_name": "abracapocus_2",
-      "summary": "Task run: Historical plan learning",
-      "phases": [
-        {
-          "name": "Phase_3 Phase",
-          "objective": "ManagementAgent stores successful plan templates in state/plan_history.json\nPlanningAgent reads plan_history.json and passes similar prior plans\nto create_plan() as examples\nSimilarity matched by: project_name, goal keyword overlap\nVerification: `python -m pytest tests/ -x`",
-          "status": "completed",
-          "tasks": [
-            {
-              "task": {
-                "task_id": "3.5",
-                "title": "Historical plan learning",
-                "description": "ManagementAgent stores successful plan templates in state/plan_history.json\nPlanningAgent reads plan_history.json and passes similar prior plans\nto create_plan() as examples\nSimilarity matched by: project_name, goal keyword overlap\nVerification: `python -m pytest tests/ -x`",
-                "phase": "phase_3",
-                "status": "completed",
-                "acceptance_criteria": [
-                  "Successful run writes plan template to plan_history.json",
-                  "Second run on same project loads prior plan as example",
-                  "plan_history.json capped at 20 entries, oldest removed"
-                ],
-                "created_at": "2026-04-16T21:23:27.086781",
-                "selected_backend": "codex_cli",
-                "verification_profile": "strict"
-              },
-              "dependencies": [],
-              "status": "planned"
-            }
-          ],
-          "completed": true,
-          "completed_at": "2026-04-16T21:25:30.654669",
-          "human_checkpoint": null
-        }
-      ],
-      "version": "task-3.5",
-      "created_at": "2026-04-16T21:23:27.107262"
+      "created_at": "2026-04-16T23:38:58.128243"
     }
   }
 ]

@@ -51,7 +51,7 @@ class CodingBackend:
 
     def __init__(self, prompt_path: Path, working_root: Path, timeout: int = 60):
         self.prompt_path = prompt_path
-        self.prompt = Path(prompt_path).read_text(encoding="utf-8")
+        self.prompt = self._load_prompt_with_non_interactive_header(Path(prompt_path))
         self.timeout = timeout
         if working_root is None:
             raise ValueError("working_root is required for backend initialization")
@@ -59,6 +59,18 @@ class CodingBackend:
         self.workdir = self.working_root
         # Backends can opt-in to real CLI effects (writes, edits, etc.).
         self.supports_direct_execution = False
+
+    def _load_prompt_with_non_interactive_header(self, prompt_path: Path) -> str:
+        prompt_text = prompt_path.read_text(encoding="utf-8")
+        header_path = prompt_path.parent / "shared" / "non_interactive_header.md"
+        if not header_path.exists():
+            return prompt_text
+        header_text = header_path.read_text(encoding="utf-8").strip()
+        if not header_text:
+            return prompt_text
+        if prompt_text.startswith(header_text):
+            return prompt_text
+        return f"{header_text}\n\n{prompt_text}"
 
     def _check_workdir_safe(self) -> None:
         resolved_workdir = self.workdir.resolve()
