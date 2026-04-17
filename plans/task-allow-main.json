@@ -15,7 +15,7 @@
             "phase": "impl",
             "status": "pending",
             "acceptance_criteria": [],
-            "created_at": "2026-04-17T20:29:10.099046",
+            "created_at": "2026-04-17T20:35:51.676829",
             "selected_backend": null,
             "model": null,
             "verification_profile": null
@@ -30,5 +30,5 @@
     }
   ],
   "version": "task-allow-main",
-  "created_at": "2026-04-17T20:29:10.099121"
+  "created_at": "2026-04-17T20:35:51.676896"
 }

@@ -32,8 +32,7 @@ class ClaudeCodeCliBackend(CodingBackend):
         )
         command = [
             self.executable,
-            "--print",
-            prompt,
+            "-p",
             "--output-format",
             "json",
             "--permission-mode",
@@ -43,4 +42,5 @@ class ClaudeCodeCliBackend(CodingBackend):
         ]
         if model:
             command.extend(["--model", model])
+        command.append(prompt)
         return command

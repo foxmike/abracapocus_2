@@ -66,7 +66,7 @@ class ContextStore:
                 )
 
         if ids:
-            self.collection.add(ids=ids, documents=documents, embeddings=embeddings, metadatas=metadatas)
+            self._add_in_batches(ids, documents, embeddings, metadatas)
 
     def update_files(self, changed_files: list[str | Path]) -> None:
         """Re-index only provided files and remove outdated chunks."""
@@ -96,7 +96,24 @@ class ContextStore:
                 {"path": rel_path, "chunk_index": idx, "ext": abs_path.suffix}
                 for idx in range(len(chunks))
             ]
-            self.collection.add(ids=ids, documents=chunks, embeddings=embeddings, metadatas=metadatas)
+            self._add_in_batches(ids, chunks, embeddings, metadatas)
+
+    def _add_in_batches(
+        self,
+        ids: list[str],
+        documents: list[str],
+        embeddings: list[list[float]],
+        metadatas: list[dict[str, object]],
+    ) -> None:
+        batch_size = 1000
+        for start in range(0, len(ids), batch_size):
+            end = start + batch_size
+            self.collection.add(
+                ids=ids[start:end],
+                documents=documents[start:end],
+                embeddings=embeddings[start:end],
+                metadatas=metadatas[start:end],
+            )
 
     def query(self, text: str, k: int = 15) -> list[dict[str, object]]:
         """Return top-k relevant chunks with source file path."""

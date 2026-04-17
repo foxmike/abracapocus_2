@@ -1,0 +1,39 @@
+{
+  "project_name": "abracapocus_2",
+  "summary": "Task run: Claude Code CLI hardening",
+  "phases": [
+    {
+      "name": "Phase_7 Phase",
+      "objective": "Install claude-code: npm install -g @anthropic-ai/claude-code\nRun claude --help and update backends/claude_code_cli.py build_command\nSet supports_direct_execution = True\nAdd ANTHROPIC_API_KEY to .env.example\nVerification: `python -m py_compile backends/claude_code_cli.py && python -m pytest tests/ -x`",
+      "status": "planned",
+      "tasks": [
+        {
+          "task": {
+            "task_id": "7.5",
+            "title": "Claude Code CLI hardening",
+            "description": "Install claude-code: npm install -g @anthropic-ai/claude-code\nRun claude --help and update backends/claude_code_cli.py build_command\nSet supports_direct_execution = True\nAdd ANTHROPIC_API_KEY to .env.example\nVerification: `python -m py_compile backends/claude_code_cli.py && python -m pytest tests/ -x`",
+            "phase": "phase_7",
+            "status": "pending",
+            "acceptance_criteria": [
+              "claude --help succeeds in shell",
+              "build_command produces valid claude CLI invocation",
+              "supports_direct_execution = True",
+              "ANTHROPIC_API_KEY documented in .env.example"
+            ],
+            "created_at": "2026-04-17T20:31:59.057608",
+            "selected_backend": "codex_cli",
+            "model": null,
+            "verification_profile": "strict"
+          },
+          "dependencies": [],
+          "status": "planned"
+        }
+      ],
+      "completed": false,
+      "completed_at": null,
+      "human_checkpoint": null
+    }
+  ],
+  "version": "task-7.5",
+  "created_at": "2026-04-17T20:31:59.087543"
+}

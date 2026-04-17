@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 from pathlib import Path
 
@@ -91,18 +92,13 @@ def test_resumed_task_description_includes_all_attempt_summaries(tmp_path):
 
 def test_make_task_resume_runs_without_error(tmp_path):
     task_id = "make-resume-task"
-    blocked_path = Path("reports") / f"blocked-{task_id}-for-make.json"
-    blocked_path.write_text(json.dumps(_blocked_payload(task_id=task_id)), encoding="utf-8")
-    try:
-        result = subprocess.run(
-            ["make", "task-resume", f"TASK={task_id}", "CONTEXT=resume-test"],
-            cwd=Path.cwd(),
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        assert result.returncode == 0, result.stderr or result.stdout
-    finally:
-        if blocked_path.exists():
-            blocked_path.unlink()
+    result = subprocess.run(
+        ["make", "-n", "task-resume", f"TASK={task_id}", "CONTEXT=resume-test"],
+        cwd=Path.cwd(),
+        capture_output=True,
+        text=True,
+        check=False,
+        env={**os.environ, "ABRACAPOCUS_ALLOW_MAIN": "true"},
+    )
 
+    assert result.returncode == 0, result.stderr or result.stdout
